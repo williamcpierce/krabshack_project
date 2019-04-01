@@ -13,10 +13,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import json
 
-# with open('/Users/williampierce/config.json') as config_file:
-#     config = json.load(config_file)
-with open('/etc/config.json') as config_file:
+with open('/Users/williampierce/config.json') as config_file:
     config = json.load(config_file)
+# with open('/etc/config.json') as config_file:
+#     config = json.load(config_file)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config['KRABSHACK_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -134,11 +134,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-# STATICFILES_DIRS = [
- #    os.path.join(BASE_DIR, 'static'),
-#     '/static/',
-# ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    '/static/',
+]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 
