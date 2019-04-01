@@ -9,6 +9,70 @@
 	<li class="breadcrumb-item active">Couriers</li>
 </ol>
 
+<div class="col-xl-5 col-sm-6 mb-1 px-0">
+<div class="card mb-3">
+	<div class="card-header">
+		<i class="fas fa-calculator"></i>
+		Calculator
+	</div>
+	<div class="card-body">
+
+		<form>
+			<div class="form-group row">
+				<label for="origin" class="col col-form-label">Origin</label>
+				<div class="col-8">
+					<select class="form-control" id="origin" name="origin">
+						<option></option>
+						<option>Jita</option>
+						<option>K3JR-J Astra</option>
+						<option>K3JR-J NPC</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="destination" class="col col-form-label">Destination</label>
+				<div class="col-8">
+					<select class="form-control" id="destination" name="destination">
+						<option></option>
+						<option>Jita</option>
+						<option>K3JR-J Astra</option>
+						<option>K3JR-J NPC</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="collateral" class="col col-form-label">Collateral</label>
+				<div class="col-8">
+					<input class="form-control" id="collateral" type="number" placeholder="ISK" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="volume" class="col col-form-label">Volume</label>
+				<div class="col-8">
+					<input class="form-control" id="volume" type="number" placeholder="m3" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col">
+					<input class="form-control" type="button" value="Submit" onclick="calculate()" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="reward" class="col col-form-label">Reward</label>
+				<div class="col-8 input-group">
+					<input class="form-control" id="reward" placeholder="ISK" />
+					<span class="input-group-btn">
+						<button class="btn btn-default" id="rewardcopy" type="button" onclick="clipboardCopy()">
+							<i class="fas fa-clipboard"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+
 <div class="card mb-3">
 	<div class="card-header">
 		<i class="fas fa-list"></i>
@@ -16,9 +80,9 @@
 	</div>
 
 	<div class="card-body">
-		1. Make a courier contract with your items to Krab Shack. [KRBSH]<br>
+		1. Make a courier contract with your items to <strong>Krab Shack. [KRBSH]</strong><br>
 		- Do not make contracts with any assembled containers. <br>
-		2. Enter the appropriate collateral (the cost to replace your items) and reward based on the pricing below. Collateral is REQUIRED. <br>
+		2. Enter the appropriate collateral (the cost to replace your items) and reward based on the pricing below. <strong>Collateral is REQUIRED.</strong><br>
 		3. Set "Expiration" to 2 weeks and "Days to complete" to 1 day. <br>
 		4. Submit and patiently await your delivery.<br><br>
 		- If your contract is rejected, you will receive a mail as to why. This may be due to incorrect reward/collateral, prohibited items, etc.<br>
@@ -36,7 +100,7 @@
 
 		<div class="row">
 
-			<div class="col-xl-3 col-sm-6 mb-1">
+			<div class="col-xl-3 col-sm-6 mb-2 px-2">
 				<div class="card">
 					<div class="card-header">
 						K3JR-J - Door Stuck<br>
@@ -44,17 +108,25 @@
 						Jita 4-4
 					</div>
 					<div class="card-body">
-						<i class="fas fa-credit-card"></i>
-						700 ISK/m3 + 1.5% of collateral<br>
-						<i class="fas fa-dice-d6"></i>
-						330,000 m3 max<br>
-						<i class="fas fa-clock"></i>
-						4 day completion<br>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+								<i class="fas fa-credit-card"></i>
+								700 ISK/m3 + 1.5% of collateral
+							</li>
+							<li class="list-group-item">
+								<i class="fas fa-dice-d6"></i>
+								320,000 m3 max
+							</li>
+							<li class="list-group-item">
+								<i class="fas fa-clock"></i>
+								4 day completion
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-xl-3 col-sm-6 mb-1">
+			<div class="col-xl-3 col-sm-6 mb-2 px-2">
 				<div class="card">
 					<div class="card-header">
 						K3JR-J - NPC Station<br>
@@ -62,17 +134,25 @@
 						Jita 4-4
 					</div>
 					<div class="card-body">
-						<i class="fas fa-credit-card"></i>
-						0 ISK/m3 + 2.0% of collateral<br>
-						<i class="fas fa-dice-d6"></i>
-						400 m3 max<br>
-						<i class="fas fa-clock"></i>
-						4 day completion<br>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+								<i class="fas fa-credit-card"></i>
+								0 ISK/m3 + 2.0% of collateral
+							</li>
+							<li class="list-group-item">
+								<i class="fas fa-dice-d6"></i>
+								400 m3 max
+							</li>
+							<li class="list-group-item">
+								<i class="fas fa-clock"></i>
+								4 day completion
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-xl-3 col-sm-6 mb-1">
+			<div class="col-xl-3 col-sm-6 mb-2 px-2">
 				<div class="card">
 					<div class="card-header">
 						K3JR-J - Door Stuck<br>
@@ -80,12 +160,20 @@
 						K3JR-J - NPC Station
 					</div>
 					<div class="card-body">
-						<i class="fas fa-credit-card"></i>
-						0 ISK/m3 + 0.5% of collateral<br>
-						<i class="fas fa-dice-d6"></i>
-						400 m3 max<br>
-						<i class="fas fa-clock"></i>
-						4 day completion<br>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+								<i class="fas fa-credit-card"></i>
+								0 ISK/m3 + 0.5% of collateral
+							</li>
+							<li class="list-group-item">
+								<i class="fas fa-dice-d6"></i>
+								400 m3 max
+							</li>
+							<li class="list-group-item">
+								<i class="fas fa-clock"></i>
+								4 day completion
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
