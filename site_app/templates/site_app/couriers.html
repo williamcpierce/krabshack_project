@@ -1,0 +1,99 @@
+{% extends 'site_app/user.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="#">Services</a>
+	</li>
+	<li class="breadcrumb-item active">Couriers</li>
+</ol>
+
+<div class="card mb-3">
+	<div class="card-header">
+		<i class="fas fa-list"></i>
+		Instructions
+	</div>
+
+	<div class="card-body">
+		1. Make a courier contract with your items to Krab Shack. [KRBSH]<br>
+		- Do not make contracts with any assembled containers. <br>
+		2. Enter the appropriate collateral (the cost to replace your items) and reward based on the pricing below. Collateral is REQUIRED. <br>
+		3. Set "Expiration" to 2 weeks and "Days to complete" to 1 day. <br>
+		4. Submit and patiently await your delivery.<br><br>
+		- If your contract is rejected, you will receive a mail as to why. This may be due to incorrect reward/collateral, prohibited items, etc.<br>
+		- If you have any questions, join the Discord server and @ me.
+	</div>
+</div>
+
+<div class="card mb-3">
+	<div class="card-header">
+		<i class="fas fa-map"></i>
+		Routes
+	</div>
+
+	<div class="card-body">
+
+		<div class="row">
+
+			<div class="col-xl-3 col-sm-6 mb-1">
+				<div class="card">
+					<div class="card-header">
+						K3JR-J - Door Stuck<br>
+						<i class="fas fa-exchange-alt"></i> <br>
+						Jita 4-4
+					</div>
+					<div class="card-body">
+						<i class="fas fa-credit-card"></i>
+						700 ISK/m3 + 1.5% of collateral<br>
+						<i class="fas fa-dice-d6"></i>
+						330,000 m3 max<br>
+						<i class="fas fa-clock"></i>
+						4 day completion<br>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-3 col-sm-6 mb-1">
+				<div class="card">
+					<div class="card-header">
+						K3JR-J - NPC Station<br>
+						<i class="fas fa-exchange-alt"></i> <br>
+						Jita 4-4
+					</div>
+					<div class="card-body">
+						<i class="fas fa-credit-card"></i>
+						0 ISK/m3 + 2.0% of collateral<br>
+						<i class="fas fa-dice-d6"></i>
+						400 m3 max<br>
+						<i class="fas fa-clock"></i>
+						4 day completion<br>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-3 col-sm-6 mb-1">
+				<div class="card">
+					<div class="card-header">
+						K3JR-J - Door Stuck<br>
+						<i class="fas fa-exchange-alt"></i> <br>
+						K3JR-J - NPC Station
+					</div>
+					<div class="card-body">
+						<i class="fas fa-credit-card"></i>
+						0 ISK/m3 + 0.5% of collateral<br>
+						<i class="fas fa-dice-d6"></i>
+						400 m3 max<br>
+						<i class="fas fa-clock"></i>
+						4 day completion<br>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="card-footer small text-muted">Updated 2019/3/31 at 02:00</div>
+</div>
+
+{% endblock %}

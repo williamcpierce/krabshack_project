@@ -1,0 +1,60 @@
+{% extends 'site_app/user.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="#">Data</a>
+	</li>
+	<li class="breadcrumb-item active">LP Cashouts</li>
+</ol>
+
+<div class="card mb-3">
+	<div class="card-header">
+		<i class="fas fa-table"></i>
+		LP Cashouts</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						{% if request.user.is_superuser %}
+						<th>Client</th>
+						{% endif %}
+						<th>Date</th>
+						<th>LP</th>
+						<th>Rate</th>
+						<th>Profit</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						{% if request.user.is_superuser %}
+						<th></th>
+						{% endif %}
+						<th>Totals:</th>
+						<th>{{ lpsum.total }}</th>
+						<th></th>
+						<th>{{ profitsum.total }}</th>
+					</tr>
+				</tfoot>
+				<tbody>
+					{% for item in table %}
+					<tr>
+						{% if request.user.is_superuser %}
+						<td>{{ item.client }}</td>
+						{% endif %}
+						<td>{{ item.date }}</td>
+						<td>{{ item.lp }}</td>
+						<td>{{ item.rate }}</td>
+						<td>{{ item.profit }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="card-footer small text-muted">Updated 2019/4/01 at 00:00</div>
+</div>
+
+{% endblock %}
