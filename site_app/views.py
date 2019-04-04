@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 
 def couriers(request):
+    # passing user id for use in retrieving character portrait
     if request.user.is_authenticated:
         uid = request.user.social_auth.get(provider='eveonline').uid
         return render(
@@ -15,6 +16,7 @@ def couriers(request):
 
 
 def buyback(request):
+    # passing user id for use in retrieving character portrait
     if request.user.is_authenticated:
         uid = request.user.social_auth.get(provider='eveonline').uid
         return render(
@@ -28,6 +30,7 @@ def buyback(request):
 
 
 def home(request):
+    # passing user id for use in retrieving character portrait
     if request.user.is_authenticated:
         uid = request.user.social_auth.get(provider='eveonline').uid
         return render(

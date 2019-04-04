@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'social_django',
     'site_app',
     'tables_app',
+    'esi_app',
 ]
 
 MIDDLEWARE = [

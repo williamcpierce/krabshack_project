@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from site_app import views as site_views
 from tables_app import views as tables_views
+from esi_app import views as esi_views
 
 urlpatterns = [
     url(r'^$', site_views.home, name='home'),
@@ -28,4 +29,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
+    url(r'^esi/callback/', esi_views.callback, name='callback'),
+    url(r'^esi/login/', esi_views.login, name='login'),
+    url(r'^esi/wallets/', esi_views.esihome, name='esihome'),
 ]
