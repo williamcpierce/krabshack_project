@@ -31,5 +31,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^esi/callback/', esi_views.callback, name='callback'),
     url(r'^esi/login/', esi_views.login, name='login'),
-    url(r'^esi/wallets/', esi_views.esihome, name='esihome'),
+    url(r'^esi/lp/', esi_views.esilp, name='esilp'),
 ]

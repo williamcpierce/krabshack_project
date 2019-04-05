@@ -9,10 +9,10 @@ def login(request):
         token = esi.generate_token()
         return redirect(esi.esi_security.get_auth_uri(
             state=token,
-            scopes=['esi-wallet.read_character_wallet.v1']
+            scopes=['esi-characters.read_loyalty.v1']
         ))
     else:
-        return render(request, 'esi_app/esihome.html')
+        return redirect('/')
 
 
 def callback(request):
@@ -34,32 +34,43 @@ def callback(request):
     return redirect('/')
 
 
-def esihome(request):
-    # for each character associated with the logged in user, pulls name and wallet isk
+def esilp(request):
+    # for each character associated with the logged in user, pulls name and guristas lp
     # passing user id for use in retrieving character portrait
     if request.user.is_authenticated:
         uid = request.user.social_auth.get(provider='eveonline').uid
         esicharacters = EsiCharacter.objects.filter(assoc_user=request.user)
-        walletdict = {}
+        lpdict = {}
+        lpsum = 0
         # loops over all characters belonging to logged in user
         for character in esicharacters:
+            lp = 0
+            # gets lp values
             esi.esi_security.update_token(character.get_sso_data())
-            op = esi.esi_app.op['get_characters_character_id_wallet'](
+            op = esi.esi_app.op['get_characters_character_id_loyalty_points'](
                 character_id=character.character_id
             )
-            # builds dictionary of wallet values for each character
-            wallet = esi.esi_client.request(op)
+            all_lp = esi.esi_client.request(op)
+            # gets guristas lp amount
+            for item in all_lp.data:
+                if item.get('corporation_id') == 1000127:
+                    lp = item.get('loyalty_points')
+                    break
+            # builds dictionary of lp values for each character
             name = character.character_name
-            walletdict[name] = wallet.data
+            lpdict[name] = lp
+            # sum all user lp
+            lpsum = lpsum + lp
             # stores updated tokens
             tokens = esi.esi_security.refresh()
             character.update_token(tokens)
         return render(
             request,
-            'esi_app/esihome.html',  {
-                'walletdict': walletdict,
+            'esi_app/esilp.html',  {
+                'lpdict': lpdict,
+                'lpsum': lpsum,
                 'uid': uid
             }
         )
     else:
-        return render(request, 'esi_app/esihome.html')
+        return render(request, 'esi_app/esilp.html')

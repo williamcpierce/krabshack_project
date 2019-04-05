@@ -27,17 +27,6 @@
 						<th>Profit</th>
 					</tr>
 				</thead>
-				<tfoot>
-					<tr>
-						{% if request.user.is_superuser %}
-						<th></th>
-						{% endif %}
-						<th>Totals:</th>
-						<th>{{ lpsum.total }}</th>
-						<th></th>
-						<th>{{ profitsum.total }}</th>
-					</tr>
-				</tfoot>
 				<tbody>
 					{% for item in table %}
 					<tr>
@@ -51,6 +40,17 @@
 					</tr>
 					{% endfor %}
 				</tbody>
+				<tfoot>
+					<tr>
+						{% if request.user.is_superuser %}
+						<th></th>
+						{% endif %}
+						<th>Totals:</th>
+						<th>{{ lpsum.total }}</th>
+						<th></th>
+						<th>{{ profitsum.total }}</th>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>

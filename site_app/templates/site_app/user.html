@@ -16,6 +16,7 @@
 		{% if request.user.is_superuser %}
 		<a class="dropdown-item" href="/admin">Admin</a>
 		{% endif %}
+		<a class="dropdown-item" href="/esi/login">Add Character</a>
 		<a class="dropdown-item" href="{% url 'logout' %}?next=/" data-toggle="modal" data-target="#logoutModal">Logout</a>
 	</div>
 </li>
