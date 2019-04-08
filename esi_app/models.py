@@ -30,9 +30,9 @@ class EsiCharacter(models.Model):
     def update_token(self, token_response):
         # separate from esi_security.update_token, initial token generation after auth
         self.access_token = token_response['access_token']
-        self.access_token_expires = datetime.fromtimestamp(
-            time.time() + token_response['expires_in']
-        )
+        access_token_expiry = datetime.fromtimestamp(time.time() + token_response['expires_in'])
+        access_token_expiry_tz = access_token_expiry.replace(tzinfo=timezone.utc)
+        self.access_token_expires = access_token_expiry_tz
         if 'refresh_token' in token_response:
             self.refresh_token = token_response['refresh_token']
         self.save()

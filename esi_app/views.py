@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import esi_app.esi as esi
 from .models import EsiCharacter
+import sys
 
 
 def login(request):
@@ -36,17 +37,17 @@ def callback(request):
 
 def esilp(request):
     # for each character associated with the logged in user, pulls name and guristas lp
-    # passing user id for use in retrieving character portrait
     if request.user.is_authenticated:
-        uid = request.user.social_auth.get(provider='eveonline').uid
         esicharacters = EsiCharacter.objects.filter(assoc_user=request.user)
         lpdict = {}
         lpsum = 0
         # loops over all characters belonging to logged in user
         for character in esicharacters:
             lp = 0
+            # gives security object tokens
+            sso_data = character.get_sso_data()
+            esi.esi_security.update_token(sso_data)
             # gets lp values
-            esi.esi_security.update_token(character.get_sso_data())
             op = esi.esi_app.op['get_characters_character_id_loyalty_points'](
                 character_id=character.character_id
             )
@@ -61,15 +62,16 @@ def esilp(request):
             lpdict[name] = lp
             # sum all user lp
             lpsum = lpsum + lp
-            # stores updated tokens
-            tokens = esi.esi_security.refresh()
-            character.update_token(tokens)
+            # refreshes and stores tokens if expired
+            print(sso_data['expires_in'], file=sys.stderr)
+            if sso_data['expires_in'] < 0:
+                tokens = esi.esi_security.refresh()
+                character.update_token(tokens)
         return render(
             request,
             'esi_app/esilp.html',  {
                 'lpdict': lpdict,
-                'lpsum': lpsum,
-                'uid': uid
+                'lpsum': lpsum
             }
         )
     else:
