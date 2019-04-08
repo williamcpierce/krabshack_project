@@ -11,7 +11,11 @@ class EsiCharacter(models.Model):
     access_token = models.CharField(max_length=4096)
     access_token_expires = models.DateTimeField()
     refresh_token = models.CharField(max_length=200)
-    assoc_user = models.CharField(max_length=200)
+    assoc_user = models.CharField(max_length=200, verbose_name='Owner')
+
+    class Meta:
+        ordering = ["assoc_user"]
+        verbose_name = "Character"
 
     def get_id(self):
         # helper function to return character id
@@ -28,9 +32,10 @@ class EsiCharacter(models.Model):
         }
 
     def update_token(self, token_response):
-        # separate from esi_security.update_token, initial token generation after auth
+        # called when initializing/updating stored token values
         self.access_token = token_response['access_token']
         access_token_expiry = datetime.fromtimestamp(time.time() + token_response['expires_in'])
+        # adds tz to time
         access_token_expiry_tz = access_token_expiry.replace(tzinfo=timezone.utc)
         self.access_token_expires = access_token_expiry_tz
         if 'refresh_token' in token_response:

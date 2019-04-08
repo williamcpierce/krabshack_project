@@ -6,7 +6,6 @@ class ESIAdmin(admin.ModelAdmin):
     list_display = (
         'assoc_user',
         'character_name',
-        'character_id',
         'access_token_expires'
     )
     fields = [

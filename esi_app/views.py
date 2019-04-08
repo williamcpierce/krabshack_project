@@ -7,7 +7,10 @@ import sys
 def login(request):
     # view for new character auth, redirects to auth url if user is logged in
     if request.user.is_authenticated:
+        # generates csrf token
         token = esi.generate_token()
+        # writes csrf token to session
+        request.session['token'] = token
         return redirect(esi.esi_security.get_auth_uri(
             state=token,
             scopes=['esi-characters.read_loyalty.v1']
@@ -20,6 +23,12 @@ def callback(request):
     # catches redirects from auth, exchanges code for auth/refresh tokens, creates model object
     # gets code from login process
     code = request.GET.get('code')
+    # verifies csrf token
+    token = request.GET.get('state')
+    sess_token = request.session.pop('token', None)
+    if sess_token is None or token is None or token != sess_token:
+        print("u dun goofed", file=sys.stderr)
+        return redirect('/')
     # retreives tokens
     auth_response = esi.esi_security.auth(code)
     # retreives character information

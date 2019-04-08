@@ -33,7 +33,10 @@
 						{% if request.user.is_superuser %}
 						<td>{{ item.client }}</td>
 						{% endif %}
-						<td>{{ item.date }}</td>
+						<td>
+							<span style="display: none;">{{ item.date|date:"Y-m-d" }}</span>
+  							{{ item.date|date:"F jS, Y" }}
+						</td>
 						<td>{{ item.lp }}</td>
 						<td>{{ item.rate }}</td>
 						<td>{{ item.profit }}</td>
@@ -54,7 +57,7 @@
 			</table>
 		</div>
 	</div>
-	<div class="card-footer small text-muted">Updated 2019/4/01 at 00:00</div>
+	<div class="card-footer small text-muted">Updated 2019/4/08 at 07:00</div>
 </div>
 
 {% endblock %}
