@@ -26,7 +26,7 @@ esi_client = EsiClient(
 
 
 def generate_token():
-    # generates security token from secret key, saved in session
+    """generates security token from secret key, saved in session"""
     chars = ('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
     rand = random.SystemRandom()
     random_string = ''.join(rand.choice(chars) for _ in range(40))

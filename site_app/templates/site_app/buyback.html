@@ -9,19 +9,35 @@
 	<li class="breadcrumb-item active">LP Buyback</li>
 </ol>
 
-<div class="card mb-3">
-	<div class="card-header">
-		<i class="fas fa-list"></i>
-		Instructions
+<div class="row">
+	<div class="col-lg-3">
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fas fa-balance-scale"></i>
+				Buyback Rate
+			</div>
+			<div class="card-body">
+				Current Rate:<br><strong>{{ lprate }}</strong> ISK/LP
+			</div>
+		</div>
 	</div>
-	<div class="card-body">
-		I buy Guristas LP at a variable ISK/LP rate, you can see the current rate <a href="https://docs.google.com/spreadsheets/d/16yUdyxjwbvpCLZXae2boimwDcMqyGzjnmcJIuLGV0O8/edit?usp=sharing">here</a>.<br>
-		Direct message me on Discord at William Pierce#275 for more details.​<br><br>
-		I will also buy anything else (faction drops, Gila BPCs, etc) for the right price.<br>
-		Message me on Discord if you have something to sell.<br>
-		~250 mil minimum please, unless you're also selling LP.
+
+	<div class="col-lg-6">
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fas fa-list"></i>
+				Instructions
+			</div>
+			<div class="card-body">
+				I buy Guristas LP at a variable ISK/LP rate, you can see the rate above. It updates automatically.<br>
+				Direct message me on Discord at William Pierce#275 for more details.​<br><br>
+				I will also buy anything else (faction drops, Gila BPCs, etc) for the right price.<br>
+				Message me on Discord if you have something to sell.<br>
+				~250 mil minimum please, unless you're also selling LP.
+			</div>
+			<div class="card-footer small text-muted">Updated 2019/3/31 at 02:00</div>
+		</div>
 	</div>
-	<div class="card-footer small text-muted">Updated 2019/3/31 at 02:00</div>
 </div>
 
 {% endblock %}

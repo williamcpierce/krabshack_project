@@ -1,11 +1,13 @@
+from django.conf import settings
 from django.shortcuts import render, redirect
 import esi_app.esi as esi
 from .models import EsiCharacter
 import sys
+import requests
 
 
 def login(request):
-    # view for new character auth, redirects to auth url if user is logged in
+    """view for new character auth, redirects to auth url if user is logged in"""
     if request.user.is_authenticated:
         # generates csrf token
         token = esi.generate_token()
@@ -20,7 +22,7 @@ def login(request):
 
 
 def callback(request):
-    # catches redirects from auth, exchanges code for auth/refresh tokens, creates model object
+    """catches redirects from auth, exchanges code for auth/refresh tokens, creates model object"""
     # gets code from login process
     code = request.GET.get('code')
     # verifies csrf token
@@ -45,7 +47,12 @@ def callback(request):
 
 
 def esilp(request):
-    # for each character associated with the logged in user, pulls name and guristas lp
+    """for each character associated with the logged in user, pulls name and guristas lp"""
+    # get buyback rate
+    with requests.Session() as s:
+        download = s.get(settings.CSV_URL)
+        decode = download.content.decode('utf-8')
+        lprate = int(''.join(list(filter(str.isdigit, decode))))
     if request.user.is_authenticated:
         esicharacters = EsiCharacter.objects.filter(assoc_user=request.user)
         lpdict = {}
@@ -72,16 +79,24 @@ def esilp(request):
             # sum all user lp
             lpsum = lpsum + lp
             # refreshes and stores tokens if expired
-            print(sso_data['expires_in'], file=sys.stderr)
             if sso_data['expires_in'] < 0:
                 tokens = esi.esi_security.refresh()
                 character.update_token(tokens)
+        # get user lp value
+        lpvalue = lpsum * lprate
         return render(
             request,
             'esi_app/esilp.html',  {
                 'lpdict': lpdict,
-                'lpsum': lpsum
+                'lpsum': lpsum,
+                'lprate': lprate,
+                'lpvalue': lpvalue
             }
         )
     else:
-        return render(request, 'esi_app/esilp.html')
+        return render(
+            request,
+            'esi_app/esilp.html',  {
+                'lprate': lprate
+            }
+        )

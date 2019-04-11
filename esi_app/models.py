@@ -17,12 +17,8 @@ class EsiCharacter(models.Model):
         ordering = ["assoc_user"]
         verbose_name = "Character"
 
-    def get_id(self):
-        # helper function to return character id
-        return self.character_id
-
     def get_sso_data(self):
-        # helper function to format input to esi_security.update_token
+        """helper function to format input to esi_security.update_token"""
         return {
             'access_token': self.access_token,
             'refresh_token': self.refresh_token,
@@ -32,7 +28,7 @@ class EsiCharacter(models.Model):
         }
 
     def update_token(self, token_response):
-        # called when initializing/updating stored token values
+        """called when initializing/updating stored token values"""
         self.access_token = token_response['access_token']
         access_token_expiry = datetime.fromtimestamp(time.time() + token_response['expires_in'])
         # adds tz to time

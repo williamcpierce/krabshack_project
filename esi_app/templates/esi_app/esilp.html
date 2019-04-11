@@ -9,36 +9,52 @@
 	<li class="breadcrumb-item active">Character LP</li>
 </ol>
 
-<div class="card mb-3">
-	<div class="card-header">
-		<i class="fas fa-table"></i>
-		Character LP</div>
-	<div class="card-body">
-		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-				<thead>
-					<tr>
-						<th>Character</th>
-						<th>Guristas LP</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for key,value in lpdict.items %}
-					<tr>
-						<td>{{ key }}</td>
-						<td>{{ value }}</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-				<tfoot>
-					<tr>
-						<th>Total:</th>
-						<th>{{ lpsum }}</th>
-					</tr>
-				</tfoot>
-			</table>
+<div class="row">
+	<div class="col-lg-3">
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fas fa-dollar-sign"></i>
+				Buyback Payout
+			</div>
+			<div class="card-body">
+				{{ lpsum }} LP<br> x {{ lprate }} ISK/LP<br> = <strong>{{ lpvalue }} ISK</strong>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-9">
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fas fa-table"></i>
+				Character LP</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Character</th>
+								<th>Guristas LP</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for key,value in lpdict.items %}
+							<tr>
+								<td>{{ key }}</td>
+								<td>{{ value }}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total LP:</th>
+								<th>{{ lpsum }}</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 
-{% endblock %}
+	{% endblock %}
