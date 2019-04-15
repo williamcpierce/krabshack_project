@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
+# from django.http import HttpResponseRedirect
 import esi_app.esi as esi
 from .models import EsiCharacter
+# from .forms import CashoutForm
+# from datetime import datetime, timezone
 import sys
 import requests
 
@@ -100,3 +103,19 @@ def esilp(request):
                 'lprate': lprate
             }
         )
+
+
+# def cashout(request):
+#    if request.method == 'POST':
+#        form = CashoutForm(request.POST)
+#        if form.is_valid():
+#            cashout = form.save(commit=False)
+#            cashout.requester = request.user
+#            cashout.request_date = datetime.now(timezone.utc)
+#            cashout.save()
+#            return redirect('/')
+#
+#    else:
+#        form = CashoutForm()
+#
+#    return render(request, 'esi_app/cashout.html', {'form': form})

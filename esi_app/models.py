@@ -37,3 +37,9 @@ class EsiCharacter(models.Model):
         if 'refresh_token' in token_response:
             self.refresh_token = token_response['refresh_token']
         self.save()
+
+
+# class CashoutRequest(models.Model):
+#    requester = models.CharField(max_length=200)
+#    lp_amount = models.CharField(max_length=100)
+#    request_date = models.DateTimeField()
