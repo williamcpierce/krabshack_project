@@ -10,7 +10,7 @@ class Cashout(models.Model):
     """holds values from each client lp cashout"""
     store_choices = [
         ('Guristas', 'Guristas'),
-        ('Guristas', 'Sanshas')
+        ('Sanshas', 'Sanshas')
     ]
     cashout_id = models.IntegerField(primary_key=True)
     client = models.CharField(max_length=100)
