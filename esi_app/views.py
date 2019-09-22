@@ -58,42 +58,76 @@ def esilp(request):
         lprate = int(''.join(list(filter(str.isdigit, decode))))
     if request.user.is_authenticated:
         esicharacters = EsiCharacter.objects.filter(assoc_user=request.user)
+        # initialize/reset variables
         lpdict = {}
-        lpsum = 0
+        guristas_lpsum = 0
+        sanshas_lpsum = 0
         # loops over all characters belonging to logged in user
         for character in esicharacters:
-            lp = 0
+            # initialize/reset variables
+            guristas_lp = 0
+            truecreations_lp = 0
+            truepower_lp = 0
+            sanshas_lp = 0
             # gives security object tokens
             sso_data = character.get_sso_data()
             esi.esi_security.update_token(sso_data)
-            # gets lp values
+            # gets lp values, error handling if this fails
             op = esi.esi_app.op['get_characters_character_id_loyalty_points'](
                 character_id=character.character_id
             )
-            all_lp = esi.esi_client.request(op)
-            # gets guristas lp amount
-            for item in all_lp.data:
-                if item.get('corporation_id') == 1000127:
-                    lp = item.get('loyalty_points')
-                    break
+            # parses esi response
+            try:
+                all_lp = esi.esi_client.request(op)
+                # gets guristas lp amount
+                for item in all_lp.data:
+                    if item.get('corporation_id') == 1000127:
+                        guristas_lp = item.get('loyalty_points')
+                # gets true creations lp amount
+                    if item.get('corporation_id') == 1000161:
+                        truecreations_lp = item.get('loyalty_points')
+                # gets true power lp amount
+                    if item.get('corporation_id') == 1000162:
+                        truepower_lp = item.get('loyalty_points')
+                sanshas_lp = truecreations_lp + truepower_lp
+            except:
+                guristas_lp = "ESI Error"
+                sanshas_lp = "ESI Error"
             # builds dictionary of lp values for each character
             name = character.character_name
-            lpdict[name] = lp
+            lpdict[name] = [guristas_lp, sanshas_lp]
             # sum all user lp
-            lpsum = lpsum + lp
+            try:
+                guristas_lpsum = guristas_lpsum + guristas_lp
+                sanshas_lpsum = sanshas_lpsum + sanshas_lp
+            except:
+                guristas_lpsum = "N/A"
+                sanshas_lpsum = "N/A"
             # refreshes and stores tokens if expired
-            if sso_data['expires_in'] < 0:
-                tokens = esi.esi_security.refresh()
-                character.update_token(tokens)
+            try:
+                if sso_data['expires_in'] < 0:
+                    tokens = esi.esi_security.refresh()
+                    character.update_token(tokens)
+            except:
+                lp = 0
         # get user lp value
-        lpvalue = lpsum * lprate
+        if guristas_lpsum == "N/A":
+            guristas_lpvalue = "N/A"
+        else:
+            guristas_lpvalue = guristas_lpsum * lprate
+        if sanshas_lpsum == "N/A":
+            sanshas_lpvalue = "N/A"
+        else:
+            sanshas_lpvalue = sanshas_lpsum * lprate
         return render(
             request,
             'esi_app/esilp.html',  {
                 'lpdict': lpdict,
-                'lpsum': lpsum,
+                'guristas_lpsum': guristas_lpsum,
+                'sanshas_lpsum': sanshas_lpsum,
                 'lprate': lprate,
-                'lpvalue': lpvalue
+                'guristas_lpvalue': guristas_lpvalue,
+                'sanshas_lpvalue': sanshas_lpvalue
             }
         )
     else:

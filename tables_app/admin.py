@@ -3,8 +3,8 @@ from .models import Cashout
 
 
 class CashoutAdmin(admin.ModelAdmin):
-    list_display = ('id', 'date', 'client', 'lp', 'rate', 'profit')
-    fields = ['client', 'date', 'lp', 'rate', 'profit']
+    list_display = ('cashout_id', 'date', 'client', 'lp', 'lp_type', 'rate', 'profit')
+    fields = ['cashout_id', 'client', 'date', 'lp', 'lp_type','rate', 'profit', 'items']
 
 
 admin.site.register(Cashout, CashoutAdmin)

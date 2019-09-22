@@ -22,6 +22,7 @@
 						<th>Client</th>
 						{% endif %}
 						<th>Date</th>
+						<th>Type</th>
 						<th>LP</th>
 						<th>Rate</th>
 						<th>Profit</th>
@@ -37,6 +38,7 @@
 							<span style="display: none;">{{ item.date|date:"Y-m-d" }}</span>
   							{{ item.date|date:"F jS, Y" }}
 						</td>
+						<td>{{ item.lp_type }}</td>
 						<td>{{ item.lp }}</td>
 						<td>{{ item.rate }}</td>
 						<td>{{ item.profit }}</td>
@@ -48,6 +50,7 @@
 						{% if request.user.is_superuser %}
 						<th></th>
 						{% endif %}
+						<th></th>
 						<th>Totals:</th>
 						<th>{{ lpsum.total }}</th>
 						<th></th>
@@ -57,7 +60,7 @@
 			</table>
 		</div>
 	</div>
-	<div class="card-footer small text-muted">Updated 2019/4/08 at 07:00</div>
+	<div class="card-footer small text-muted">Updated 2019-09-18</div>
 </div>
 
 {% endblock %}
