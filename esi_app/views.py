@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 # from django.http import HttpResponseRedirect
 import esi_app.esi as esi
 from .models import EsiCharacter
+from site_app.models import Rates
 # from .forms import CashoutForm
 # from datetime import datetime, timezone
 import sys
@@ -52,12 +53,17 @@ def callback(request):
 def esilp(request):
     """for each character associated with the logged in user, pulls name and guristas lp"""
     # get buyback rate
-    with requests.Session() as s:
-        download = s.get(settings.CSV_URL)
-        decode = download.content.decode('utf-8')
-        lprate = int(''.join(list(filter(str.isdigit, decode))))
+    # with requests.Session() as s:
+    #     download = s.get(settings.CSV_URL)
+    #     decode = download.content.decode('utf-8')
+    #     lprate = int(''.join(list(filter(str.isdigit, decode))))
+    guristas_lprate = Rates.objects.get(lp_type="Guristas").lp_rate
+    sanshas_lprate = Rates.objects.get(lp_type="Sanshas").lp_rate
     if request.user.is_authenticated:
-        esicharacters = EsiCharacter.objects.filter(assoc_user=request.user)
+        if request.user.is_superuser:
+            esicharacters = EsiCharacter.objects.all()
+        else:
+            esicharacters = EsiCharacter.objects.filter(assoc_user=request.user)
         # initialize/reset variables
         lpdict = {}
         guristas_lpsum = 0
@@ -98,8 +104,14 @@ def esilp(request):
             lpdict[name] = [guristas_lp, sanshas_lp]
             # sum all user lp
             try:
-                guristas_lpsum = guristas_lpsum + guristas_lp
-                sanshas_lpsum = sanshas_lpsum + sanshas_lp
+                if guristas_lpsum == "N/A":
+                    guristas_lpsum = "N/A"
+                else:
+                    guristas_lpsum = guristas_lpsum + guristas_lp
+                if sanshas_lpsum == "N/A":
+                    sanshas_lpsum = "N/A"
+                else:
+                    sanshas_lpsum = sanshas_lpsum + sanshas_lp
             except:
                 guristas_lpsum = "N/A"
                 sanshas_lpsum = "N/A"
@@ -111,21 +123,22 @@ def esilp(request):
             except:
                 lp = 0
         # get user lp value
-        if guristas_lpsum == "N/A":
+        if guristas_lpsum == "N/A" or guristas_lp == "ESI Error":
             guristas_lpvalue = "N/A"
         else:
-            guristas_lpvalue = guristas_lpsum * lprate
-        if sanshas_lpsum == "N/A":
+            guristas_lpvalue = guristas_lpsum * guristas_lprate
+        if sanshas_lpsum == "N/A" or sanshas_lp == "ESI Error":
             sanshas_lpvalue = "N/A"
         else:
-            sanshas_lpvalue = sanshas_lpsum * lprate
+            sanshas_lpvalue = sanshas_lpsum * guristas_lprate
         return render(
             request,
             'esi_app/esilp.html',  {
                 'lpdict': lpdict,
                 'guristas_lpsum': guristas_lpsum,
                 'sanshas_lpsum': sanshas_lpsum,
-                'lprate': lprate,
+                'guristas_lprate': guristas_lprate,
+                'sanshas_lprate': sanshas_lprate,
                 'guristas_lpvalue': guristas_lpvalue,
                 'sanshas_lpvalue': sanshas_lpvalue
             }
@@ -134,7 +147,8 @@ def esilp(request):
         return render(
             request,
             'esi_app/esilp.html',  {
-                'lprate': lprate
+                'guristas_lprate': guristas_lprate,
+                'sanshas_lprate': sanshas_lprate
             }
         )
 
