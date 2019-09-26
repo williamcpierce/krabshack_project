@@ -40,6 +40,9 @@
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
+								{% if request.user.is_superuser %}
+								<th>Owner</th>
+								{% endif %}
 								<th>Character</th>
 								<th>Guristas LP</th>
 								<th>Sanshas LP</th>
@@ -48,6 +51,9 @@
 						<tbody>
 							{% for key,value in lpdict.items %}
 							<tr>
+								{% if request.user.is_superuser %}
+								<td>{{ value.2 }}</td>
+								{% endif %}
 								<td>{{ key }}</td>
 								<td>{{ value.0 }}</td>
 								<td>{{ value.1 }}</td>
@@ -56,6 +62,9 @@
 						</tbody>
 						<tfoot>
 							<tr>
+								{% if request.user.is_superuser %}
+								<th></th>
+								{% endif %}
 								<th>Total LP:</th>
 								<th>{{ guristas_lpsum }}</th>
 								<th>{{ sanshas_lpsum }}</th>

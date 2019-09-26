@@ -91,46 +91,56 @@ def esilp(request):
             esi_data = character.get_esi_data()
             esi.esi_security.update_token(esi_data)
 
-            # refreshes and stores tokens/updates data if expired
-            if esi_data['expires_in'] < 0:
-                tokens = esi.esi_security.refresh()
-                character.update_token(tokens)
+            
+            try:
+                # refreshes and stores tokens/updates data if expired
+                if esi_data['expires_in'] < 0:
+                    tokens = esi.esi_security.refresh()
+                    character.update_token(tokens)
 
-            # parses esi data
-            all_lp = character.character_lp
-            for item in all_lp:
-                if item.get("corporation_id") == 1000127:
-                    guristas_lp = item.get("loyalty_points")
-                    break
-                else:
-                    guristas_lp = 0
-            for item in all_lp:
-                if item.get("corporation_id") == 1000161:
-                    tc_lp = item.get("loyalty_points")
-                    break
-                else:
-                    tc_lp = 0
-            for item in all_lp:
-                if item.get("corporation_id") == 1000162:
-                    tp_lp = item.get("loyalty_points")
-                    break
-                else:
-                    tp_lp = 0
-            sanshas_lp = tc_lp + tp_lp
+                # parses esi data
+                all_lp = character.character_lp
+                for item in all_lp:
+                    if item.get("corporation_id") == 1000127:
+                        guristas_lp = item.get("loyalty_points")
+                        break
+                    else:
+                        guristas_lp = 0
+                for item in all_lp:
+                    if item.get("corporation_id") == 1000161:
+                        tc_lp = item.get("loyalty_points")
+                        break
+                    else:
+                        tc_lp = 0
+                for item in all_lp:
+                    if item.get("corporation_id") == 1000162:
+                        tp_lp = item.get("loyalty_points")
+                        break
+                    else:
+                        tp_lp = 0
+                sanshas_lp = tc_lp + tp_lp
+            except:
+                sanshas_lp = "ESI Error"
+                guristas_lp = "ESI Error"
 
             # builds dictionary of lp values for each character
+            owner = character.assoc_user.username
             lpdict[character.character_name] = [
                 guristas_lp,
-                sanshas_lp
+                sanshas_lp,
+                owner
             ]
 
-            # calculates lp sums
-            guristas_lpsum = guristas_lpsum + guristas_lp
-            sanshas_lpsum = sanshas_lpsum + sanshas_lp
+            # calculates lp sums, skipped if value is not an integer
+            if isinstance(guristas_lp, int):
+                guristas_lpsum = guristas_lpsum + guristas_lp
+            if isinstance(sanshas_lp, int):
+                sanshas_lpsum = sanshas_lpsum + sanshas_lp
 
         # calculates lp values 
         guristas_lpvalue = guristas_lprate * guristas_lpsum
         sanshas_lpvalue = sanshas_lprate * sanshas_lpsum
+
 
     return render(
         request,
