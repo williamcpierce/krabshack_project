@@ -6,8 +6,10 @@ import random
 import hmac
 import hashlib
 
+
 # create the app
 esi_app = EsiApp().get_latest_swagger
+
 
 # init the security object
 esi_security = EsiSecurity(
@@ -16,6 +18,7 @@ esi_security = EsiSecurity(
     secret_key=settings.ESI_SECRET_KEY,
     headers={'User-Agent': settings.ESI_USER_AGENT}
 )
+
 
 # init the client
 esi_client = EsiClient(

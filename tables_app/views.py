@@ -4,29 +4,27 @@ from .models import Cashout
 
 
 def cashouts(request):
-    # renders table for cashouts of all users, if superuser
+    # if superuser, renders table for cashouts of all users
     if request.user.is_superuser:
-        table = Cashout.objects.all()
+        cashouts = Cashout.objects.all()
         profitsum = Cashout.objects.all().aggregate(total=Sum('profit'))
         lpsum = Cashout.objects.all().aggregate(total=Sum('lp'))
-        return render(
-            request,
-            'tables_app/cashouts.html', {
-                'table': table,
-                'profitsum': profitsum,
-                'lpsum': lpsum
-            }
-        )
+
     # if not superuser, renders user's tables
     else:
-        table = Cashout.objects.filter(client=request.user)
+        cashouts = Cashout.objects.filter(client=request.user)
         profitsum = Cashout.objects.filter(client=request.user).aggregate(total=Sum('profit'))
         lpsum = Cashout.objects.filter(client=request.user).aggregate(total=Sum('lp'))
-        return render(
-            request,
-            'tables_app/cashouts.html', {
-                'table': table,
-                'profitsum': profitsum,
-                'lpsum': lpsum
-            }
-        )
+    
+    # gets date of most recent cashout of any user
+    last_updated = Cashout.objects.latest('date').date
+    
+    return render(
+        request,
+        'tables_app/cashouts.html', {
+            'cashouts': cashouts,
+            'profitsum': profitsum,
+            'lpsum': lpsum,
+            'last_updated': last_updated
+        }
+    )

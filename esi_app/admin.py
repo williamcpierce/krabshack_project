@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import EsiCharacter
 
 
-class ESIAdmin(admin.ModelAdmin):
+class ESICharacterAdmin(admin.ModelAdmin):
     list_display = (
         'assoc_user',
         'character_name',
@@ -12,10 +12,11 @@ class ESIAdmin(admin.ModelAdmin):
         'assoc_user',
         'character_name',
         'character_id',
+        'character_lp',
         'refresh_token',
         'access_token',
         'access_token_expires'
     ]
 
 
-admin.site.register(EsiCharacter, ESIAdmin)
+admin.site.register(EsiCharacter, ESICharacterAdmin)

@@ -29,19 +29,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for item in table %}
+					{% for cashout in cashouts %}
 					<tr>
 						{% if request.user.is_superuser %}
-						<td>{{ item.client }}</td>
+						<td>{{ cashout.client }}</td>
 						{% endif %}
 						<td>
-							<span style="display: none;">{{ item.date|date:"Y-m-d" }}</span>
-  							{{ item.date|date:"F jS, Y" }}
+							<span style="display: none;">{{ cashout.date|date:"Y-m-d" }}</span>
+  							{{ cashout.date|date:"F jS, Y" }}
 						</td>
-						<td>{{ item.lp_type }}</td>
-						<td>{{ item.lp }}</td>
-						<td>{{ item.rate }}</td>
-						<td>{{ item.profit }}</td>
+						<td>{{ cashout.lp_type }}</td>
+						<td>{{ cashout.lp }}</td>
+						<td>{{ cashout.rate }}</td>
+						<td>{{ cashout.profit }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
@@ -60,7 +60,7 @@
 			</table>
 		</div>
 	</div>
-	<div class="card-footer small text-muted">Updated 2019-09-18</div>
+	<div class="card-footer small text-muted">Updated {{ last_updated }}</div>
 </div>
 
 {% endblock %}
