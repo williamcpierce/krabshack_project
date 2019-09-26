@@ -28,6 +28,7 @@ class SiteContent(models.Model):
     class Meta:
         ordering = ["field_id"]
         verbose_name = "Site Content"
+        verbose_name_plural = "Site Content"
 
 class CourierRoute(models.Model):
     route_id = models.CharField(
