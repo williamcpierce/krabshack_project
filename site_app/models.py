@@ -31,9 +31,8 @@ class SiteContent(models.Model):
         verbose_name_plural = "Site Content"
 
 class CourierRoute(models.Model):
-    route_id = models.CharField(
+    route_id = models.IntegerField(
         primary_key=True,
-        max_length=100,
         verbose_name="Route ID"
     )
     origin = models.CharField(max_length=100)
@@ -48,5 +47,5 @@ class CourierRoute(models.Model):
     last_updated = models.DateField(auto_now=True)
 
     class Meta:
-        ordering = ["origin"]
+        ordering = ["route_id"]
         verbose_name = "Courier Route"

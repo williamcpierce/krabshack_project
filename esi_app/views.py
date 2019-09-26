@@ -90,7 +90,6 @@ def esilp(request):
             # gives security object the character's tokens
             esi_data = character.get_esi_data()
             esi.esi_security.update_token(esi_data)
-
             
             try:
                 # refreshes and stores tokens/updates data if expired
