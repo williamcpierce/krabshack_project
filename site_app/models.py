@@ -47,5 +47,5 @@ class CourierRoute(models.Model):
     last_updated = models.DateField(auto_now=True)
 
     class Meta:
-        ordering = ["route_id"]
+        ordering = ["origin"]
         verbose_name = "Courier Route"

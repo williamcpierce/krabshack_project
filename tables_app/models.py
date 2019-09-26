@@ -32,7 +32,7 @@ class Cashout(models.Model):
     items = JSONField(default=items_default)
 
     class Meta:
-        ordering = ["cashout_id"]
+        ordering = ["-cashout_id"]
         verbose_name = "LP Cashout"
 
     def save(self, *args, **kwargs):
