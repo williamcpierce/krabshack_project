@@ -13,7 +13,7 @@
 		<img src="https://image.eveonline.com/Character/{{ request.user.social_auth.get.uid }}_30.jpg" class="rounded-circle"></img>
 	</a>
 	<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-		{% if request.user.is_superuser %}
+		{% if request.user.is_staff %}
 		<a class="dropdown-item" href="/admin">Admin</a>
 		{% endif %}
 		<a class="dropdown-item" href="/esi/login">Add Character</a>
