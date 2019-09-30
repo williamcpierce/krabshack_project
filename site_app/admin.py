@@ -13,6 +13,7 @@ class LPRateAdmin(admin.ModelAdmin):
     	'lp_rate'
     ]
 
+
 class SiteContentAdmin(admin.ModelAdmin):
     list_display = (
     	'field_id',
@@ -23,6 +24,7 @@ class SiteContentAdmin(admin.ModelAdmin):
     	'field_id',
     	'field_text',
     ]
+
 
 class CourierRouteAdmin(admin.ModelAdmin):
     list_display = (

@@ -5,35 +5,37 @@ class LPRate(models.Model):
     lp_type = models.CharField(
     	primary_key=True,
     	max_length=100,
-    	verbose_name="LP Type"
+    	verbose_name='LP Type'
     )
     lp_rate = models.IntegerField(
-    	verbose_name="LP Rate"
+    	verbose_name='LP Rate'
     )
     last_updated = models.DateField(auto_now=True)
 
     class Meta:
-        ordering = ["lp_type"]
-        verbose_name = "LP Rate"
+        ordering = ['lp_type']
+        verbose_name = 'LP Rate'
+
 
 class SiteContent(models.Model):
     field_id = models.CharField(
         primary_key=True,
         max_length=100,
-        verbose_name="Field ID"
+        verbose_name='Field ID'
     )
     field_text = models.TextField()
     last_updated = models.DateField(auto_now=True)
 
     class Meta:
-        ordering = ["field_id"]
-        verbose_name = "Site Content"
-        verbose_name_plural = "Site Content"
+        ordering = ['field_id']
+        verbose_name = 'Site Content'
+        verbose_name_plural = 'Site Content'
+
 
 class CourierRoute(models.Model):
     route_id = models.IntegerField(
         primary_key=True,
-        verbose_name="Route ID"
+        verbose_name='Route ID'
     )
     origin = models.CharField(max_length=100)
     destination = models.CharField(max_length=100)
@@ -47,5 +49,5 @@ class CourierRoute(models.Model):
     last_updated = models.DateField(auto_now=True)
 
     class Meta:
-        ordering = ["route_id"]
-        verbose_name = "Courier Route"
+        ordering = ['route_id']
+        verbose_name = 'Courier Route'

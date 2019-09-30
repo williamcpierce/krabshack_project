@@ -18,14 +18,14 @@
 			</div>
 			<div class="card-body">
 				<strong>Guristas:</strong><br>
-				&nbsp;&nbsp;{{ guristas_lpsum }} LP<br>
-				&nbsp;&nbsp;x {{ guristas_lprate }} ISK/LP<br>
-				&nbsp;&nbsp;= <strong>{{ guristas_lpvalue }} ISK</strong>
+				&nbsp;&nbsp;{{ guristas_lp_sum }} LP<br>
+				&nbsp;&nbsp;x {{ guristas_lp_rate }} ISK/LP<br>
+				&nbsp;&nbsp;= <strong>{{ guristas_lp_value }} ISK</strong>
 				<br><br>
 				<strong>Sanshas:</strong><br>
-				&nbsp;&nbsp;{{ sanshas_lpsum }} LP<br>
-				&nbsp;&nbsp;x {{ sanshas_lprate }} ISK/LP<br>
-				&nbsp;&nbsp;= <strong>{{ sanshas_lpvalue }} ISK</strong>
+				&nbsp;&nbsp;{{ sanshas_lp_sum }} LP<br>
+				&nbsp;&nbsp;x {{ sanshas_lp_rate }} ISK/LP<br>
+				&nbsp;&nbsp;= <strong>{{ sanshas_lp_value }} ISK</strong>
 			</div>
 		</div>
 	</div>
@@ -49,7 +49,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for key,value in lpdict.items %}
+							{% for key,value in lp_dict.items %}
 							<tr>
 								{% if request.user.is_superuser %}
 								<td>{{ value.2 }}</td>
@@ -66,8 +66,8 @@
 								<th></th>
 								{% endif %}
 								<th>Total LP:</th>
-								<th>{{ guristas_lpsum }}</th>
-								<th>{{ sanshas_lpsum }}</th>
+								<th>{{ guristas_lp_sum }}</th>
+								<th>{{ sanshas_lp_sum }}</th>
 							</tr>
 						</tfoot>
 					</table>

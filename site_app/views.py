@@ -5,7 +5,7 @@ from .models import LPRate, SiteContent, CourierRoute
 
 def couriers(request):
     # get database fields
-    instructions = SiteContent.objects.get(field_id="Courier Instructions")
+    instructions = SiteContent.objects.get(field_id='Courier Instructions')
     routes = CourierRoute.objects.all()
     last_updated = CourierRoute.objects.latest('last_updated').last_updated
     
@@ -21,15 +21,15 @@ def couriers(request):
 
 def buyback(request):
     # get database fields
-    instructions = SiteContent.objects.get(field_id="Buyback Instructions")
-    guristas_lprate = LPRate.objects.get(lp_type="Guristas").lp_rate
-    sanshas_lprate = LPRate.objects.get(lp_type="Sanshas").lp_rate
+    instructions = SiteContent.objects.get(field_id='Buyback Instructions')
+    guristas_lp_rate = LPRate.objects.get(lp_type='Guristas').lp_rate
+    sanshas_lp_rate = LPRate.objects.get(lp_type='Sanshas').lp_rate
 
     return render(
         request,
         'site_app/buyback.html', {
-            'guristas_lprate': guristas_lprate,
-            'sanshas_lprate': sanshas_lprate,
+            'guristas_lprate': guristas_lp_rate,
+            'sanshas_lprate': sanshas_lp_rate,
             'instructions': instructions
         }
     )
@@ -37,7 +37,7 @@ def buyback(request):
 
 def home(request):
     # get database fields
-    info = SiteContent.objects.get(field_id="Home Info")
+    info = SiteContent.objects.get(field_id='Home Info')
 
     return render(
         request,
