@@ -18,14 +18,14 @@
 			</div>
 			<div class="card-body">
 				<strong>Guristas:</strong><br>
-				&nbsp;&nbsp;{{ guristas_lp_sum }} LP<br>
-				&nbsp;&nbsp;x {{ guristas_lp_rate }} ISK/LP<br>
-				&nbsp;&nbsp;= <strong>{{ guristas_lp_value }} ISK</strong>
+				&nbsp;&nbsp;{{ lp_summary_dict.guristas_lp_sum|default_if_none:0 }} LP<br>
+				&nbsp;&nbsp;x {{ lp_summary_dict.guristas_lp_rate|default_if_none:0 }} ISK/LP<br>
+				&nbsp;&nbsp;= <strong>{{ lp_summary_dict.guristas_lp_value|default_if_none:0 }} ISK</strong>
 				<br><br>
 				<strong>Sanshas:</strong><br>
-				&nbsp;&nbsp;{{ sanshas_lp_sum }} LP<br>
-				&nbsp;&nbsp;x {{ sanshas_lp_rate }} ISK/LP<br>
-				&nbsp;&nbsp;= <strong>{{ sanshas_lp_value }} ISK</strong>
+				&nbsp;&nbsp;{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }} LP<br>
+				&nbsp;&nbsp;x {{ lp_summary_dict.sanshas_lp_rate|default_if_none:0 }} ISK/LP<br>
+				&nbsp;&nbsp;= <strong>{{ lp_summary_dict.sanshas_lp_value|default_if_none:0 }} ISK</strong>
 			</div>
 		</div>
 	</div>
@@ -66,8 +66,8 @@
 								<th></th>
 								{% endif %}
 								<th>Total LP:</th>
-								<th>{{ guristas_lp_sum }}</th>
-								<th>{{ sanshas_lp_sum }}</th>
+								<th>{{ lp_summary_dict.guristas_lp_sum|default_if_none:0 }}</th>
+								<th>{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }}</th>
 							</tr>
 						</tfoot>
 					</table>
@@ -77,4 +77,4 @@
 	</div>
 </div>
 
-	{% endblock %}
+{% endblock %}

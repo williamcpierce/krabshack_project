@@ -70,16 +70,16 @@ def esilp(request):
     """
     for each character associated with the logged in user, pulls name and lp values
     """
+    # initializing variables
+    lp_dict = {}
+    lp_summary_dict = {}
+    guristas_lp_sum = 0
+    sanshas_lp_sum = 0
+    esi_error = {'status': False}
+
     # gets lp values
     guristas_lp_rate = LPRate.objects.get(lp_type='Guristas').lp_rate
     sanshas_lp_rate = LPRate.objects.get(lp_type='Sanshas').lp_rate
-
-    # initializing variables
-    lp_dict = {}
-    guristas_lp_sum = 0
-    sanshas_lp_sum = 0
-    guristas_lp_value = 0
-    sanshas_lp_value = 0
 
     # checks if user is logged in and/or is a superuser
     if request.user.is_authenticated:
@@ -104,6 +104,16 @@ def esilp(request):
             except:
                 sanshas_lp = 'ESI Error'
                 guristas_lp = 'ESI Error'
+                esi_error = {
+                    'status': True,
+                    'title': 'ESI Error',
+                    'body': (
+                        'An error has occurred.\n' \
+                        'One or more of your character authorizations may have become invalid.\n' \
+                        'Please re-add the affected character(s) to resolve this error.'
+                    )
+                }
+
             else:
                 # parses esi data
                 all_lp = character.character_lp
@@ -120,23 +130,25 @@ def esilp(request):
 
             # calculates lp sums, skipped if value is not an integer
             if isinstance(guristas_lp, int):
-                guristas_lp_sum = guristas_lp_sum + guristas_lp
+                guristas_lp_sum += guristas_lp
             if isinstance(sanshas_lp, int):
-                sanshas_lp_sum = sanshas_lp_sum + sanshas_lp
+                sanshas_lp_sum += sanshas_lp
 
-        # calculates lp values 
-        guristas_lp_value = guristas_lp_rate * guristas_lp_sum
-        sanshas_lp_value = sanshas_lp_rate * sanshas_lp_sum
+        # stores lp sums and rates
+        lp_summary_dict['guristas_lp_sum'] = guristas_lp_sum
+        lp_summary_dict['sanshas_lp_sum'] = sanshas_lp_sum
+        lp_summary_dict['guristas_lp_rate'] = guristas_lp_rate
+        lp_summary_dict['sanshas_lp_rate'] = sanshas_lp_rate
+
+        # calculates and stores lp values 
+        lp_summary_dict['guristas_lp_value'] = guristas_lp_rate * guristas_lp_sum
+        lp_summary_dict['sanshas_lp_value'] = sanshas_lp_rate * sanshas_lp_sum
 
     return render(
         request,
         'esi_app/esilp.html', {
             'lp_dict': lp_dict,
-            'guristas_lp_rate': guristas_lp_rate,
-            'guristas_lp_sum': guristas_lp_sum,
-            'guristas_lp_value': guristas_lp_value,
-            'sanshas_lp_rate': sanshas_lp_rate,
-            'sanshas_lp_sum': sanshas_lp_sum,
-            'sanshas_lp_value': sanshas_lp_value
+            'lp_summary_dict': lp_summary_dict,
+            'error': esi_error
         }
     )
