@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
-from .models import EsiCharacter
+from .models import EsiCharacter, EsiMarket
 from site_app.models import LPRate
-import esi_app.esi as esi
+from .esi import esi_app, esi_security, esi_client
 import esi_app.util as util
 import sys
 import requests
@@ -20,7 +20,7 @@ def login(request):
         # writes csrf token to session
         request.session['csrf_token'] = csrf_token
         return redirect(
-            esi.esi_security.get_auth_uri(
+            esi_security.get_auth_uri(
                 state=csrf_token,
                 scopes=['esi-characters.read_loyalty.v1']
             )
@@ -45,10 +45,10 @@ def callback(request):
     auth_code = request.GET.get('code')
 
     # retreives tokens
-    auth_response = esi.esi_security.auth(auth_code)
+    auth_response = esi_security.auth(auth_code)
 
     # retreives character information
-    character_data = esi.esi_security.verify()
+    character_data = esi_security.verify()
 
     # instantializes active character
     esi_character = EsiCharacter()
@@ -61,7 +61,7 @@ def callback(request):
     esi_character.update_tokens(auth_response)
 
     # passes character to method to make esi call
-    esi_character.update_data()
+    esi_character.update_lp()
     
     return redirect('/')
 
@@ -93,14 +93,14 @@ def esilp(request):
 
             # gives security object the character's tokens
             esi_data = character.get_tokens()
-            esi.esi_security.update_token(esi_data)
+            esi_security.update_token(esi_data)
             
             try:
                 # refreshes and stores tokens/updates data if expired
                 if esi_data['expires_in'] < 0:
-                    esi_tokens = esi.esi_security.refresh()
+                    esi_tokens = esi_security.refresh()
                     character.update_tokens(esi_tokens)
-                    character.update_data()
+                    character.update_lp()
             except:
                 sanshas_lp = 'ESI Error'
                 guristas_lp = 'ESI Error'
@@ -150,5 +150,23 @@ def esilp(request):
             'lp_dict': lp_dict,
             'lp_summary_dict': lp_summary_dict,
             'error': esi_error
+        }
+    )
+
+
+def esimarket(request):
+    items = EsiMarket.objects.all()
+
+    for item in items:
+        item.update_orders()
+        item.update_history()
+    
+    orders_last_updated = EsiMarket.objects.latest('orders_last_updated').orders_last_updated
+
+    return render(
+        request,
+        'esi_app/esimarket.html', {
+            'items': items,
+            'orders_last_updated': orders_last_updated
         }
     )

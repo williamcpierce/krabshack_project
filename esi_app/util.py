@@ -28,3 +28,31 @@ def parse_lp(lp_values, corp_id):
             corp_lp = item.get('loyalty_points')
             break
     return corp_lp
+
+
+def parse_market_orders(market_orders):
+    sell_order_min = 10000000000
+    buy_order_max = 0
+    for item in market_data:
+        if item.get('is_buy_order') is False:
+            if item.get('price') < sell_order_min:
+                sell_order_min = item.get('price')
+        else:
+            if item.get('price') > buy_order_max:
+                buy_order_max = item.get('price')
+    return {
+        "sell_order_min": sell_order_min, 
+        "buy_order_max": buy_order_max
+    }
+
+
+def parse_market_history(market_history):
+    monthly_volume = 0
+    days = 0
+    for item in market_history[::-1]:
+        monthly_volume += item.get('volume')
+        days += 1
+        if days == 30:
+            break
+    daily_volume = monthly_volume / days
+    return daily_volume

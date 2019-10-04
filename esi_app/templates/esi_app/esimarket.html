@@ -1,0 +1,51 @@
+{% extends 'site_app/user.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="#">Data</a>
+	</li>
+	<li class="breadcrumb-item active">Market</li>
+</ol>
+
+<div class="card mb-3">
+	<div class="card-header">
+		<i class="fas fa-table"></i>
+		Market Data</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Min Sell</th>
+						<th>Max Buy</th>
+						<th>Daily Volume</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in items %}
+					<tr>
+						<td>{{ item.type_name }}</td>
+						<td>{{ item.sell_order_min }}</td>
+						<td>{{ item.buy_order_max }}</td>
+						<td>{{ item.daily_volume }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	<div class="card-footer small text-muted">Updated {{ orders_last_updated }}</div>
+</div>
+
+{% endblock %}

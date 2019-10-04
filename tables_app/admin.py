@@ -3,6 +3,7 @@ from .models import Cashout
 
 
 class CashoutAdmin(admin.ModelAdmin):
+    radio_fields = {'lp_type': admin.VERTICAL}
     list_display = (
     	'cashout_id',
     	'date',
@@ -20,6 +21,14 @@ class CashoutAdmin(admin.ModelAdmin):
     	'lp_type',
     	'rate',
     	'items'
+    ]
+    list_filter = (
+        'date',
+        'lp_type'
+    )
+    search_fields = [
+        'client',
+        'cashout_id'
     ]
 
 
