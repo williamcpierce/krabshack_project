@@ -34,12 +34,13 @@ def parse_market_orders(market_orders):
     sell_order_min = 10000000000
     buy_order_max = 0
     for item in market_orders:
-        if item.get('is_buy_order') is False:
-            if item.get('price') < sell_order_min:
-                sell_order_min = item.get('price')
-        else:
-            if item.get('price') > buy_order_max:
-                buy_order_max = item.get('price')
+        if item.get('system_id') == 30000142:
+            if item.get('is_buy_order') is False:
+                if item.get('price') < sell_order_min:
+                    sell_order_min = item.get('price')
+            else:
+                if item.get('price') > buy_order_max:
+                    buy_order_max = item.get('price')
     return {
         "sell_order_min": sell_order_min, 
         "buy_order_max": buy_order_max

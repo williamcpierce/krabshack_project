@@ -83,6 +83,11 @@ class EsiCharacter(models.Model):
 
 
 class EsiMarket(models.Model):
+    store_choices = [
+        ('Guristas', 'Guristas'),
+        ('Sanshas', 'Sanshas'),
+        ('None', 'None')
+    ]
     type_id = models.IntegerField(
         primary_key=True,
         verbose_name='Type ID'
@@ -102,6 +107,15 @@ class EsiMarket(models.Model):
         max_digits=12,
         decimal_places=2
     )
+    daily_isk = models.DecimalField(
+        max_digits=12,
+        decimal_places=2
+    )
+    lp_type = models.CharField(
+        choices=store_choices,
+        max_length=100,
+        verbose_name='LP Type'
+    )
     orders_last_updated = models.DateTimeField()
     history_last_updated = models.DateTimeField()
 
@@ -111,7 +125,7 @@ class EsiMarket(models.Model):
         verbose_name_plural = 'Market Data'
 
     def update_orders(self, *args, **kwargs):
-        if self.orders_last_updated < datetime.now(timezone.utc)-timedelta(hours=1):
+        if self.orders_last_updated < datetime.now(timezone.utc)-timedelta(seconds=1):
             esi_response = requests.get(
                 'https://esi.evetech.net/latest/markets/'+
                 str(10000002)+
@@ -128,7 +142,7 @@ class EsiMarket(models.Model):
         super(EsiMarket, self).save(*args, **kwargs)
 
     def update_history(self, *args, **kwargs):
-        if self.history_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
+        if self.history_last_updated < datetime.now(timezone.utc)-timedelta(days=7):
             esi_response = requests.get(
                 'https://esi.evetech.net/latest/markets/'+
                 str(10000002)+

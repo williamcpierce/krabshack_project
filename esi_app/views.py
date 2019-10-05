@@ -155,7 +155,7 @@ def esilp(request):
 
 
 def esimarket(request):
-    items = EsiMarket.objects.all()
+    items = EsiMarket.objects.exclude(lp_type='None')
 
     for item in items:
         item.update_orders()
