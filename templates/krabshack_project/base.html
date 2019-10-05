@@ -82,11 +82,12 @@
 						<i class="fas fa-fw fa-table"></i>
 						Character LP
 					</a>
-					<a class="dropdown-item" href="/esi/market">
+					<a class="dropdown-item" id='loadingLink' href="/esi/market">
 						<i class="fas fa-fw fa-table"></i>
 						Market
 					</a>
 				</div>
+
 		</ul>
 
 		<div id="content-wrapper">
@@ -173,13 +174,9 @@
 	<script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
 
 	<!-- Custom scripts-->
-	<script src="{% static 'js/calculator.js' %}"></script>
+	<script src="{% static 'js/dropdowns.js' %}"></script>
 	{% if error.status %}
-		<script type="text/javascript">
-		    $(document).ready(function(){
-		        $("#errorModal").modal('show');
-		    });
-		</script>
+		<script src="{% static 'js/error.js' %}"></script>
 	{% endif %}
 
 </body>
