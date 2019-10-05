@@ -125,7 +125,7 @@ class EsiMarket(models.Model):
         verbose_name_plural = 'Market Data'
 
     def update_orders(self, *args, **kwargs):
-        if self.orders_last_updated < datetime.now(timezone.utc)-timedelta(seconds=1):
+        if self.orders_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
             esi_response = requests.get(
                 'https://esi.evetech.net/latest/markets/'+
                 str(10000002)+
