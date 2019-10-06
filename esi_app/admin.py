@@ -25,6 +25,7 @@ class EsiMarketAdmin(admin.ModelAdmin):
         'sell_order_min',
         'buy_order_max',
         'daily_volume',
+        'daily_isk',
         'orders_last_updated',
         'history_last_updated'
     )

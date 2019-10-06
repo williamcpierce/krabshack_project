@@ -55,8 +55,8 @@
 								<td>{{ value.2 }}</td>
 								{% endif %}
 								<td>{{ key }}</td>
-								<td>{{ value.0 }}</td>
-								<td>{{ value.1 }}</td>
+								<td align='right'>{{ value.0 }}</td>
+								<td align='right'>{{ value.1 }}</td>
 							</tr>
 							{% endfor %}
 						</tbody>
@@ -66,8 +66,16 @@
 								<th></th>
 								{% endif %}
 								<th>Total LP:</th>
-								<th>{{ lp_summary_dict.guristas_lp_sum|default_if_none:0 }}</th>
-								<th>{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }}</th>
+								<td align='right'>
+									<strong>
+										{{ lp_summary_dict.guristas_lp_sum|default_if_none:0 }}
+									</strong>
+								</td>
+								<td align='right'>
+									<strong>
+										{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }}
+									</strong>
+								</td>
 							</tr>
 						</tfoot>
 					</table>

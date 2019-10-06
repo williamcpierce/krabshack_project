@@ -39,9 +39,9 @@
   							{{ cashout.date|date:"F jS, Y" }}
 						</td>
 						<td>{{ cashout.lp_type }}</td>
-						<td>{{ cashout.lp }}</td>
-						<td>{{ cashout.rate }}</td>
-						<td>{{ cashout.profit }}</td>
+						<td align='right'>{{ cashout.lp }}</td>
+						<td align='right'>{{ cashout.rate }}</td>
+						<td align='right'>{{ cashout.profit }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
@@ -52,9 +52,17 @@
 						{% endif %}
 						<th></th>
 						<th>Totals:</th>
-						<th>{{ totals.lpsum.total }}</th>
+						<td align='right'>
+							<strong>
+								{{ totals.lpsum.total }}
+							</strong>
+						</td>
 						<th></th>
-						<th>{{ totals.profitsum.total }}</th>
+						<td align='right'>
+							<strong>
+								{{ totals.profitsum.total }}
+							</strong>
+						</td>
 					</tr>
 				</tfoot>
 			</table>

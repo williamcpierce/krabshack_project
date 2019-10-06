@@ -21,27 +21,21 @@
 						<th>Item</th>
 						<th>Min Sell</th>
 						<th>Max Buy</th>
-						<th>Average Daily Volume</th>
+						<th>Average<br>Daily Quantity</th>
+						<th>Average<br>Daily ISK Volume</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for item in items %}
 					<tr>
 						<td>{{ item.type_name }}</td>
-						<td>{{ item.sell_order_min }}</td>
-						<td>{{ item.buy_order_max }}</td>
-						<td>{{ item.daily_volume }}</td>
+						<td align='right'>{{ item.sell_order_min|floatformat:"0" }}</td>
+						<td align='right'>{{ item.buy_order_max|floatformat:"0" }}</td>
+						<td align='right'>{{ item.daily_volume|floatformat:"0" }}</td>
+						<td align='right'>{{ item.daily_isk|floatformat:"0" }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
-				<tfoot>
-					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
-				</tfoot>
 			</table>
 		</div>
 	</div>

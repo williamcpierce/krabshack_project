@@ -3,6 +3,8 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 from datetime import datetime, timezone, timedelta
 from .esi import esi_app, esi_security, esi_client
+from statistics import mean
+from decimal import Decimal
 import esi_app.util as util
 import time
 import json
@@ -108,7 +110,7 @@ class EsiMarket(models.Model):
         decimal_places=2
     )
     daily_isk = models.DecimalField(
-        max_digits=12,
+        max_digits=15,
         decimal_places=2
     )
     lp_type = models.CharField(
@@ -138,6 +140,7 @@ class EsiMarket(models.Model):
                 self.sell_order_min = parsed_data['sell_order_min']
                 self.buy_order_max = parsed_data['buy_order_max']
                 self.orders_last_updated = datetime.now(timezone.utc)
+                self.update_daily_isk()
 
         super(EsiMarket, self).save(*args, **kwargs)
 
@@ -153,12 +156,19 @@ class EsiMarket(models.Model):
                 self.market_history = esi_response.json()
                 self.daily_volume = util.parse_market_history(self.market_history)
                 self.history_last_updated = datetime.now(timezone.utc)
+                self.update_daily_isk()
+
+        super(EsiMarket, self).save(*args, **kwargs)
+
+    def update_daily_isk(self, *args, **kwargs):
+        self.daily_isk = self.daily_volume * Decimal(self.sell_order_min)
 
         super(EsiMarket, self).save(*args, **kwargs)
 
     def save(self, *args, **kwargs):
         self.update_orders()
         self.update_history()
+        self.update_daily_isk()
 
         super(EsiMarket, self).save(*args, **kwargs)
 
