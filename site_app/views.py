@@ -28,8 +28,8 @@ def buyback(request):
     return render(
         request,
         'site_app/buyback.html', {
-            'guristas_lprate': guristas_lp_rate,
-            'sanshas_lprate': sanshas_lp_rate,
+            'guristas_lp_rate': guristas_lp_rate,
+            'sanshas_lp_rate': sanshas_lp_rate,
             'instructions': instructions
         }
     )
