@@ -16,10 +16,16 @@ def json_default():
         "": 0
     }
 
-def lp_default():
-    return {
-        "": 0
-    }
+def datetime_default():
+    return datetime.now(timezone.utc)
+
+def store_choices():
+    return [
+        ('Guristas', 'Guristas'),
+        ('Sanshas', 'Sanshas'),
+        ('DED', 'DED'),
+        ('None', 'None')
+    ]
 
 class EsiCharacter(models.Model):
     character_id = models.CharField(
@@ -85,11 +91,6 @@ class EsiCharacter(models.Model):
 
 
 class EsiMarket(models.Model):
-    store_choices = [
-        ('Guristas', 'Guristas'),
-        ('Sanshas', 'Sanshas'),
-        ('None', 'None')
-    ]
     type_id = models.IntegerField(
         primary_key=True,
         verbose_name='Type ID'
@@ -98,28 +99,33 @@ class EsiMarket(models.Model):
     market_orders = JSONField(default=json_default)
     sell_order_min = models.DecimalField(
         max_digits=12,
-        decimal_places=2
+        decimal_places=2,
+        default=0.00
     )
     buy_order_max = models.DecimalField(
         max_digits=12,
-        decimal_places=2
+        decimal_places=2,
+        default=0.00
     )
     market_history = JSONField(default=json_default)
     daily_volume = models.DecimalField(
         max_digits=12,
-        decimal_places=2
+        decimal_places=2,
+        default=0.00
     )
     daily_isk = models.DecimalField(
         max_digits=15,
-        decimal_places=2
+        decimal_places=2,
+        default=0.00
     )
     lp_type = models.CharField(
-        choices=store_choices,
+        choices=store_choices(),
         max_length=100,
-        verbose_name='LP Type'
+        verbose_name='LP Type',
+        default='None'
     )
-    orders_last_updated = models.DateTimeField()
-    history_last_updated = models.DateTimeField()
+    orders_last_updated = models.DateTimeField(default=datetime_default)
+    history_last_updated = models.DateTimeField(default=datetime_default)
 
     class Meta:
         ordering = ['type_id']
@@ -161,7 +167,7 @@ class EsiMarket(models.Model):
         super(EsiMarket, self).save(*args, **kwargs)
 
     def update_daily_isk(self, *args, **kwargs):
-        self.daily_isk = self.daily_volume * Decimal(self.sell_order_min)
+        self.daily_isk = Decimal(self.daily_volume) * Decimal(self.sell_order_min)
 
         super(EsiMarket, self).save(*args, **kwargs)
 

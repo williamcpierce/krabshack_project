@@ -3,20 +3,23 @@ from django.contrib.auth.models import User
 from django.contrib.postgres.fields import JSONField
 
 
-def items_default():
+def json_default():
     return {
         "": 0
     }
 
+def store_choices():
+    return [
+        ('Guristas', 'Guristas'),
+        ('Sanshas', 'Sanshas'),
+        ('DED', 'DED'),
+        ('None', 'None')
+    ]
 
 class Cashout(models.Model):
     """
     holds values from each client lp cashout
     """
-    store_choices = [
-        ('Guristas', 'Guristas'),
-        ('Sanshas', 'Sanshas')
-    ]
     cashout_id = models.IntegerField(
         primary_key=True,
         verbose_name='Cashout ID'
@@ -27,11 +30,11 @@ class Cashout(models.Model):
     rate = models.IntegerField()
     profit = models.BigIntegerField()
     lp_type = models.CharField(
-	    choices=store_choices,
+	    choices=store_choices(),
         max_length=100,
         verbose_name='LP Type'
     )
-    items = JSONField(default=items_default)
+    items = JSONField(default=json_default)
 
     class Meta:
         ordering = ['-cashout_id']

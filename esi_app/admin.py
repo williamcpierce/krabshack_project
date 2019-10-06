@@ -19,9 +19,11 @@ class EsiCharacterAdmin(admin.ModelAdmin):
     ]
 
 class EsiMarketAdmin(admin.ModelAdmin):
+    radio_fields = {'lp_type': admin.VERTICAL}
     list_display = (
         'type_id',
         'type_name',
+        'lp_type',
         'sell_order_min',
         'buy_order_max',
         'daily_volume',
@@ -32,8 +34,11 @@ class EsiMarketAdmin(admin.ModelAdmin):
     fields = [
         'type_id',
         'type_name',
+        'lp_type',
         'market_orders',
-        'market_history'
+        'market_history',
+        'orders_last_updated',
+        'history_last_updated'
     ]
 
 

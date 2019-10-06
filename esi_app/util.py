@@ -53,7 +53,7 @@ def parse_market_history(market_history):
     for item in market_history[::-1]:
         monthly_volume += item.get('volume')
         days += 1
-        if days == 30:
+        if days == 14:
             break
     daily_volume = monthly_volume / days
     return daily_volume
