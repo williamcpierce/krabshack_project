@@ -1,25 +1,47 @@
 from django.shortcuts import render
 from django.conf import settings
-import requests
+from .models import LPRate, SiteContent, CourierRoute
 
 
 def couriers(request):
-    return render(request, 'site_app/couriers.html')
+    # get database fields
+    instructions = SiteContent.objects.get(field_id='Courier Instructions')
+    routes = CourierRoute.objects.all()
+    last_updated = CourierRoute.objects.latest('last_updated').last_updated
+    
+    return render(
+        request,
+        'site_app/couriers.html', {
+            'instructions': instructions,
+            'routes': routes,
+            'last_updated': last_updated
+        }
+    )
 
 
 def buyback(request):
-    # get buyback rate
-    with requests.Session() as s:
-        download = s.get(settings.CSV_URL)
-        decode = download.content.decode('utf-8')
-        lprate = int(''.join(list(filter(str.isdigit, decode))))
+    # get database fields
+    instructions = SiteContent.objects.get(field_id='Buyback Instructions')
+    guristas_lp_rate = LPRate.objects.get(lp_type='Guristas').lp_rate
+    sanshas_lp_rate = LPRate.objects.get(lp_type='Sanshas').lp_rate
+
     return render(
         request,
-        'site_app/buyback.html',  {
-            'lprate': lprate,
+        'site_app/buyback.html', {
+            'guristas_lp_rate': guristas_lp_rate,
+            'sanshas_lp_rate': sanshas_lp_rate,
+            'instructions': instructions
         }
     )
 
 
 def home(request):
-    return render(request, 'site_app/home.html')
+    # get database fields
+    info = SiteContent.objects.get(field_id='Home Info')
+
+    return render(
+        request,
+        'site_app/home.html', {
+            'info': info
+        }
+    )

@@ -15,12 +15,9 @@
 			Info
 		</div>
 		<div class="card-body">
-			Welcome!<br>
-			This site is still under construction.<br><br>
-			Information on courier and buyback services can be found under "Services" in the sidebar.<br><br>
-			<strong>Try logging in and checking out the "LP Cashouts" table under "Data", or adding characters for "Character LP"!</strong>
+			{{ info.field_text|safe }}
 		</div>
-		<div class="card-footer small text-muted">Updated 2019/4/07 at 03:00</div>
+		<div class="card-footer small text-muted">Updated {{ info.last_updated }}</div>
 	</div>
 </div>
 <div class="col-xl-5 col-sm-6 mb-1">

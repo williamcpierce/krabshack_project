@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class TablesAppConfig(AppConfig):
     name = 'tables_app'
-    verbose_name = 'User Tables'
+    verbose_name = 'User Data'

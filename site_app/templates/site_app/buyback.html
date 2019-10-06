@@ -14,10 +14,11 @@
 		<div class="card mb-3">
 			<div class="card-header">
 				<i class="fas fa-balance-scale"></i>
-				Buyback Rate
+				Buyback Rates
 			</div>
 			<div class="card-body">
-				Current Rate:<br><strong>{{ lprate }}</strong> ISK/LP
+				Guristas: <strong>{{ guristas_lp_rate }}</strong> ISK/LP<br>
+				Sanshas: <strong>{{ sanshas_lp_rate }}</strong> ISK/LP
 			</div>
 		</div>
 	</div>
@@ -29,13 +30,9 @@
 				Instructions
 			</div>
 			<div class="card-body">
-				I buy Guristas LP at a variable ISK/LP rate, you can see the rate above. It updates automatically.<br>
-				Direct message me on Discord at William Pierce#275 for more details.​<br><br>
-				I will also buy anything else (faction drops, Gila BPCs, etc) for the right price.<br>
-				Message me on Discord if you have something to sell.<br>
-				~250 mil minimum please, unless you're also selling LP.
+				{{ instructions.field_text|safe }}
 			</div>
-			<div class="card-footer small text-muted">Updated 2019/3/31 at 02:00</div>
+			<div class="card-footer small text-muted">Updated {{ instructions.last_updated }}</div>
 		</div>
 	</div>
 </div>

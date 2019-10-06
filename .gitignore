@@ -1,6 +1,8 @@
-db.sqlite3
+
 krabshack_config.json
 settings.py
 *.pyc
 *.pyo
 /venv/
+*/migrations/
+.DS_Store

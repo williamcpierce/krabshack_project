@@ -3,8 +3,33 @@ from .models import Cashout
 
 
 class CashoutAdmin(admin.ModelAdmin):
-    list_display = ('id', 'date', 'client', 'lp', 'rate', 'profit')
-    fields = ['client', 'date', 'lp', 'rate', 'profit']
+    radio_fields = {'lp_type': admin.VERTICAL}
+    list_display = (
+    	'cashout_id',
+    	'date',
+    	'client',
+    	'lp',
+    	'lp_type',
+    	'rate',
+    	'profit'
+    )
+    fields = [
+    	'cashout_id',
+    	'client',
+    	'date',
+    	'lp',
+    	'lp_type',
+    	'rate',
+    	'items'
+    ]
+    list_filter = (
+        'date',
+        'lp_type'
+    )
+    search_fields = [
+        'client',
+        'cashout_id'
+    ]
 
 
 admin.site.register(Cashout, CashoutAdmin)

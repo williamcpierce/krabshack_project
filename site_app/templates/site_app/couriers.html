@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load static %}
+
 <ol class="breadcrumb">
 	<li class="breadcrumb-item">
 		<a href="#">Services</a>
@@ -23,9 +25,10 @@
 						<div class="col-8">
 							<select class="form-control" id="origin" name="origin">
 								<option></option>
-								<option>Jita</option>
-								<option>K3JR-J Astra</option>
-								<option>K3JR-J NPC</option>
+								<option>Jita 4-4</option>
+								<option>K3JR-J - Horde Citadel</option>
+								<option>K3JR-J - NPC Station</option>
+								<option>G-ME2K 8-3</option>
 							</select>
 						</div>
 					</div>
@@ -34,9 +37,10 @@
 						<div class="col-8">
 							<select class="form-control" id="destination" name="destination">
 								<option></option>
-								<option>Jita</option>
-								<option>K3JR-J Astra</option>
-								<option>K3JR-J NPC</option>
+								<option>Jita 4-4</option>
+								<option>K3JR-J - Horde Citadel</option>
+								<option>K3JR-J - NPC Station</option>
+								<option>G-ME2K 8-3</option>
 							</select>
 						</div>
 					</div>
@@ -80,14 +84,9 @@
 				Instructions
 			</div>
 			<div class="card-body">
-				1. Make a courier contract with your items to <strong>Krab Shack. [KRBSH]</strong><br>
-				- Do not make contracts with any assembled containers. <br>
-				2. Enter the appropriate collateral (the cost to replace your items) and reward based on the pricing below. <strong>Collateral is REQUIRED.</strong><br>
-				3. Set "Expiration" to 2 weeks and "Days to complete" to 1 day. <br>
-				4. Submit and patiently await your delivery.<br><br>
-				- If your contract is rejected, you will receive a mail as to why. This may be due to incorrect reward/collateral, prohibited items, etc.<br>
-				- If you have any questions, join the Discord server and @ me.
+				{{ instructions.field_text|safe }}
 			</div>
+			<div class="card-footer small text-muted">Updated {{ instructions.last_updated }}</div>
 		</div>
 	</div>
 </div>
@@ -99,84 +98,38 @@
 	</div>
 	<div class="card-body">
 		<div class="row">
+			{% for route in routes %}
 			<div class="col-xl-3">
 				<div class="card mb-3">
 					<div class="card-header">
-						K3JR-J - Door Stuck<br>
+						{{ route.origin }}<br>
 						<i class="fas fa-exchange-alt"></i> <br>
-						Jita 4-4
+						{{ route.destination }}
 					</div>
 					<div class="card-body">
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item">
 								<i class="fas fa-credit-card"></i>
-								700 ISK/m3 + 1.5% of collateral
+								{{ route.m3_pricing }} ISK/m3 + {{ route.collateral_percent }}% of collateral
 							</li>
 							<li class="list-group-item">
 								<i class="fas fa-dice-d6"></i>
-								320,000 m3 max
+								{{ route.max_volume }} m3 max
 							</li>
 							<li class="list-group-item">
 								<i class="fas fa-clock"></i>
-								4 day completion
+								{{ route.completion_days }} day completion
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="col-xl-3">
-				<div class="card mb-3">
-					<div class="card-header">
-						K3JR-J - NPC Station<br>
-						<i class="fas fa-exchange-alt"></i> <br>
-						Jita 4-4
-					</div>
-					<div class="card-body">
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">
-								<i class="fas fa-credit-card"></i>
-								0 ISK/m3 + 2.0% of collateral
-							</li>
-							<li class="list-group-item">
-								<i class="fas fa-dice-d6"></i>
-								400 m3 max
-							</li>
-							<li class="list-group-item">
-								<i class="fas fa-clock"></i>
-								4 day completion
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-3">
-				<div class="card mb-3">
-					<div class="card-header">
-						K3JR-J - Door Stuck<br>
-						<i class="fas fa-exchange-alt"></i> <br>
-						K3JR-J - NPC Station
-					</div>
-					<div class="card-body">
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">
-								<i class="fas fa-credit-card"></i>
-								0 ISK/m3 + 0.5% of collateral
-							</li>
-							<li class="list-group-item">
-								<i class="fas fa-dice-d6"></i>
-								400 m3 max
-							</li>
-							<li class="list-group-item">
-								<i class="fas fa-clock"></i>
-								4 day completion
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
-	<div class="card-footer small text-muted">Updated 2019/3/31 at 02:00</div>
+	<div class="card-footer small text-muted">Updated {{ last_updated }}</div>
 </div>
+
+<script src="{% static 'js/calculator.js' %}"></script>
 
 {% endblock %}

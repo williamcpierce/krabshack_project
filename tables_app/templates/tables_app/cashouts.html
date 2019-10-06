@@ -22,24 +22,26 @@
 						<th>Client</th>
 						{% endif %}
 						<th>Date</th>
+						<th>Type</th>
 						<th>LP</th>
 						<th>Rate</th>
 						<th>Profit</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for item in table %}
+					{% for cashout in cashouts %}
 					<tr>
 						{% if request.user.is_superuser %}
-						<td>{{ item.client }}</td>
+						<td>{{ cashout.client }}</td>
 						{% endif %}
 						<td>
-							<span style="display: none;">{{ item.date|date:"Y-m-d" }}</span>
-  							{{ item.date|date:"F jS, Y" }}
+							<span style="display: none;">{{ cashout.date|date:"Y-m-d" }}</span>
+  							{{ cashout.date|date:"F jS, Y" }}
 						</td>
-						<td>{{ item.lp }}</td>
-						<td>{{ item.rate }}</td>
-						<td>{{ item.profit }}</td>
+						<td>{{ cashout.lp_type }}</td>
+						<td align='right'>{{ cashout.lp }}</td>
+						<td align='right'>{{ cashout.rate }}</td>
+						<td align='right'>{{ cashout.profit }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
@@ -48,16 +50,25 @@
 						{% if request.user.is_superuser %}
 						<th></th>
 						{% endif %}
-						<th>Totals:</th>
-						<th>{{ lpsum.total }}</th>
 						<th></th>
-						<th>{{ profitsum.total }}</th>
+						<th>Totals:</th>
+						<td align='right'>
+							<strong>
+								{{ totals.lpsum.total }}
+							</strong>
+						</td>
+						<th></th>
+						<td align='right'>
+							<strong>
+								{{ totals.profitsum.total }}
+							</strong>
+						</td>
 					</tr>
 				</tfoot>
 			</table>
 		</div>
 	</div>
-	<div class="card-footer small text-muted">Updated 2019/4/08 at 07:00</div>
+	<div class="card-footer small text-muted">Updated {{ last_updated }}</div>
 </div>
 
 {% endblock %}

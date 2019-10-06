@@ -17,7 +17,15 @@
 				Buyback Payout
 			</div>
 			<div class="card-body">
-				{{ lpsum }} LP<br> x {{ lprate }} ISK/LP<br> = <strong>{{ lpvalue }} ISK</strong>
+				<strong>Guristas:</strong><br>
+				&nbsp;&nbsp;{{ lp_summary_dict.guristas_lp_sum|default_if_none:0 }} LP<br>
+				&nbsp;&nbsp;x {{ lp_summary_dict.guristas_lp_rate|default_if_none:0 }} ISK/LP<br>
+				&nbsp;&nbsp;= <strong>{{ lp_summary_dict.guristas_lp_value|default_if_none:0 }} ISK</strong>
+				<br><br>
+				<strong>Sanshas:</strong><br>
+				&nbsp;&nbsp;{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }} LP<br>
+				&nbsp;&nbsp;x {{ lp_summary_dict.sanshas_lp_rate|default_if_none:0 }} ISK/LP<br>
+				&nbsp;&nbsp;= <strong>{{ lp_summary_dict.sanshas_lp_value|default_if_none:0 }} ISK</strong>
 			</div>
 		</div>
 	</div>
@@ -32,22 +40,42 @@
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
+								{% if request.user.is_superuser %}
+								<th>Owner</th>
+								{% endif %}
 								<th>Character</th>
 								<th>Guristas LP</th>
+								<th>Sanshas LP</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for key,value in lpdict.items %}
+							{% for key,value in lp_dict.items %}
 							<tr>
+								{% if request.user.is_superuser %}
+								<td>{{ value.2 }}</td>
+								{% endif %}
 								<td>{{ key }}</td>
-								<td>{{ value }}</td>
+								<td align='right'>{{ value.0 }}</td>
+								<td align='right'>{{ value.1 }}</td>
 							</tr>
 							{% endfor %}
 						</tbody>
 						<tfoot>
 							<tr>
+								{% if request.user.is_superuser %}
+								<th></th>
+								{% endif %}
 								<th>Total LP:</th>
-								<th>{{ lpsum }}</th>
+								<td align='right'>
+									<strong>
+										{{ lp_summary_dict.guristas_lp_sum|default_if_none:0 }}
+									</strong>
+								</td>
+								<td align='right'>
+									<strong>
+										{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }}
+									</strong>
+								</td>
 							</tr>
 						</tfoot>
 					</table>
@@ -57,4 +85,4 @@
 	</div>
 </div>
 
-	{% endblock %}
+{% endblock %}
