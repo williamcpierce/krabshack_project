@@ -4,6 +4,7 @@
 
 {% load static %}
 
+<!-- Breadcrumbs -->
 <ol class="breadcrumb">
 	<li class="breadcrumb-item">
 		<a href="#">Services</a>
@@ -11,7 +12,10 @@
 	<li class="breadcrumb-item active">Couriers</li>
 </ol>
 
+<!-- Cards -->
 <div class="row">
+
+	<!-- Calculator -->
 	<div class="col-lg-6">
 		<div class="card mb-3">
 			<div class="card-header">
@@ -77,6 +81,7 @@
 		</div>
 	</div>
 
+	<!-- Instructions -->
 	<div class="col-lg-6">
 		<div class="card mb-3">
 			<div class="card-header">
@@ -89,8 +94,10 @@
 			<div class="card-footer small text-muted">Updated {{ instructions.last_updated }}</div>
 		</div>
 	</div>
+	
 </div>
 
+<!-- Route cards -->
 <div class="card mb-3">
 	<div class="card-header">
 		<i class="fas fa-map"></i>
@@ -103,7 +110,7 @@
 				<div class="card mb-3">
 					<div class="card-header">
 						{{ route.origin }}<br>
-						<i class="fas fa-exchange-alt"></i> <br>
+						<i class="fas fa-exchange-alt"></i><br>
 						{{ route.destination }}
 					</div>
 					<div class="card-body">

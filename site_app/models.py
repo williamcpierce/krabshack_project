@@ -3,12 +3,12 @@ from django.db import models
 
 class LPRate(models.Model):
     lp_type = models.CharField(
-    	primary_key=True,
-    	max_length=100,
-    	verbose_name='LP Type'
+        primary_key=True,
+        max_length=100,
+        verbose_name='LP Type'
     )
     lp_rate = models.IntegerField(
-    	verbose_name='LP Rate'
+        verbose_name='LP Rate'
     )
     last_updated = models.DateField(auto_now=True)
 

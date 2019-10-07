@@ -165,12 +165,17 @@ def esilp(request):
 
 
 def esimarket(request):
+    """
+    pulls all saved items that are redeemable in lp stores
+    """
     items = EsiMarket.objects.exclude(lp_type='None')
 
+    # updates values if expired
     for item in items:
         item.update_orders()
         item.update_history()
     
+    # gets datetime of the most recent update
     orders_last_updated = EsiMarket.objects.latest('orders_last_updated').orders_last_updated
 
     return render(

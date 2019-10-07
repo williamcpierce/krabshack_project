@@ -4,25 +4,25 @@ from .models import LPRate, SiteContent, CourierRoute
 
 class LPRateAdmin(admin.ModelAdmin):
     list_display = (
-    	'lp_type',
-    	'lp_rate',
+        'lp_type',
+        'lp_rate',
         'last_updated'
     )
     fields = [
-    	'lp_type',
-    	'lp_rate'
+        'lp_type',
+        'lp_rate'
     ]
 
 
 class SiteContentAdmin(admin.ModelAdmin):
     list_display = (
-    	'field_id',
-    	'field_text',
-    	'last_updated'
+        'field_id',
+        'field_text',
+        'last_updated'
     )
     fields = [
-    	'field_id',
-    	'field_text',
+        'field_id',
+        'field_text',
     ]
 
 

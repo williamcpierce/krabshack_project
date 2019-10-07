@@ -4,6 +4,9 @@ from .models import Cashout
 
 
 def cashouts(request):
+    """
+    display user cashout data
+    """
     # initialize variables
     totals = {}
 

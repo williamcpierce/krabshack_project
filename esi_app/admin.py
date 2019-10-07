@@ -18,6 +18,7 @@ class EsiCharacterAdmin(admin.ModelAdmin):
         'access_token_expires'
     ]
 
+
 class EsiMarketAdmin(admin.ModelAdmin):
     radio_fields = {'lp_type': admin.VERTICAL}
     list_display = (
@@ -44,4 +45,3 @@ class EsiMarketAdmin(admin.ModelAdmin):
 
 admin.site.register(EsiCharacter, EsiCharacterAdmin)
 admin.site.register(EsiMarket, EsiMarketAdmin)
-

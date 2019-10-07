@@ -8,6 +8,7 @@ def json_default():
         "": 0
     }
 
+
 def store_choices():
     return [
         ('Guristas', 'Guristas'),
@@ -15,6 +16,7 @@ def store_choices():
         ('DED', 'DED'),
         ('None', 'None')
     ]
+
 
 class Cashout(models.Model):
     """
@@ -30,7 +32,7 @@ class Cashout(models.Model):
     rate = models.IntegerField()
     profit = models.BigIntegerField()
     lp_type = models.CharField(
-	    choices=store_choices(),
+        choices=store_choices(),
         max_length=100,
         verbose_name='LP Type'
     )
@@ -41,7 +43,7 @@ class Cashout(models.Model):
         verbose_name = 'LP Cashout'
 
     def save(self, *args, **kwargs):
+        # calculates the profit field on save
         self.profit = (self.lp * self.rate)
-        super(Cashout, self).save(*args, **kwargs)
 
-    
+        super(Cashout, self).save(*args, **kwargs)

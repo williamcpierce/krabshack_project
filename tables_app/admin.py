@@ -5,22 +5,22 @@ from .models import Cashout
 class CashoutAdmin(admin.ModelAdmin):
     radio_fields = {'lp_type': admin.VERTICAL}
     list_display = (
-    	'cashout_id',
-    	'date',
-    	'client',
-    	'lp',
-    	'lp_type',
-    	'rate',
-    	'profit'
+        'cashout_id',
+        'date',
+        'client',
+        'lp',
+        'lp_type',
+        'rate',
+        'profit'
     )
     fields = [
-    	'cashout_id',
-    	'client',
-    	'date',
-    	'lp',
-    	'lp_type',
-    	'rate',
-    	'items'
+        'cashout_id',
+        'client',
+        'date',
+        'lp',
+        'lp_type',
+        'rate',
+        'items'
     ]
     list_filter = (
         'date',

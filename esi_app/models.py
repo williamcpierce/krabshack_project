@@ -3,7 +3,6 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 from datetime import datetime, timezone, timedelta
 from .esi import esi_app, esi_security, esi_client
-from statistics import mean
 from decimal import Decimal
 import esi_app.util as util
 import time
@@ -16,8 +15,10 @@ def json_default():
         "": 0
     }
 
+
 def datetime_default():
     return datetime.now(timezone.utc)
+
 
 def store_choices():
     return [
@@ -26,6 +27,7 @@ def store_choices():
         ('DED', 'DED'),
         ('None', 'None')
     ]
+
 
 class EsiCharacter(models.Model):
     character_id = models.CharField(
@@ -133,12 +135,15 @@ class EsiMarket(models.Model):
         verbose_name_plural = 'Market Data'
 
     def update_orders(self, *args, **kwargs):
+        """
+        updates and parses market orders for an item, if older than 1 day
+        """
         if self.orders_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
-            esi_response = requests.get(
-                'https://esi.evetech.net/latest/markets/'+
-                str(10000002)+
-                '/orders/?order_type=all&type_id='+
-                str(self.type_id)
+            esi_response = util.esi_request(
+                op='orders',
+                region_id=10000002,
+                type_id=self.type_id,
+                order_type='all'
             )
             if esi_response.status_code == 200:
                 self.market_orders = esi_response.json()
@@ -151,12 +156,14 @@ class EsiMarket(models.Model):
         super(EsiMarket, self).save(*args, **kwargs)
 
     def update_history(self, *args, **kwargs):
+        """
+        updates and parses market history for an item, if older than 1 week
+        """
         if self.history_last_updated < datetime.now(timezone.utc)-timedelta(days=7):
-            esi_response = requests.get(
-                'https://esi.evetech.net/latest/markets/'+
-                str(10000002)+
-                '/history/?&type_id='+
-                str(self.type_id)
+            esi_response = util.esi_request(
+                op='history',
+                region_id=10000002,
+                type_id=self.type_id,
             )
             if esi_response.status_code == 200:
                 self.market_history = esi_response.json()
@@ -167,6 +174,9 @@ class EsiMarket(models.Model):
         super(EsiMarket, self).save(*args, **kwargs)
 
     def update_daily_isk(self, *args, **kwargs):
+        """
+        calculates the daily isk volume of an item
+        """
         self.daily_isk = Decimal(self.daily_volume) * Decimal(self.sell_order_min)
 
         super(EsiMarket, self).save(*args, **kwargs)

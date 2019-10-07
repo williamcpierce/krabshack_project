@@ -2,37 +2,40 @@
 
 {% block content %}
 
+<!-- Breadcrumbs -->
 <ol class="breadcrumb">
 	<li class="breadcrumb-item">
 		<a href="#">Home</a>
 	</li>
 </ol>
+
+<!-- Cards -->
 <div class="row">
-<div class="col-xl-5 col-sm-6 mb-1">
-	<div class="card mb-3">
-		<div class="card-header">
-			<i class="fas fa-info"></i>
-			Info
+	<div class="col-xl-5 col-sm-6 mb-1">
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fas fa-info"></i>
+				Info
+			</div>
+			<div class="card-body">
+				{{ info.field_text|safe }}
+			</div>
+			<div class="card-footer small text-muted">Updated {{ info.last_updated }}</div>
 		</div>
-		<div class="card-body">
-			{{ info.field_text|safe }}
-		</div>
-		<div class="card-footer small text-muted">Updated {{ info.last_updated }}</div>
 	</div>
-</div>
-<div class="col-xl-5 col-sm-6 mb-1">
-	<div class="card mb-3">
-		<div class="card-header">
-			<i class="fas fa-comments"></i>
-			Discord
-		</div>
-		<div class="card-body">
-			<div class="embed-responsive embed-responsive-1by1">
-				<iframe src="https://discordapp.com/widget?id=521753330582552579&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+	<div class="col-xl-5 col-sm-6 mb-1">
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fas fa-comments"></i>
+				Discord
+			</div>
+			<div class="card-body">
+				<div class="embed-responsive embed-responsive-1by1">
+					<iframe src="https://discordapp.com/widget?id=521753330582552579&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 {% endblock %}

@@ -4,10 +4,12 @@
 
 {% if request.user.is_authenticated %}
 
+<!-- Username -->
 <li class="nav-item">
 	<a class="nav-item nav-link">{{ user.username }}</a>
 </li>
 
+<!-- Character portrait dropdown -->
 <li class="nav-item dropdown no-arrow">
 	<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-top: 4px; padding-bottom: 4px">
 		<img src="https://image.eveonline.com/Character/{{ request.user.social_auth.get.uid }}_30.jpg" class="rounded-circle"></img>
@@ -23,6 +25,7 @@
 
 {% else %}
 
+<!-- Login button -->
 <li class="nav-item">
 	<a href="{% url 'social:begin' 'eveonline' %}?next={{request.path}}">
 		<img src="/static/eve-sso-login-white-small.png" border=0>

@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<!-- Breadcrumbs -->
 <ol class="breadcrumb">
 	<li class="breadcrumb-item">
 		<a href="#">Services</a>
@@ -9,7 +10,10 @@
 	<li class="breadcrumb-item active">LP Buyback</li>
 </ol>
 
+<!-- Cards -->
 <div class="row">
+
+	<!-- Rates -->
 	<div class="col-lg-3">
 		<div class="card mb-3">
 			<div class="card-header">
@@ -24,6 +28,7 @@
 		</div>
 	</div>
 
+	<!-- Instructions -->
 	<div class="col-lg-6">
 		<div class="card mb-3">
 			<div class="card-header">
@@ -36,6 +41,7 @@
 			<div class="card-footer small text-muted">Updated {{ instructions.last_updated }}</div>
 		</div>
 	</div>
+	
 </div>
 
 {% endblock %}
