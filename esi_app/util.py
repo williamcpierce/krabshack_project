@@ -2,6 +2,7 @@ from django.conf import settings
 import random
 import hmac
 import hashlib
+import requests
 
 
 def generate_token():
@@ -31,6 +32,9 @@ def parse_lp(lp_values, corp_id):
 
 
 def parse_market_orders(market_orders):
+    """
+    parses market orders to return minimum sell and maximum buy orders in Jita 4-4
+    """
     sell_order_min = 10000000000
     buy_order_max = 0
     for item in market_orders:
@@ -48,12 +52,53 @@ def parse_market_orders(market_orders):
 
 
 def parse_market_history(market_history):
-    monthly_volume = 0
-    days = 0
+    """
+    parses market history to average daily volume over the last week
+    """
+    period_volume = 0
+    start_day = 2
+    end_day = 8
+    day = 1
     for item in market_history[::-1]:
-        monthly_volume += item.get('volume')
-        days += 1
-        if days == 14:
+        if day >= start_day and day <= end_day:
+            period_volume += item.get('volume')
+        if day > end_day:
             break
-    daily_volume = monthly_volume / days
+        day += 1
+    daily_volume = round(
+        period_volume / (end_day - start_day + 1),
+        2
+    )
     return daily_volume
+
+
+def build_esi_url(**kwargs):
+    """
+    constructs a url for public esi data requests, either market orders or history
+    """
+    if kwargs.get('op') == 'orders':
+        response = (
+            'https://esi.evetech.net/latest/markets/' +
+            str(kwargs.get('region_id')) +
+            '/orders/?' +
+            'order_type=' +
+            kwargs.get('order_type') +
+            '&type_id=' +
+            str(kwargs.get('type_id'))
+        )
+    if kwargs.get('op') == 'history':
+        response = (
+            'https://esi.evetech.net/latest/markets/' +
+            str(kwargs.get('region_id')) +
+            '/history/?' +
+            'type_id=' +
+            str(kwargs.get('type_id'))
+        )
+    return response
+
+
+def esi_request(*args, **kwargs):
+    """
+    wraps build_esi_url and makes the actual http request
+    """
+    return requests.get(build_esi_url(*args, **kwargs))
