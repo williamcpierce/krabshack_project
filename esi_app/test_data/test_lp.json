@@ -1,0 +1,42 @@
+[
+    {
+        "corporation_id": 1000005,
+        "loyalty_points": 24
+    },
+    {
+        "corporation_id": 1000012,
+        "loyalty_points": 28
+    },
+    {
+        "corporation_id": 1000020,
+        "loyalty_points": 22
+    },
+    {
+        "corporation_id": 1000035,
+        "loyalty_points": 2897
+    },
+    {
+        "corporation_id": 1000041,
+        "loyalty_points": 241
+    },
+    {
+        "corporation_id": 1000043,
+        "loyalty_points": 1292
+    },
+    {
+        "corporation_id": 1000049,
+        "loyalty_points": 381
+    },
+    {
+        "corporation_id": 1000051,
+        "loyalty_points": 9551
+    },
+    {
+        "corporation_id": 1000123,
+        "loyalty_points": 20159
+    },
+    {
+        "corporation_id": 1000127,
+        "loyalty_points": 4670
+    }
+]

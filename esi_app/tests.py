@@ -3,15 +3,15 @@ import esi_app.util as util
 import json
 
 
-with open('esi_app/test_lp.json') as test_lp:
+with open('esi_app/test_data/test_lp.json') as test_lp:
     json_lp = json.load(test_lp)
 
 
-with open('esi_app/test_orders.json') as test_orders:
+with open('esi_app/test_data/test_orders.json') as test_orders:
     json_orders = json.load(test_orders)
 
 
-with open('esi_app/test_history.json') as test_history:
+with open('esi_app/test_data/test_history.json') as test_history:
     json_history = json.load(test_history)
 
 
