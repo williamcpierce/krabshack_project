@@ -19,6 +19,7 @@
 				<thead>
 					<tr>
 						<th>Item</th>
+						<th>LP Type</th>
 						<th>Min Sell</th>
 						<th>Max Buy</th>
 						<th>Average<br>Daily Quantity</th>
@@ -29,6 +30,7 @@
 					{% for item in items %}
 					<tr>
 						<td>{{ item.type_name }}</td>
+						<td>{{ item.lp_type }}</td>
 						<td align='right'>{{ item.sell_order_min|floatformat:"0" }}</td>
 						<td align='right'>{{ item.buy_order_max|floatformat:"0" }}</td>
 						<td align='right'>{{ item.daily_volume|floatformat:"0" }}</td>
