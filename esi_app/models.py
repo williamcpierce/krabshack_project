@@ -159,7 +159,7 @@ class EsiMarket(models.Model):
         """
         updates and parses market history for an item, if older than 1 week
         """
-        if self.history_last_updated < datetime.now(timezone.utc)-timedelta(days=7):
+        if self.history_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
             esi_response = util.esi_request(
                 op='history',
                 region_id=10000002,
