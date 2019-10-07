@@ -26,6 +26,11 @@
 				&nbsp;&nbsp;{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }} LP<br>
 				&nbsp;&nbsp;x {{ lp_summary_dict.sanshas_lp_rate|default_if_none:0 }} ISK/LP<br>
 				&nbsp;&nbsp;= <strong>{{ lp_summary_dict.sanshas_lp_value|default_if_none:0 }} ISK</strong>
+				<br><br>
+				<strong>DED:</strong><br>
+				&nbsp;&nbsp;{{ lp_summary_dict.ded_lp_sum|default_if_none:0 }} LP<br>
+				&nbsp;&nbsp;x {{ lp_summary_dict.ded_lp_rate|default_if_none:0 }} ISK/LP<br>
+				&nbsp;&nbsp;= <strong>{{ lp_summary_dict.ded_lp_value|default_if_none:0 }} ISK</strong>
 			</div>
 		</div>
 	</div>
@@ -46,17 +51,19 @@
 								<th>Character</th>
 								<th>Guristas LP</th>
 								<th>Sanshas LP</th>
+								<th>DED LP</th>
 							</tr>
 						</thead>
 						<tbody>
 							{% for key,value in lp_dict.items %}
 							<tr>
 								{% if request.user.is_superuser %}
-								<td>{{ value.2 }}</td>
+								<td>{{ value.3 }}</td>
 								{% endif %}
 								<td>{{ key }}</td>
 								<td align='right'>{{ value.0 }}</td>
 								<td align='right'>{{ value.1 }}</td>
+								<td align='right'>{{ value.2 }}</td>
 							</tr>
 							{% endfor %}
 						</tbody>
@@ -74,6 +81,11 @@
 								<td align='right'>
 									<strong>
 										{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }}
+									</strong>
+								</td>
+								<td align='right'>
+									<strong>
+										{{ lp_summary_dict.ded_lp_sum|default_if_none:0 }}
 									</strong>
 								</td>
 							</tr>

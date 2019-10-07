@@ -24,12 +24,14 @@ def buyback(request):
     instructions = SiteContent.objects.get(field_id='Buyback Instructions')
     guristas_lp_rate = LPRate.objects.get(lp_type='Guristas').lp_rate
     sanshas_lp_rate = LPRate.objects.get(lp_type='Sanshas').lp_rate
+    ded_lp_rate = LPRate.objects.get(lp_type='Sanshas').lp_rate
 
     return render(
         request,
         'site_app/buyback.html', {
             'guristas_lp_rate': guristas_lp_rate,
             'sanshas_lp_rate': sanshas_lp_rate,
+            'ded_lp_rate': ded_lp_rate,
             'instructions': instructions
         }
     )

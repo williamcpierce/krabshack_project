@@ -75,11 +75,13 @@ def esilp(request):
     lp_summary_dict = {}
     guristas_lp_sum = 0
     sanshas_lp_sum = 0
+    ded_lp_sum = 0
     esi_error = {'status': False}
 
     # gets lp values
     guristas_lp_rate = LPRate.objects.get(lp_type='Guristas').lp_rate
     sanshas_lp_rate = LPRate.objects.get(lp_type='Sanshas').lp_rate
+    ded_lp_rate = LPRate.objects.get(lp_type='DED').lp_rate
 
     # checks if user is logged in and/or is a superuser
     if request.user.is_authenticated:
@@ -104,6 +106,7 @@ def esilp(request):
             except:
                 sanshas_lp = 'ESI Error'
                 guristas_lp = 'ESI Error'
+                ded_lp = 'ESI Error'
                 esi_error = {
                     'status': True,
                     'title': 'ESI Error',
@@ -119,12 +122,14 @@ def esilp(request):
                 all_lp = character.character_lp
                 guristas_lp = util.parse_lp(all_lp, 1000127)
                 sanshas_lp = util.parse_lp(all_lp, 1000161) + util.parse_lp(all_lp, 1000162)
+                ded_lp = util.parse_lp(all_lp, 1000137)
 
             # builds dictionary of lp values for each character
             owner = character.assoc_user.username
             lp_dict[character.character_name] = [
                 guristas_lp,
                 sanshas_lp,
+                ded_lp,
                 owner
             ]
 
@@ -133,16 +138,21 @@ def esilp(request):
                 guristas_lp_sum += guristas_lp
             if isinstance(sanshas_lp, int):
                 sanshas_lp_sum += sanshas_lp
+            if isinstance(ded_lp, int):
+                ded_lp_sum += ded_lp
 
         # stores lp sums and rates
         lp_summary_dict['guristas_lp_sum'] = guristas_lp_sum
         lp_summary_dict['sanshas_lp_sum'] = sanshas_lp_sum
+        lp_summary_dict['ded_lp_sum'] = ded_lp_sum
         lp_summary_dict['guristas_lp_rate'] = guristas_lp_rate
         lp_summary_dict['sanshas_lp_rate'] = sanshas_lp_rate
+        lp_summary_dict['ded_lp_rate'] = ded_lp_rate
 
         # calculates and stores lp values 
         lp_summary_dict['guristas_lp_value'] = guristas_lp_rate * guristas_lp_sum
         lp_summary_dict['sanshas_lp_value'] = sanshas_lp_rate * sanshas_lp_sum
+        lp_summary_dict['ded_lp_value'] = ded_lp_rate * ded_lp_sum
 
     return render(
         request,
