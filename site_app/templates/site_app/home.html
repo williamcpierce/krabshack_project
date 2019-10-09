@@ -2,40 +2,52 @@
 
 {% block content %}
 
-<!-- Breadcrumbs -->
-<ol class="breadcrumb">
-	<li class="breadcrumb-item">
-		<a href="#">Home</a>
-	</li>
-</ol>
-
-<!-- Cards -->
-<div class="row">
-	<div class="col-xl-5 col-sm-6 mb-1">
-		<div class="card mb-3">
-			<div class="card-header">
-				<i class="fas fa-info"></i>
-				Info
-			</div>
-			<div class="card-body">
-				{{ info.field_text|safe }}
-			</div>
-			<div class="card-footer small text-muted">Updated {{ info.last_updated }}</div>
-		</div>
-	</div>
-	<div class="col-xl-5 col-sm-6 mb-1">
-		<div class="card mb-3">
-			<div class="card-header">
-				<i class="fas fa-comments"></i>
-				Discord
-			</div>
-			<div class="card-body">
-				<div class="embed-responsive embed-responsive-1by1">
-					<iframe src="https://discordapp.com/widget?id=521753330582552579&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
-				</div>
-			</div>
+<!-- begin:: Content Head -->
+<div class="kt-subheader kt-grid__item" id="kt_subheader">
+	<div class="kt-container kt-container--fluid ">
+		<div class="kt-subheader__main">
+			<h3 class="kt-subheader__title">Home</h3>
 		</div>
 	</div>
 </div>
+<!-- end:: Content Head -->
+
+<!-- begin:: Content -->
+<div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+
+	<!-- begin:: Row -->
+	<div class="row">
+
+		<!-- begin:: Info -->
+		<div class="col-xl-5">
+			<div class="kt-portlet kt-portlet--mobile">
+				<div class="kt-portlet__head kt-portlet__head--sm">
+					<div class="kt-portlet__head-label">
+						<h3 class="kt-portlet__head-title">
+							Info
+						</h3>
+					</div>
+				</div>
+				<div class="kt-portlet__body">
+					{{ info.field_text|safe }}
+				</div>
+				<div class="kt-portlet__foot kt-portlet__foot--sm">Updated {{ info.last_updated }}</div>
+			</div>
+		</div>
+		<!-- end:: Info -->
+
+		<!-- begin:: Discord -->
+		<div class="col-xl-5">
+			<div class="embed-responsive embed-responsive-1by1">
+				<iframe src="https://discordapp.com/widget?id=521753330582552579&theme=dark"></iframe>
+			</div>
+		</div>
+		<!-- end:: Discord -->
+
+	</div>
+	<!-- end:: Row -->
+
+</div>
+<!-- end:: Content -->	
 
 {% endblock %}

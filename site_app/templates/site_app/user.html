@@ -1,36 +1,83 @@
 {% extends 'krabshack_project/base.html' %}
 
-{% block loginlogout %}
+{% load static %}
+
+{% block topbar %}
 
 {% if request.user.is_authenticated %}
 
-<!-- Username -->
-<li class="nav-item">
-	<a class="nav-item nav-link">{{ user.username }}</a>
-</li>
-
-<!-- Character portrait dropdown -->
-<li class="nav-item dropdown no-arrow">
-	<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-top: 4px; padding-bottom: 4px">
-		<img src="https://image.eveonline.com/Character/{{ request.user.social_auth.get.uid }}_30.jpg" class="rounded-circle"></img>
-	</a>
-	<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-		{% if request.user.is_staff %}
-		<a class="dropdown-item" href="/admin">Admin</a>
-		{% endif %}
-		<a class="dropdown-item" href="/esi/login">Add Character</a>
-		<a class="dropdown-item" href="{% url 'logout' %}?next=/" data-toggle="modal" data-target="#logoutModal">Logout</a>
+<!--begin: User Bar -->
+<div class="kt-header__topbar-item kt-header__topbar-item--user">
+	<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
+		<div class="kt-header__topbar-user">
+			<span class="kt-header__topbar-username kt-hidden-mobile">{{ user.username }}</span>
+			<img class="kt-badge--rounded" alt="Pic" src="https://image.eveonline.com/Character/{{ request.user.social_auth.get.uid }}_30.jpg"/>
+		</div>
 	</div>
-</li>
+
+	<!--begin: Dropdown Menu -->
+	<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround">
+
+		<!--begin: Head -->
+		<div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
+			<div class="kt-user-card__avatar-dark">
+				<img class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success" alt="Pic" src="https://image.eveonline.com/Character/{{ request.user.social_auth.get.uid }}_128.jpg"/>
+			</div>
+			<div class="kt-user-card__name">
+				{{ user.username }}
+			</div>
+		</div>
+		<!--end: Head -->
+
+		<!--begin: Navigation -->
+		<div class="kt-notification">
+			{% if request.user.is_staff %}
+			<a href="/admin" class="kt-notification__item">
+				<div class="kt-notification__item-details">
+					<div class="kt-notification__item-title kt-font-bold">
+						Admin
+					</div>
+					<div class="kt-notification__item-time">
+						Administrator portal
+					</div>
+				</div>
+			</a>
+			{% endif %}
+			<a href="/esi/login" class="kt-notification__item">
+				<div class="kt-notification__item-details">
+					<div class="kt-notification__item-title kt-font-bold">
+						Add Character
+					</div>
+					<div class="kt-notification__item-time">
+						Link a character to your account
+					</div>
+				</div>
+			</a>
+			<div class="kt-notification__custom kt-space-between">
+				<a class="btn btn-label btn-label-brand btn-sm btn-bold" href="{% url 'logout' %}?next=/" data-toggle="modal" data-target="#logoutModal">Sign Out</a>
+			</div>
+		</div>
+		<!--end: Navigation -->
+
+	</div>
+	<!--end: Dropdown Menu -->
+
+</div>
+<!--end: User Bar -->
 
 {% else %}
 
-<!-- Login button -->
-<li class="nav-item">
-	<a href="{% url 'social:begin' 'eveonline' %}?next={{request.path}}">
-		<img src="/static/eve-sso-login-white-small.png" border=0>
-	</a>
-</li>
+<!--begin: User Bar -->
+<div class="kt-header__topbar-item kt-header__topbar-item--user">
+	<div class="kt-header__topbar-wrapper" data-offset="0px,0px">
+		<div class="kt-header__topbar-user">
+			<a href="{% url 'social:begin' 'eveonline' %}?next={{request.path}}">
+				<img src="/static/assets/media/eve-sso-login-black-small.png" border=0>
+			</a>
+		</div>
+	</div>
+</div>
+<!--end: User Bar -->
 
 {% endif %}
 

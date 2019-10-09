@@ -1,180 +1,474 @@
 {% load static %}
 
 <!DOCTYPE html>
+
 <html lang="en">
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<meta name="google" content="notranslate">
-	
-	<title>Krab Shack.</title>
+	<!-- begin::Head -->
+	<head>
+		<base href="">
+		<meta charset="utf-8" />
+		<title>Krab Shack.</title>
+		<meta name="description" content="Updates and statistics">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<!-- Custom fonts for this template -->
-	<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+		<!-- begin::Fonts -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
+		<!-- end::Fonts -->
 
-	<!-- Page level plugin CSS -->
-	<link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+		<!-- begin::Global Theme Styles(used by all pages) -->
+		<!-- begin:: Vendor Plugins -->
+		<link href="{% static 'assets/plugins/general/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/tether/dist/css/tether.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/bootstrap-timepicker/css/bootstrap-timepicker.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet' %}" type="text/css" />
+		<link href="{% static 'assets/plugins/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/select2/dist/css/select2.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/ion-rangeslider/css/ion.rangeSlider.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/nouislider/distribute/nouislider.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/owl.carousel/dist/assets/owl.carousel.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/owl.carousel/dist/assets/owl.theme.default.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/dropzone/dist/dropzone.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/quill/dist/quill.snow.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/@yaireo/tagify/dist/tagify.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/summernote/dist/summernote.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/bootstrap-markdown/css/bootstrap-markdown.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/animate.css/animate.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/toastr/build/toastr.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/dual-listbox/dist/dual-listbox.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/morris.js/morris.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/sweetalert2/dist/sweetalert2.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/socicon/css/socicon.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/plugins/line-awesome/css/line-awesome.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/plugins/flaticon/flaticon.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/plugins/flaticon2/flaticon.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/general/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css" />
+		<!-- end:: Vendor Plugins -->
+		
+		<link href="{% static 'assets/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
 
-	<!-- Custom styles for this template -->
-	<link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+		<!-- begin:: Vendor Plugins for custom pages -->
+		<link href="{% static 'assets/plugins/custom/plugins/jquery-ui/jquery-ui.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/@fullcalendar/core/main.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/@fullcalendar/daygrid/main.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/@fullcalendar/list/main.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/@fullcalendar/timegrid/main.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/datatables.net-select-bs4/css/select.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/jstree/dist/themes/default/style.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/jqvmap/dist/jqvmap.cs' %}s" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/custom/uppy/dist/uppy.min.css' %}" rel="stylesheet" type="text/css" />
+		<!-- end:: Vendor Plugins for custom pages -->
+		<!-- end::Global Theme Styles -->
 
-</head>
+		<!-- begin::Layout Skins(used by all pages) -->
+		<link href="{% static 'assets/css/skins/header/base/light.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/skins/header/menu/light.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/skins/brand/dark.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/skins/aside/dark.css' %}" rel="stylesheet" type="text/css" />
+		<!-- end::Layout Skins -->
 
-<body id="page-top">
+		<link rel="shortcut icon" href="{% static 'assets/media/logos/favicon.ico' %}" />
+	</head>
+	<!-- end::Head -->
 
-	<!-- Navbar -->
-	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-		<a class="navbar-brand mr-1" href="/">Krab Shack.</a>
-		<button class="btn btn-link btn-sm text-white" id="sidebarToggle" href="#">
-			<i class="fas fa-bars"></i>
-		</button>
-		<ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
-			{% block loginlogout %}{% endblock %}
-		</ul>
-	</nav>
+	<!-- begin::Body -->
+	<body class="kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed">
 
-	<!-- Sidebar, Content, Footer -->
-	<div id="wrapper">
-
-		<!-- Sidebar -->
-		<ul class="sidebar navbar-nav">
-			<li class="nav-item">
-				<a class="nav-link" href="/">
-					<i class="fas fa-fw fa-home"></i>
-					<span>Home</span>
+		<!-- begin:: Header Mobile -->
+		<div id="kt_header_mobile" class="kt-header-mobile kt-header-mobile--fixed ">
+			<div class="kt-header-mobile__logo">
+				<a href="/">
+					<img alt="Logo" src="{% static 'assets/media/logos/logo-light.png' %}" />
 				</a>
-			</li>
-			<li {% if "/services/" in request.path %}class="nav-item dropdown active" {% else %}class="nav-item dropdown" {% endif %}>
-				<a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fas fa-fw fa-layer-group"></i>
-					<span>Services</span>
-				</a>
-				<div class="dropdown-menu" aria-labelledby="servicesDropdown">
-					<a class="dropdown-item" href="/services/couriers">
-						<i class="fas fa-fw fa-box-open"></i>
-						Couriers
-					</a>
-					<a class="dropdown-item" href="/services/buyback">
-						<i class="fas fa-fw fa-fire"></i>
-						LP Buyback
-					</a>
-				</div>
-			</li>
-			<li {% if "/data/" in request.path %}class="nav-item dropdown active" {% else %}class="nav-item dropdown" {% endif %}>
-				<a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fas fa-fw fa-database"></i>
-					<span>Data</span>
-				</a>
-				<div class="dropdown-menu" aria-labelledby="servicesDropdown">
-					<a class="dropdown-item" href="/data/cashouts">
-						<i class="fas fa-fw fa-table"></i>
-						LP Cashouts
-					</a>
-					<a class="dropdown-item" href="/esi/lp">
-						<i class="fas fa-fw fa-table"></i>
-						Character LP
-					</a>
-					<a class="dropdown-item" id='loadingLink' href="/esi/market">
-						<i class="fas fa-fw fa-table"></i>
-						Market
-					</a>
-				</div>
-		</ul>
-
-		<!-- Content, Footer -->
-		<div id="content-wrapper">
-
-			<!-- Content -->
-			<div class="container-fluid">
-				{% block content %}{% endblock %}
 			</div>
+			<div class="kt-header-mobile__toolbar" align="left">
+				<button class="kt-header-mobile__toggler kt-header-mobile__toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+				<button class="kt-header-mobile__topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
+			</div>
+		</div>
+		<!-- end:: Header Mobile -->
 
-			<!-- Footer -->
-			<footer class="sticky-footer">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright © Krab Shack. 2019</span>
+		<!-- begin:: Root -->
+		<div class="kt-grid kt-grid--hor kt-grid--root">
+
+			<!-- begin:: Page -->
+			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+
+				<!-- begin:: Aside -->
+				<div class="kt-aside kt-aside--fixed kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
+					
+					<!-- begin:: Aside Brand -->
+					<div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
+						<!--
+						<div class="kt-aside__brand-logo">
+							<a href="/">
+								<img alt="Logo" src="{% static 'assets/media/logos/logo-light.png' %}" />
+							</a>
+						</div>
+						<div class="kt-aside__brand-tools">
+							<button class="kt-aside__brand-aside-toggler" id="kt_aside_toggler">
+							</button>
+						</div>
+						-->
+					</div>
+					<!-- end:: Aside Brand -->
+
+					<!-- begin:: Aside Menu -->
+					<div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
+						<div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500">
+							<ul class="kt-menu__nav">
+								<li class="kt-menu__item {% if 'market' in request.path %}kt-menu__item--active{% endif %}">
+									<a href="/esi/market" class="kt-menu__link">
+										<span class="kt-menu__link-icon">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"></rect>
+													<rect fill="#000000" opacity="0.3" x="13" y="4" width="3" height="16" rx="1.5"></rect>
+													<rect fill="#000000" x="8" y="9" width="3" height="11" rx="1.5"></rect>
+													<rect fill="#000000" x="18" y="11" width="3" height="9" rx="1.5"></rect>
+													<rect fill="#000000" x="3" y="13" width="3" height="7" rx="1.5"></rect>
+												</g>
+											</svg>
+										</span>
+										<span class="kt-menu__link-text">Market</span>
+									</a>
+								</li>
+								<li class="kt-menu__item {% if 'lp' in request.path %}kt-menu__item--active{% endif %}">
+									<a href="/esi/lp" class="kt-menu__link">
+										<span class="kt-menu__link-icon">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+											    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											        <polygon points="0 0 24 0 24 24 0 24"/>
+											        <path d="M12,4.25932872 C12.1488635,4.25921584 12.3000368,4.29247316 12.4425657,4.36281539 C12.6397783,4.46014562 12.7994058,4.61977315 12.8967361,4.81698575 L14.9389263,8.95491503 L19.5054023,9.61846284 C20.0519472,9.69788046 20.4306287,10.2053233 20.351211,10.7518682 C20.3195865,10.9695052 20.2170993,11.1706476 20.0596157,11.3241562 L16.7552826,14.545085 L17.5353298,19.0931094 C17.6286908,19.6374458 17.263103,20.1544017 16.7187666,20.2477627 C16.5020089,20.2849396 16.2790408,20.2496249 16.0843804,20.1472858 L12,18 L12,4.25932872 Z" fill="#000000" opacity="0.3"/>
+											        <path d="M12,4.25932872 L12,18 L7.91561963,20.1472858 C7.42677504,20.4042866 6.82214789,20.2163401 6.56514708,19.7274955 C6.46280801,19.5328351 6.42749334,19.309867 6.46467018,19.0931094 L7.24471742,14.545085 L3.94038429,11.3241562 C3.54490071,10.938655 3.5368084,10.3055417 3.92230962,9.91005817 C4.07581822,9.75257453 4.27696063,9.65008735 4.49459766,9.61846284 L9.06107374,8.95491503 L11.1032639,4.81698575 C11.277344,4.464261 11.6315987,4.25960807 12,4.25932872 Z" fill="#000000"/>
+											    </g>
+											</svg>
+										</span>
+										<span class="kt-menu__link-text">LP</span>
+									</a>
+								</li>
+								<li class="kt-menu__item {% if 'couriers' in request.path %}kt-menu__item--active{% endif %}">
+									<a href="/services/couriers" class="kt-menu__link">
+										<span class="kt-menu__link-icon">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+											    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											        <polygon points="0 0 24 0 24 24 0 24"/>
+											        <rect fill="#000000" opacity="0.3" transform="translate(13.000000, 6.000000) rotate(-450.000000) translate(-13.000000, -6.000000) " x="12" y="8.8817842e-16" width="2" height="12" rx="1"/>
+											        <path d="M9.79289322,3.79289322 C10.1834175,3.40236893 10.8165825,3.40236893 11.2071068,3.79289322 C11.5976311,4.18341751 11.5976311,4.81658249 11.2071068,5.20710678 L8.20710678,8.20710678 C7.81658249,8.59763107 7.18341751,8.59763107 6.79289322,8.20710678 L3.79289322,5.20710678 C3.40236893,4.81658249 3.40236893,4.18341751 3.79289322,3.79289322 C4.18341751,3.40236893 4.81658249,3.40236893 5.20710678,3.79289322 L7.5,6.08578644 L9.79289322,3.79289322 Z" fill="#000000" fill-rule="nonzero" transform="translate(7.500000, 6.000000) rotate(-270.000000) translate(-7.500000, -6.000000) "/>
+											        <rect fill="#000000" opacity="0.3" transform="translate(11.000000, 18.000000) scale(1, -1) rotate(90.000000) translate(-11.000000, -18.000000) " x="10" y="12" width="2" height="12" rx="1"/>
+											        <path d="M18.7928932,15.7928932 C19.1834175,15.4023689 19.8165825,15.4023689 20.2071068,15.7928932 C20.5976311,16.1834175 20.5976311,16.8165825 20.2071068,17.2071068 L17.2071068,20.2071068 C16.8165825,20.5976311 16.1834175,20.5976311 15.7928932,20.2071068 L12.7928932,17.2071068 C12.4023689,16.8165825 12.4023689,16.1834175 12.7928932,15.7928932 C13.1834175,15.4023689 13.8165825,15.4023689 14.2071068,15.7928932 L16.5,18.0857864 L18.7928932,15.7928932 Z" fill="#000000" fill-rule="nonzero" transform="translate(16.500000, 18.000000) scale(1, -1) rotate(270.000000) translate(-16.500000, -18.000000) "/>
+											    </g>
+											</svg>
+										</span>
+										<span class="kt-menu__link-text">Couriers</span>
+									</a>
+								</li>
+								<li class="kt-menu__item {% if 'buyback' in request.path %}kt-menu__item--active{% endif %}">
+									<a href="/services/buyback" class="kt-menu__link">
+										<span class="kt-menu__link-icon">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+											    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											        <rect x="0" y="0" width="24" height="24"/>
+											        <circle fill="#000000" opacity="0.3" cx="20.5" cy="12.5" r="1.5"/>
+											        <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 6.500000) rotate(-15.000000) translate(-12.000000, -6.500000) " x="3" y="3" width="18" height="7" rx="1"/>
+											        <path d="M22,9.33681558 C21.5453723,9.12084552 21.0367986,9 20.5,9 C18.5670034,9 17,10.5670034 17,12.5 C17,14.4329966 18.5670034,16 20.5,16 C21.0367986,16 21.5453723,15.8791545 22,15.6631844 L22,18 C22,19.1045695 21.1045695,20 20,20 L4,20 C2.8954305,20 2,19.1045695 2,18 L2,6 C2,4.8954305 2.8954305,4 4,4 L20,4 C21.1045695,4 22,4.8954305 22,6 L22,9.33681558 Z" fill="#000000"/>
+											    </g>
+											</svg>
+										</span>
+										<span class="kt-menu__link-text">Buyback</span>
+									</a>
+								</li>
+								<li class="kt-menu__item {% if 'cashouts' in request.path %}kt-menu__item--active{% endif %}">
+									<a href="/data/cashouts" class="kt-menu__link">
+										<span class="kt-menu__link-icon">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+											    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											        <rect x="0" y="0" width="24" height="24"/>
+											        <rect fill="#000000" x="2" y="4" width="19" height="4" rx="1"/>
+											        <path d="M3,10 L6,10 C6.55228475,10 7,10.4477153 7,11 L7,19 C7,19.5522847 6.55228475,20 6,20 L3,20 C2.44771525,20 2,19.5522847 2,19 L2,11 C2,10.4477153 2.44771525,10 3,10 Z M10,10 L13,10 C13.5522847,10 14,10.4477153 14,11 L14,19 C14,19.5522847 13.5522847,20 13,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M17,10 L20,10 C20.5522847,10 21,10.4477153 21,11 L21,19 C21,19.5522847 20.5522847,20 20,20 L17,20 C16.4477153,20 16,19.5522847 16,19 L16,11 C16,10.4477153 16.4477153,10 17,10 Z" fill="#000000" opacity="0.3"/>
+											    </g>
+											</svg>
+										</span>
+										<span class="kt-menu__link-text">Cashouts</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- end:: Aside Menu -->
+				
+				</div>
+				<!-- end:: Aside -->
+
+				<!-- begin:: Wrapper -->
+				<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+					
+					<!-- begin:: Header -->
+					<div id="kt_header" class="kt-header kt-grid__item kt-header--fixed ">
+						
+						<!-- begin:: Header Menu -->
+						<div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
+							<div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile kt-header-menu--layout-default ">
+							</div>
+						</div>
+						<!-- end:: Header Menu -->
+
+						<!-- begin:: Header Topbar -->
+						<div class="kt-header__topbar">
+							{% block topbar %}{% endblock %}
+						</div>
+						<!-- end:: Header Topbar -->
+					
+					</div>
+					<!-- end:: Header -->
+
+					<!-- begin:: Content -->
+					<div class="kt-content kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+						{% block content %}{% endblock %}
+					</div>
+					<!-- end:: Content -->
+
+					<!-- begin:: Footer -->
+					<div class="kt-footer kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
+						<div class="kt-container kt-container--fluid ">
+							<div class="kt-footer__copyright">
+								2019&nbsp;&copy;&nbsp;<a href="/" target="_blank" class="kt-link">Krab Shack.</a>
+							</div>
+						</div>
+					</div>
+					<!-- end:: Footer -->
+				
+				</div>
+				<!-- end:: Wrapper -->
+
+			</div>
+			<!-- end:: Page -->
+
+		</div>
+		<!-- end:: Root -->
+
+		<!-- end:: Logout Modal -->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Confirm Logout</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="{% url 'logout' %}?next=/">Logout</a>
 					</div>
 				</div>
-			</footer>
-
+			</div>
 		</div>
-		<!-- /content-wrapper -->
+		<!-- end:: Logout Modal -->
 
-	</div>
-	<!-- /wrapper -->
-
-	<!-- Scroll to Top Button -->
-	<a class="scroll-to-top rounded" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
-
-	<!-- Logout Modal -->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Confirm Logout</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="{% url 'logout' %}?next=/">Logout</a>
+		<!-- begin:: Error Modal -->
+		<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">{{ error.title }}</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">{{ error.body|linebreaks }}</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Okay</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+		<!-- end:: Error Modal -->
 
-	<!-- Error Modal -->
-	<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">{{ error.title }}</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">{{ error.body|linebreaks }}</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Okay</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-	<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+		<!-- begin::Global Config(global config for global JS sciprts) -->
+		<script>
+			var KTAppOptions = {
+				"colors": {
+					"state": {
+						"brand": "#5d78ff",
+						"dark": "#282a3c",
+						"light": "#ffffff",
+						"primary": "#5867dd",
+						"success": "#34bfa3",
+						"info": "#36a3f7",
+						"warning": "#ffb822",
+						"danger": "#fd3995"
+					},
+					"base": {
+						"label": [
+							"#c5cbe3",
+							"#a1a8c3",
+							"#3d4465",
+							"#3e4466"
+						],
+						"shape": [
+							"#f0f3ff",
+							"#d9dffa",
+							"#afb4d4",
+							"#646c9a"
+						]
+					}
+				}
+			};
+		</script>
+		<!-- end::Global Config -->
 
-	<!-- Core plugin JavaScript -->
-	<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+		<!-- begin::Global Theme Bundle(used by all pages) -->
+		<!-- begin:: Vendor Plugins -->
+		<script src="{% static 'assets/plugins/general/jquery/dist/jquery.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/popper.js/dist/umd/popper.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap/dist/js/bootstrap.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/js-cookie/src/js.cookie.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/moment/min/moment.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/tooltip.js/dist/umd/tooltip.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/perfect-scrollbar/dist/perfect-scrollbar.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/sticky-js/dist/sticky.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/wnumb/wNumb.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/jquery-form/dist/jquery.form.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/block-ui/jquery.blockUI.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/js/global/integration/plugins/bootstrap-datepicker.init.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-timepicker/js/bootstrap-timepicker.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/js/global/integration/plugins/bootstrap-timepicker.init.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-daterangepicker/daterangepicker.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-maxlength/src/bootstrap-maxlength.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/plugins/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-select/dist/js/bootstrap-select.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-switch/dist/js/bootstrap-switch.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/js/global/integration/plugins/bootstrap-switch.init.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/select2/dist/js/select2.full.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/ion-rangeslider/js/ion.rangeSlider.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/typeahead.js/dist/typeahead.bundle.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/handlebars/dist/handlebars.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/inputmask/dist/jquery.inputmask.bundle.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/inputmask/dist/inputmask/inputmask.date.extensions.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/inputmask/dist/inputmask/inputmask.numeric.extensions.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/nouislider/distribute/nouislider.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/owl.carousel/dist/owl.carousel.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/autosize/dist/autosize.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/clipboard/dist/clipboard.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/dropzone/dist/dropzone.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/js/global/integration/plugins/dropzone.init.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/quill/dist/quill.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/@yaireo/tagify/dist/tagify.polyfills.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/@yaireo/tagify/dist/tagify.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/summernote/dist/summernote.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/markdown/lib/markdown.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-markdown/js/bootstrap-markdown.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/js/global/integration/plugins/bootstrap-markdown.init.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/bootstrap-notify/bootstrap-notify.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/js/global/integration/plugins/bootstrap-notify.init.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/jquery-validation/dist/jquery.validate.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/jquery-validation/dist/additional-methods.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/js/global/integration/plugins/jquery-validation.init.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/toastr/build/toastr.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/dual-listbox/dist/dual-listbox.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/raphael/raphael.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/morris.js/morris.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/chart.js/dist/Chart.bundle.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/plugins/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/plugins/jquery-idletimer/idle-timer.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/waypoints/lib/jquery.waypoints.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/counterup/jquery.counterup.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/es6-promise-polyfill/promise.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/sweetalert2/dist/sweetalert2.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/js/global/integration/plugins/sweetalert2.init.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/jquery.repeater/src/lib.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/jquery.repeater/src/jquery.input.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/jquery.repeater/src/repeater.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/general/dompurify/dist/purify.js' %}" type="text/javascript"></script>
+		<!-- end:: Vendor Plugins -->
 
-	<!-- Page level plugin JavaScript -->
-	<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-	<script src="{% static 'vendor/datatables/jquery.dataTables.js' %}"></script>
-	<script src="{% static 'vendor/datatables/dataTables.bootstrap4.js' %}"></script>
+		<script src="{% static 'assets/js/scripts.bundle.js' %}" type="text/javascript"></script>
 
-	<!-- Custom scripts for all pages -->
-	<script src="{% static 'js/sb-admin.min.js' %}"></script>
+		<!-- begin:: Vendor Plugins for custom pages -->
+		<script src="{% static 'assets/plugins/custom/plugins/jquery-ui/jquery-ui.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/@fullcalendar/core/main.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/@fullcalendar/daygrid/main.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/@fullcalendar/google-calendar/main.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/@fullcalendar/interaction/main.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/@fullcalendar/list/main.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/@fullcalendar/timegrid/main.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/gmaps/gmaps.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/flot/dist/es5/jquery.flot.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/flot/source/jquery.flot.resize.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/flot/source/jquery.flot.categories.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/flot/source/jquery.flot.pie.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/flot/source/jquery.flot.stack.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/flot/source/jquery.flot.crosshair.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/flot/source/jquery.flot.axislabels.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net/js/jquery.dataTables.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-bs4/js/dataTables.bootstrap4.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/js/global/integration/plugins/datatables.init.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-autofill/js/dataTables.autoFill.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-autofill-bs4/js/autoFill.bootstrap4.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/jszip/dist/jszip.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/pdfmake/build/pdfmake.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/pdfmake/build/vfs_fonts.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-buttons/js/dataTables.buttons.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-buttons/js/buttons.colVis.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-buttons/js/buttons.flash.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-buttons/js/buttons.html5.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-buttons/js/buttons.print.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-colreorder/js/dataTables.colReorder.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-keytable/js/dataTables.keyTable.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-responsive/js/dataTables.responsive.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-rowgroup/js/dataTables.rowGroup.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-rowreorder/js/dataTables.rowReorder.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-scroller/js/dataTables.scroller.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/datatables.net-select/js/dataTables.select.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/jstree/dist/jstree.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/jqvmap/dist/jquery.vmap.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/jqvmap/dist/maps/jquery.vmap.world.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/jqvmap/dist/maps/jquery.vmap.russia.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/jqvmap/dist/maps/jquery.vmap.usa.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/jqvmap/dist/maps/jquery.vmap.germany.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/jqvmap/dist/maps/jquery.vmap.europe.js' %}" type="text/javascript"></script>
+		<script src="{% static 'assets/plugins/custom/uppy/dist/uppy.min.js' %}" type="text/javascript"></script>
+		<!-- end:: Vendor Plugins for custom pages -->
+		<!-- end::Global Theme Bundle -->
 
-	<!-- Demo scripts for this page -->
-	<script src="{% static 'js/demo/datatables-demo.js' %}"></script>
-	<script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+		<!-- begin::Page -->
+		{% block js %}{% endblock %}
+		<!-- end::Page Scripts -->
 
-	<!-- Custom scripts -->
-	<script src="{% static 'js/dropdowns.js' %}"></script>
-	{% if error.status %}
-		<script src="{% static 'js/error.js' %}"></script>
-	{% endif %}
+		<!-- begin::Custom Scripts -->
+		<script src="{% static '/assets/js/dropdowns.js' %}" type="text/javascript"></script>
+		{% if error.status %}
+		<script src="{% static '/assets/js/error.js' %}" type="text/javascript"></script>
+		{% endif %}
+		<!-- end::Custom Scripts -->
 
-</body>
+
+	</body>
+	<!-- end::Body -->
 
 </html>
