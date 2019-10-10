@@ -12,78 +12,85 @@
 
 {% block content %}
 
+<!-- begin: Content Style -->
+<style type="text/css">
+	#kt_table_1_filter{ display:none; }
+</style>
+<!-- end: Content Style -->
+
 <!-- begin:: Content Head -->
 <div class="kt-subheader kt-grid__item" id="kt_subheader">
 	<div class="kt-container kt-container--fluid ">
 		<div class="kt-subheader__main">
 			<h3 class="kt-subheader__title">Cashouts</h3>
 		</div>
+		<div class="kt-subheader__toolbar">
+			<div class="kt-quick-search kt-quick-search--result-compact">			
+				<form class="kt-quick-search__form">
+					<div class="input-group">
+						<div class="input-group-prepend"><span class="input-group-text"><i class="flaticon2-search-1"></i></span></div>
+						<input type="text" class="form-control kt-quick-search__input" placeholder="Search..." id="filterField">
+						<div class="input-group-append"><span class="input-group-text"><i class="la la-close kt-quick-search__close" style="display: none;"></i></span></div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>
 <!-- end:: Content Head -->
 
-<!-- begin:: Content -->
-<div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+<!-- begin:: Content Body -->
+<div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid" style='margin-top: -35px; margin-bottom: -35px'>
 
 	<!-- begin:: Cashout Table -->
-	<div class="kt-portlet kt-portlet--mobile">
-		<div class="kt-portlet__head kt-portlet__head--sm">
-			<div class="kt-portlet__head-label">
-				<h3 class="kt-portlet__head-title">
-					Cashouts
-				</h3>
-			</div>
-		</div>
-		<div class="kt-portlet__body">
-			<table class="table table-striped- table-bordered table-hover" id="kt_table_1">
-				<thead>
-					<tr>
-						{% if request.user.is_superuser %}
-						<th>Client</th>
-						{% endif %}
-						<th>Date</th>
-						<th>Type</th>
-						<th>LP</th>
-						<th>Rate</th>
-						<th>Profit</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for cashout in cashouts %}
-					<tr>
-						{% if request.user.is_superuser %}
-						<td>{{ cashout.client }}</td>
-						{% endif %}
-						<td>
-							<span style="display: none;">{{ cashout.date|date:"Y-m-d" }}</span>
-  							{{ cashout.date|date:"F jS, Y" }}
-						</td>
-						<td>{{ cashout.lp_type }}</td>
-						<td align='right'>{{ cashout.lp }}</td>
-						<td align='right'>{{ cashout.rate }}</td>
-						<td align='right'>{{ cashout.profit }}</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-				<tfoot>
-					<tr>
-						{% if request.user.is_superuser %}
-						<th>Client</th>
-						{% endif %}
-						<th>Date</th>
-						<th>Type</th>
-						<th>LP</th>
-						<th>Rate</th>
-						<th>Profit</th>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-		<div class="kt-portlet__foot kt-portlet__foot--sm">Updated {{ last_updated }}</div>
-	</div>
+	<table class="table table-striped table-hover" id="kt_table_1">
+		<thead>
+			<tr>
+				{% if request.user.is_superuser %}
+				<th>Client</th>
+				{% endif %}
+				<th>Date</th>
+				<th>Type</th>
+				<th>LP</th>
+				<th>Rate</th>
+				<th>Profit</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for cashout in cashouts %}
+			<tr>
+				{% if request.user.is_superuser %}
+				<td>{{ cashout.client }}</td>
+				{% endif %}
+				<td>
+					<span style="display: none;">{{ cashout.date|date:"Y-m-d" }}</span>
+						{{ cashout.date|date:"F jS, Y" }}
+				</td>
+				<td>{{ cashout.lp_type }}</td>
+				<td align='right'>{{ cashout.lp }}</td>
+				<td align='right'>{{ cashout.rate }}</td>
+				<td align='right'>{{ cashout.profit }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				{% if request.user.is_superuser %}
+				<th>Totals:</th>
+				<th></th>
+				{% else %}
+				<th>Totals:</th>
+				{% endif %}
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</tfoot>
+	</table>
 	<!-- end:: Cashout Table -->
 
 </div>
-<!-- end:: Content -->
+<!-- end:: Content Body -->
 
 {% endblock %}

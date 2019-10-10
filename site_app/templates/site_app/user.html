@@ -21,7 +21,7 @@
 		<!--begin: Head -->
 		<div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
 			<div class="kt-user-card__avatar-dark">
-				<img class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success" alt="Pic" src="https://image.eveonline.com/Character/{{ request.user.social_auth.get.uid }}_128.jpg"/>
+				<img class="kt-badge kt-badge--xl kt-badge--rounded kt-badge--bold kt-font-success" alt="Pic" src="https://image.eveonline.com/Character/{{ request.user.social_auth.get.uid }}_128.jpg"/>
 			</div>
 			<div class="kt-user-card__name">
 				{{ user.username }}
@@ -72,7 +72,7 @@
 	<div class="kt-header__topbar-wrapper" data-offset="0px,0px">
 		<div class="kt-header__topbar-user">
 			<a href="{% url 'social:begin' 'eveonline' %}?next={{request.path}}">
-				<img src="/static/assets/media/eve-sso-login-black-small.png" border=0>
+				<img src="/static/assets/media/eve-sso-login-white-small.png" border=0>
 			</a>
 		</div>
 	</div>

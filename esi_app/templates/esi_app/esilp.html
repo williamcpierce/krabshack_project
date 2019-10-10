@@ -12,119 +12,79 @@
 
 {% block content %}
 
+<!-- begin: Content Style -->
+<style type="text/css">
+	#kt_table_1_filter{ display:none; }
+</style>
+<!-- end: Content Style -->
+
 <!-- begin:: Content Head -->
 <div class="kt-subheader kt-grid__item" id="kt_subheader">
 	<div class="kt-container kt-container--fluid ">
 		<div class="kt-subheader__main">
-			<h3 class="kt-subheader__title">Loyalty Points</h3>
+			<h3 class="kt-subheader__title">Character LP</h3>
+		</div>
+		<div class="kt-subheader__toolbar">
+			<div class="kt-quick-search kt-quick-search--result-compact">			
+				<form class="kt-quick-search__form">
+					<div class="input-group">
+						<div class="input-group-prepend"><span class="input-group-text"><i class="flaticon2-search-1"></i></span></div>
+						<input type="text" class="form-control kt-quick-search__input" placeholder="Search..." id="filterField">
+						<div class="input-group-append"><span class="input-group-text"><i class="la la-close kt-quick-search__close" style="display: none;"></i></span></div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
 <!-- end:: Content Head -->
 
-<!-- begin:: Content -->
-<div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+<!-- begin:: Content Body -->
+<div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid" style='margin-top: -35px; margin-bottom: -35px'>
 
-	<!-- begin:: Row -->
-	<div class="row">
+	<!-- begin:: LP Table -->
+	<table class="table table-striped table-hover" id="kt_table_1">
+		<thead>
+			<tr>
+				{% if request.user.is_superuser %}
+				<th>Owner</th>
+				{% endif %}
+				<th>Character</th>
+				<th>Guristas LP</th>
+				<th>Sanshas LP</th>
+				<th>DED LP</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for key,value in lp_dict.items %}
+			<tr>
+				{% if request.user.is_superuser %}
+				<td>{{ value.3 }}</td>
+				{% endif %}
+				<td>{{ key }}</td>
+				<td align='right'>{{ value.0 }}</td>
+				<td align='right'>{{ value.1 }}</td>
+				<td align='right'>{{ value.2 }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				{% if request.user.is_superuser %}
+				<th>Totals:</th>
+				<th></th>
+				{% else %}
+				<th>Totals:</th>
+				{% endif %}
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</tfoot>
+	</table>
+	<!-- end:: LP Table -->
 
-		<!-- begin:: LP Value -->
-		<div class="col-xl-3">
-			<div class="kt-portlet kt-portlet--mobile">
-				<div class="kt-portlet__head kt-portlet__head--sm">
-					<div class="kt-portlet__head-label">
-						<h3 class="kt-portlet__head-title">
-							LP Value
-						</h3>
-					</div>
-				</div>
-				<div class="kt-portlet__body">
-					<strong>Guristas: </strong>
-					{{ lp_summary_dict.guristas_lp_sum|default_if_none:0 }} LP
-					x {{ lp_summary_dict.guristas_lp_rate|default_if_none:0 }} ISK/LP = 
-					<strong>{{ lp_summary_dict.guristas_lp_value|default_if_none:0 }} ISK</strong>
-					<br><br>
-					<strong>Sanshas: </strong>
-					{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }} LP
-					x {{ lp_summary_dict.sanshas_lp_rate|default_if_none:0 }} ISK/LP = 
-					<strong>{{ lp_summary_dict.sanshas_lp_value|default_if_none:0 }} ISK</strong>
-					<br><br>
-					<strong>DED: </strong>
-					{{ lp_summary_dict.ded_lp_sum|default_if_none:0 }} LP
-					x {{ lp_summary_dict.ded_lp_rate|default_if_none:0 }} ISK/LP = 
-					<strong>{{ lp_summary_dict.ded_lp_value|default_if_none:0 }} ISK</strong>
-				</div>
-			</div>
-		</div>
-		<!-- end:: LP Value -->
-
-		<!-- begin:: LP Table -->
-		<div class="col-xl-9">
-			<div class="kt-portlet kt-portlet--mobile">
-				<div class="kt-portlet__head kt-portlet__head--sm">
-					<div class="kt-portlet__head-label">
-						<h3 class="kt-portlet__head-title">
-							Character LP
-						</h3>
-					</div>
-				</div>
-				<div class="kt-portlet__body">
-					<table class="table table-striped- table-bordered table-hover" id="kt_table_1">
-						<thead>
-							<tr>
-								{% if request.user.is_superuser %}
-								<th>Owner</th>
-								{% endif %}
-								<th>Character</th>
-								<th>Guristas LP</th>
-								<th>Sanshas LP</th>
-								<th>DED LP</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for key,value in lp_dict.items %}
-							<tr>
-								{% if request.user.is_superuser %}
-								<td>{{ value.3 }}</td>
-								{% endif %}
-								<td>{{ key }}</td>
-								<td align='right'>{{ value.0 }}</td>
-								<td align='right'>{{ value.1 }}</td>
-								<td align='right'>{{ value.2 }}</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-						<tfoot>
-							<tr>
-								{% if request.user.is_superuser %}
-								<th></th>
-								{% endif %}
-								<th>Total LP:</th>
-								<td align='right'>
-									<strong>
-										{{ lp_summary_dict.guristas_lp_sum|default_if_none:0 }}
-									</strong>
-								</td>
-								<td align='right'>
-									<strong>
-										{{ lp_summary_dict.sanshas_lp_sum|default_if_none:0 }}
-									</strong>
-								</td>
-								<td align='right'>
-									<strong>
-										{{ lp_summary_dict.ded_lp_sum|default_if_none:0 }}
-									</strong>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
-			</div>
-		</div>
-		<!-- end:: LP Table -->
-
-	</div>
 </div>
-<!-- begin:: Content -->
+<!-- end:: Content Body -->
 
 {% endblock %}
