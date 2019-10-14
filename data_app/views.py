@@ -27,9 +27,10 @@ def cashouts(request):
     
     return render(
         request,
-        'tables_app/cashouts.html', {
+        'data_app/cashouts.html', {
             'cashouts': cashouts,
             'totals': totals,
-            'last_updated': last_updated
+            'last_updated': last_updated,
+            'subheader': 'Cashout Data'
         }
     )

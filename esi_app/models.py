@@ -37,6 +37,7 @@ class EsiCharacter(models.Model):
     character_owner_hash = models.CharField(max_length=255)
     character_name = models.CharField(max_length=200)
     character_lp = JSONField(default=json_default)
+    character_bookmarks = JSONField(default=json_default)
     access_token = models.CharField(max_length=4096)
     access_token_expires = models.DateTimeField()
     refresh_token = models.CharField(max_length=200)
@@ -91,6 +92,34 @@ class EsiCharacter(models.Model):
         # saves character
         self.save()
 
+    def bookmarks(self):
+        # esi call for bookmark values
+        esi_response = esi_app.op['get_characters_character_id_bookmarks'](
+            character_id=self.character_id
+        )
+        character_bookmarks = esi_client.request(esi_response).data
+
+        return character_bookmarks
+
+    def structure_search(self, search_string):
+        esi_response = esi_app.op['get_characters_character_id_search'](
+            character_id=self.character_id,
+            search=search_string,
+            categories=['structure']
+        )
+        response_data = esi_client.request(esi_response).data
+
+        return response_data
+
+    def structure_info(self, structure):
+        structure_int = structure[0]
+        esi_response = esi_app.op['get_universe_structures_structure_id'](
+            structure_id=structure_int
+        )
+        response_data = esi_client.request(esi_response).data
+
+        return response_data
+        
 
 class EsiMarket(models.Model):
     type_id = models.IntegerField(
@@ -187,4 +216,3 @@ class EsiMarket(models.Model):
         self.update_daily_isk()
 
         super(EsiMarket, self).save(*args, **kwargs)
-

@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.conf import settings
 from .models import LPRate, SiteContent, CourierRoute
 
-
 def couriers(request):
     # get instructions and routes
     instructions = SiteContent.objects.get(field_id='Courier Instructions')

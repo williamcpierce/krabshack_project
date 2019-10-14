@@ -94,6 +94,11 @@ def build_esi_url(**kwargs):
             'type_id=' +
             str(kwargs.get('type_id'))
         )
+    if kwargs.get('op') == 'public':
+        response = (
+            'https://esi.evetech.net/latest/characters/' +
+            str(kwargs.get('character_id'))
+        )
     return response
 
 
@@ -102,3 +107,13 @@ def esi_request(*args, **kwargs):
     wraps build_esi_url and makes the actual http request
     """
     return requests.get(build_esi_url(*args, **kwargs))
+
+
+def get_corp(character_id):
+    esi_response = esi_request(
+        op='public',
+        character_id=character_id
+    )
+    corporation_id = esi_response.json().get('corporation_id')
+    return corporation_id
+

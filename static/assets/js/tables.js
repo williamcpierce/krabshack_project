@@ -14,7 +14,7 @@ var KTDatatablesAdvancedFooterCalllback = function() {
 			footerCallback: function(row, data, start, end, display) {
 
 				var api = this.api();
-				var i, column, columnArray = [ 2, 4 ], len = columnArray.length;
+				var i, column, columnArray = columns, len = columnArray.length;
 				for (i=0; i<len; ++i) {
 					
 					column = columnArray[i];

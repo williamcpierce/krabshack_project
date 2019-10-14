@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from .models import EsiCharacter, EsiMarket
 from site_app.models import LPRate
 from .esi import esi_app, esi_security, esi_client
+from .moon import moon
+from json import dumps
 import esi_app.util as util
 import sys
 import requests
@@ -17,12 +19,22 @@ def login(request):
         # generates csrf token
         csrf_token = util.generate_token()
 
+        if request.user.is_staff:
+            scopes=[
+                'esi-characters.read_loyalty.v1',
+                'esi-bookmarks.read_character_bookmarks.v1',
+                'esi-universe.read_structures.v1',
+                'esi-search.search_structures.v1'
+            ]
+        else:
+            scopes=['esi-characters.read_loyalty.v1']
+
         # writes csrf token to session
         request.session['csrf_token'] = csrf_token
         return redirect(
             esi_security.get_auth_uri(
                 state=csrf_token,
-                scopes=['esi-characters.read_loyalty.v1']
+                scopes=scopes
             )
         )
 
@@ -159,7 +171,8 @@ def esilp(request):
         'esi_app/esilp.html', {
             'lp_dict': lp_dict,
             'lp_summary_dict': lp_summary_dict,
-            'error': esi_error
+            'error': esi_error,
+            'subheader': 'LP Data'
         }
     )
 
@@ -182,6 +195,50 @@ def esimarket(request):
         request,
         'esi_app/esimarket.html', {
             'items': items,
-            'orders_last_updated': orders_last_updated
+            'orders_last_updated': orders_last_updated,
+            'subheader': 'Market Data'
         }
     )
+
+
+def esimoon(request):
+    character_id = request.user.social_auth.get().uid
+    print(character_id)
+
+    if util.get_corp(character_id) == 98477766:
+        # initializing variables
+        moon_times_dict = {}
+
+        # checks if user is a superuser
+        if request.user.is_superuser:
+            esi_characters = EsiCharacter.objects.all()
+        else:
+            esi_characters = EsiCharacter.objects.filter(assoc_user=request.user)
+
+        # loops over characters
+        for character in esi_characters:
+
+            # gives security object the character's tokens
+            esi_data = character.get_tokens()
+            esi_security.update_token(esi_data)
+            
+            # refreshes and stores tokens/updates data if expired
+            if esi_data['expires_in'] < 0:
+                esi_tokens = esi_security.refresh()
+                character.update_tokens(esi_tokens)
+
+            # calculates and stores moon pop times
+            try:
+                moon_times_dict = moon(character, moon_times_dict)
+            except:
+                moon_times_dict = moon_times_dict
+
+        return render(
+            request,
+            'esi_app/esimoon.html', {
+                'moon_times_dict': moon_times_dict,
+                'subheader': 'Moon Data'
+            }
+        )
+    else:
+        return redirect('/')
