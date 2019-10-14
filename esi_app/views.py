@@ -19,7 +19,8 @@ def login(request):
         # generates csrf token
         csrf_token = util.generate_token()
 
-        if request.user.is_staff:
+        character_id = request.user.social_auth.get().uid
+        if util.get_corp(character_id) == 98477766:
             scopes=[
                 'esi-characters.read_loyalty.v1',
                 'esi-bookmarks.read_character_bookmarks.v1',
@@ -203,8 +204,6 @@ def esimarket(request):
 
 def esimoon(request):
     character_id = request.user.social_auth.get().uid
-    print(character_id)
-
     if util.get_corp(character_id) == 98477766:
         # initializing variables
         moon_times_dict = {}
