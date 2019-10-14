@@ -24,7 +24,7 @@
 			</td>
 			{% for key2, value2 in value.items %}
 			<td>
-				{{ value2 }}
+				{{ value2|date:"Y-m-d G:i:s" }}
 			</td>
 			{% endfor %}
 		</tr>

@@ -204,7 +204,7 @@ def esimarket(request):
 
 def esimoon(request):
     character_id = request.user.social_auth.get().uid
-    if util.get_corp(character_id) == 98477766:
+    if util.get_corp(character_id) == 98477766 or request.user.is_superuser:
         # initializing variables
         moon_times_dict = {}
 
