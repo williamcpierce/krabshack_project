@@ -4,5 +4,4 @@ settings.py
 *.pyc
 *.pyo
 /venv/
-*/migrations/
 .DS_Store
