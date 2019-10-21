@@ -155,8 +155,14 @@ class EsiMarket(models.Model):
         verbose_name='LP Type',
         default='None'
     )
-    orders_last_updated = models.DateTimeField(default=datetime_default)
-    history_last_updated = models.DateTimeField(default=datetime_default)
+    orders_last_updated = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+    history_last_updated = models.DateTimeField(
+        null=True,
+        blank=True
+    )
 
     class Meta:
         ordering = ['type_id']
@@ -167,7 +173,8 @@ class EsiMarket(models.Model):
         """
         updates and parses market orders for an item, if older than 1 day
         """
-        if self.orders_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
+        # only updates orders if more than 1 day old
+        if self.orders_last_updated == None or self.orders_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
             esi_response = util.esi_request(
                 op='orders',
                 region_id=10000002,
@@ -186,16 +193,29 @@ class EsiMarket(models.Model):
 
     def update_history(self, *args, **kwargs):
         """
-        updates and parses market history for an item, if older than 1 week
+        updates and parses market history for an item, if older than 1 day
         """
-        if self.history_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
+        # only updates history if more than 1 day old
+        if self.history_last_updated == None or self.history_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
             esi_response = util.esi_request(
                 op='history',
                 region_id=10000002,
                 type_id=self.type_id,
             )
             if esi_response.status_code == 200:
-                self.market_history = esi_response.json()
+                # if history is the default value, only sorts
+                if self.market_history == json_default():
+                    self.market_history = util.sort_list(
+                        esi_response.json()
+                    )
+                # if non default, appends and sorts
+                else:
+                    self.market_history = util.sort_list(
+                        util.append_list(
+                            esi_response.json(), 
+                            self.market_history
+                        )
+                    )
                 self.daily_volume = util.parse_market_history(self.market_history)
                 self.history_last_updated = datetime.now(timezone.utc)
                 self.update_daily_isk()

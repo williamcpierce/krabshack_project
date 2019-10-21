@@ -182,7 +182,10 @@ def esimarket(request):
     """
     pulls all saved items that are redeemable in lp stores
     """
-    items = EsiMarket.objects.exclude(lp_type='None')
+    if request.user.is_superuser:
+        items = EsiMarket.objects.all()
+    else:
+        items = EsiMarket.objects.exclude(lp_type='None')
 
     # updates values if expired
     for item in items:

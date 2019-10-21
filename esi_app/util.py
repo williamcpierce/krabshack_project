@@ -1,4 +1,5 @@
 from django.conf import settings
+from operator import itemgetter
 import random
 import hmac
 import hashlib
@@ -59,7 +60,7 @@ def parse_market_history(market_history):
     start_day = 2
     end_day = 8
     day = 1
-    for item in market_history[::-1]:
+    for item in market_history:
         if day >= start_day and day <= end_day:
             period_volume += item.get('volume')
         if day > end_day:
@@ -110,6 +111,9 @@ def esi_request(*args, **kwargs):
 
 
 def get_corp(character_id):
+    """
+    returns corpation id given character id
+    """
     esi_response = esi_request(
         op='public',
         character_id=character_id
@@ -117,3 +121,22 @@ def get_corp(character_id):
     corporation_id = esi_response.json().get('corporation_id')
     return corporation_id
 
+
+def append_list(list1, list2):
+    """
+    appends two lists, removing duplicates
+    """
+    result = []
+    list1.extend(list2)
+    for item in list1:
+        if item not in result:
+            result.append(item)
+    return result
+
+
+def sort_list(result):
+    """
+    sorts list by date descending
+    """
+    result.sort(key=itemgetter('date'), reverse=True)
+    return result
