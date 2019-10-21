@@ -129,18 +129,18 @@ class EsiMarket(models.Model):
     type_name = models.CharField(max_length=200)
     market_orders = JSONField(default=json_default)
     sell_order_min = models.DecimalField(
-        max_digits=12,
+        max_digits=15,
         decimal_places=2,
         default=0.00
     )
     buy_order_max = models.DecimalField(
-        max_digits=12,
+        max_digits=15,
         decimal_places=2,
         default=0.00
     )
     market_history = JSONField(default=json_default)
     daily_volume = models.DecimalField(
-        max_digits=12,
+        max_digits=15,
         decimal_places=2,
         default=0.00
     )
