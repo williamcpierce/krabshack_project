@@ -23,12 +23,31 @@
 	<div class="kt-container kt-container--fluid ">
 		<div class="kt-subheader__main">
 			<h3 class="kt-subheader__title">{{ subheader }}</h3>
+			{% if last_updated  %}
+			<span class="kt-subheader__separator kt-subheader__separator--v"></span>
+			<span class="kt-subheader__desc">Last Updated {{ last_updated }}</span>
+			{% endif %}
 		</div>
 		<div class="kt-subheader__toolbar">
 			<div class="kt-quick-search kt-quick-search--result-compact">			
 				<form class="kt-quick-search__form">
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text"><i class="flaticon2-search-1"></i></span></div>
+						<div class="input-group-prepend">
+							{% if disable_refresh %}
+								<a class="input-group-text">
+				                    <i class="flaticon2-refresh" style="color: #cccccc"></i>
+				                </a>
+							{% else %}
+								{% if refreshable  %}
+								<a href="/esi/market/update" class="input-group-text">
+				                    <i class="flaticon2-refresh"></i>
+				                </a>
+				                {% endif %}
+			                {% endif %}
+							<span class="input-group-text">
+								<i class="flaticon2-search-1"></i>
+							</span>
+						</div>
 						<input type="text" class="form-control kt-quick-search__input" placeholder="Search..." id="filterField">
 						<div class="input-group-append"><span class="input-group-text"><i class="la la-close kt-quick-search__close" style="display: none;"></i></span></div>
 					</div>
@@ -40,7 +59,7 @@
 <!-- end:: Content Head -->
 
 <!-- begin:: Content Body -->
-<div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid" style='margin-top: -35px; margin-bottom: -35px'>
+<div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid" style='margin-top: -37px; margin-bottom: -37px'>
 
 {% block table %}{% endblock %}
 

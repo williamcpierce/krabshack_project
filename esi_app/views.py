@@ -5,6 +5,7 @@ from site_app.models import LPRate
 from .esi import esi_app, esi_security, esi_client
 from .moon import moon
 from json import dumps
+from datetime import datetime, timezone, timedelta
 import esi_app.util as util
 import sys
 import requests
@@ -186,26 +187,44 @@ def esimarket(request):
         items = EsiMarket.objects.all()
     else:
         items = EsiMarket.objects.exclude(lp_type='None')
-
-    # updates values if expired
-    for item in items:
-        item.update_orders()
-        item.update_history()
     
     # gets datetime of the most recent update
     orders_last_updated = EsiMarket.objects.latest('orders_last_updated').orders_last_updated
+
+    if orders_last_updated < datetime.now(timezone.utc)-timedelta(hours=1):
+        disable_refresh = False
+    else: 
+        disable_refresh = True
 
     return render(
         request,
         'esi_app/esimarket.html', {
             'items': items,
-            'orders_last_updated': orders_last_updated,
-            'subheader': 'Market Data'
+            'last_updated': orders_last_updated,
+            'subheader': 'Market Data',
+            'refreshable': True,
+            'disable_refresh': disable_refresh
         }
     )
 
 
+def esimarketupdate(request):
+    """
+    """
+    if request.user.is_superuser:
+        items = EsiMarket.objects.all()
+    else:
+        items = EsiMarket.objects.exclude(lp_type='None')
+
+    # updates values if expired
+    for item in items:
+        item.update_orders()
+
+    return redirect('/esi/market')
+
+
 def esimoon(request):
+    # checks if user is in VG
     character_id = request.user.social_auth.get().uid
     if util.get_corp(character_id) == 98477766 or request.user.is_superuser:
         # initializing variables

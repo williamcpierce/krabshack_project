@@ -174,7 +174,7 @@ class EsiMarket(models.Model):
         updates and parses market orders for an item, if older than 1 day
         """
         # only updates orders if more than 1 day old
-        if self.orders_last_updated == None or self.orders_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
+        if self.orders_last_updated == None or self.orders_last_updated < datetime.now(timezone.utc)-timedelta(hours=1):
             esi_response = util.esi_request(
                 op='orders',
                 region_id=10000002,

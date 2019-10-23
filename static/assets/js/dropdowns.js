@@ -6,7 +6,7 @@ $(document).ready(function() {
         $(this).html(
         `<a class="kt-menu__link">
 			<span class="kt-menu__link-icon">
-				<div class="kt-spinner kt-spinner--v2 kt-spinner--sm kt-spinner--brand">
+				<div class="kt-spinner kt-spinner--sm kt-spinner--brand">
     			</div>
 			</span>
 			<span class="kt-menu__link-text">Loading...</span>
@@ -14,3 +14,4 @@ $(document).ready(function() {
         );
     });
 });
+
