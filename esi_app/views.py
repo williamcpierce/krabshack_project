@@ -194,7 +194,7 @@ def esimarket(request):
     if orders_last_updated < datetime.now(timezone.utc)-timedelta(hours=1):
         disable_refresh = False
     else: 
-        disable_refresh = False # TODO
+        disable_refresh = True
 
     return render(
         request,
