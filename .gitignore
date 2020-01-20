@@ -5,3 +5,4 @@ settings.py
 *.pyo
 /venv/
 .DS_Store
+*.sqlite3
