@@ -6,3 +6,4 @@ settings.py
 /venv/
 */migrations/
 .DS_Store
+*.sqlite3
