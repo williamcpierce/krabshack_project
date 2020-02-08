@@ -1,8 +1,8 @@
 
-krabshack_config.json
-settings.py
+secrets.json
 *.pyc
 *.pyo
 /venv/
 .DS_Store
 *.sqlite3
+/config

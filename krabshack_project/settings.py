@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import json
 
-with open('krabshack_config.json') as config_file:
+with open('secrets.json', encoding="utf-8") as config_file:
     config = json.load(config_file)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,11 +27,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config['DJANGO_SECRET_KEY']
 
 ALLOWED_HOSTS = [
     'localhost',
-    '45.79.155.233',
+    '165.227.220.82',
     'krabshack.space',
     'www.krabshack.space',
 ]
@@ -90,16 +90,28 @@ WSGI_APPLICATION = 'krabshack_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME','django_db_dev'),
-        'USER': os.environ.get('DB_USER',config['POSTGRES_USER_DEVELOPMENT']),
-        'PASSWORD': os.environ.get('DB_PASS',config['POSTGRES_PASSWORD_DEVELOPMENT']),
-        'HOST': 'localhost',
-        'PORT': '5432'
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('DB_NAME','django_db_dev'),
+            'USER': os.environ.get('DB_USER',config['POSTGRES_USER_DEVELOPMENT']),
+            'PASSWORD': os.environ.get('DB_PASS',config['POSTGRES_PASSWORD_DEVELOPMENT']),
+            'HOST': 'localhost',
+            'PORT': '5432'
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'django_db',
+            'USER': config['POSTGRES_USER_PRODUCTION'],
+            'PASSWORD': config['POSTGRES_PASSWORD_PRODUCTION'],
+            'HOST': 'localhost',
+            'PORT': ''
+        }
+    }
 
 
 # Password validation
@@ -138,11 +150,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    '/static/',
-]
 STATIC_URL = '/static/'
+
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+        '/static/',
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Authentication backends
@@ -155,8 +171,12 @@ AUTHENTICATION_BACKENDS = [
 
 # Authentication settings
 
-SOCIAL_AUTH_EVEONLINE_KEY = config['SSO_CLIENT_DEVELOPMENT']
-SOCIAL_AUTH_EVEONLINE_SECRET = config['SSO_SECRET_DEVELOPMENT']
+if DEBUG:
+    SOCIAL_AUTH_EVEONLINE_KEY = config['SSO_CLIENT_DEVELOPMENT']
+    SOCIAL_AUTH_EVEONLINE_SECRET = config['SSO_SECRET_DEVELOPMENT']
+else:
+    SOCIAL_AUTH_EVEONLINE_KEY = config['SSO_CLIENT_PRODUCTION']
+    SOCIAL_AUTH_EVEONLINE_SECRET = config['SSO_SECRET_PRODUCTION']
 SOCIAL_AUTH_CLEAN_USERNAMES = False
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 SESSION_COOKIE_SAMESITE = None
@@ -177,8 +197,12 @@ USE_THOUSAND_SEPARATOR = True
 ESI_TOKEN_KEY = config['ESI_TOKEN']  # random gibberish
 ESI_DATASOURCE = 'tranquility'  # Change it to 'singularity' to use the test server
 ESI_SWAGGER_JSON = 'https://esi.tech.ccp.is/latest/swagger.json?datasource=%s' % ESI_DATASOURCE
-ESI_SECRET_KEY = config['ESI_SECRET_DEVELOPMENT']  # your secret key
-ESI_CLIENT_ID = config['ESI_CLIENT_DEVELOPMENT']  # your client ID
-ESI_CALLBACK = 'http://localhost:8000/esi/callback'  # the callback URI you gave CCP
 ESI_USER_AGENT = 'William Pierce EsiPy'  # for CCP to have contact info
-
+if DEBUG:
+    ESI_SECRET_KEY = config['ESI_SECRET_DEVELOPMENT']  # your secret key
+    ESI_CLIENT_ID = config['ESI_CLIENT_DEVELOPMENT']  # your client ID
+    ESI_CALLBACK = 'http://localhost:8000/esi/callback'  # the callback URI you gave CCP
+else:
+    ESI_SECRET_KEY = config['ESI_SECRET_PRODUCTION']  # your secret key
+    ESI_CLIENT_ID = config['ESI_CLIENT_PRODUCTION']  # your client ID
+    ESI_CALLBACK = 'https://krabshack.space/esi/callback'  # the callback URI you gave CCP
