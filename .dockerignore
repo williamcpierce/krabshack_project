@@ -1,0 +1,13 @@
+*.pyc
+*.pyo
+*.dev
+.cache
+.DS_Store
+.git/
+__pycache__
+.*
+!.env
+/media/
+/src/static/
+/certbot/
+/backup/

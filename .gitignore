@@ -1,8 +1,10 @@
-
-secrets.json
-*.pyc
-*.pyo
-/venv/
+/media/
+/src/static/
+/static/admin/
+/certbot/
+/backup/
 .DS_Store
-*.sqlite3
-/config
+*.env
+*.pyc
+*.dev
+*.cache*
