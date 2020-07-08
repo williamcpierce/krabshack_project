@@ -19,24 +19,13 @@ services:
             - ./static:/static
             - ./media:/media
         command: sh -c "python manage.py collectstatic --no-input &&
-            python manage.py makemigrations && 
-            python manage.py migrate && 
+            python manage.py makemigrations &&
+            python manage.py migrate &&
             gunicorn personal_project.wsgi -b 0.0.0.0:80"
         expose:
             - 80
         depends_on:
             - postgres
-        restart: on-failure
-
-    mail:
-        build: ./
-        env_file:
-            - ./.env
-        volumes:
-            - ./src:/src
-        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do python manage.py send_queued_mail; sleep 1m & wait $${!}; done;'"
-        depends_on:
-            - web
         restart: on-failure
 
     nginx:

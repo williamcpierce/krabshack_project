@@ -1,4 +1,4 @@
-resource "digitalocean_droplet" "personal-site" {
+resource "digitalocean_droplet" "krabshack-site" {
   image = "ubuntu-18-04-x64"
   name = var.server_name
   region = "nyc3"
