@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(45.55.45.47)
+domains=(krabshack.space www.krabshack.space)
 rsa_key_size=4096
 data_path="./config/certbot"
 email="wpierce118@gmail.com" # Adding a valid address is strongly recommended
