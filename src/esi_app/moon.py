@@ -38,7 +38,7 @@ def CalcDuration(bm_1, bm_2):
     time_string_1 = str(created(bm_1)).split('+')[0]
     time_string_2 = str(created(bm_2)).split('+')[0]
     duration = (
-        datetime.strptime(time_string_1,'%Y-%m-%dT%H:%M:%S') - 
+        datetime.strptime(time_string_1,'%Y-%m-%dT%H:%M:%S') -
         datetime.strptime(time_string_2,'%Y-%m-%dT%H:%M:%S')
     )
     return abs(duration.total_seconds())

@@ -76,7 +76,7 @@ def callback(request):
 
     # passes character to method to make esi call
     esi_character.update_lp()
-    
+
     return redirect('/')
 
 
@@ -110,7 +110,7 @@ def esilp(request):
             # gives security object the character's tokens
             esi_data = character.get_tokens()
             esi_security.update_token(esi_data)
-            
+
             try:
                 # refreshes and stores tokens/updates data if expired
                 if esi_data['expires_in'] < 0:
@@ -163,7 +163,7 @@ def esilp(request):
         lp_summary_dict['sanshas_lp_rate'] = sanshas_lp_rate
         lp_summary_dict['ded_lp_rate'] = ded_lp_rate
 
-        # calculates and stores lp values 
+        # calculates and stores lp values
         lp_summary_dict['guristas_lp_value'] = guristas_lp_rate * guristas_lp_sum
         lp_summary_dict['sanshas_lp_value'] = sanshas_lp_rate * sanshas_lp_sum
         lp_summary_dict['ded_lp_value'] = ded_lp_rate * ded_lp_sum
@@ -187,13 +187,13 @@ def esimarket(request):
         items = EsiMarket.objects.all()
     else:
         items = EsiMarket.objects.exclude(lp_type='None')
-    
+
     # gets datetime of the most recent update
     orders_last_updated = EsiMarket.objects.latest('orders_last_updated').orders_last_updated
 
     if orders_last_updated < datetime.now(timezone.utc)-timedelta(hours=1):
         disable_refresh = False
-    else: 
+    else:
         disable_refresh = True
 
     return render(
@@ -242,7 +242,7 @@ def esimoon(request):
             # gives security object the character's tokens
             esi_data = character.get_tokens()
             esi_security.update_token(esi_data)
-            
+
             # refreshes and stores tokens/updates data if expired
             if esi_data['expires_in'] < 0:
                 esi_tokens = esi_security.refresh()

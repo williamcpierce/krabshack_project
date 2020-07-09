@@ -74,11 +74,11 @@ class EsiCharacter(models.Model):
         access_token_expiry = datetime.fromtimestamp(time.time() + token_response['expires_in'])
         access_token_expiry_tz = access_token_expiry.replace(tzinfo=timezone.utc)
         self.access_token_expires = access_token_expiry_tz
-        
+
         # saves refresh token
         if 'refresh_token' in token_response:
             self.refresh_token = token_response['refresh_token']
-        
+
         # saves character
         self.save()
 
@@ -119,7 +119,7 @@ class EsiCharacter(models.Model):
         response_data = esi_client.request(esi_response).data
 
         return response_data
-        
+
 
 class EsiMarket(models.Model):
     type_id = models.IntegerField(
@@ -212,7 +212,7 @@ class EsiMarket(models.Model):
                 else:
                     self.market_history = util.sort_list(
                         util.append_list(
-                            esi_response.json(), 
+                            esi_response.json(),
                             self.market_history
                         )
                     )

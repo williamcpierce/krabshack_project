@@ -7,7 +7,7 @@ def couriers(request):
     instructions = SiteContent.objects.get(field_id='Courier Instructions')
     routes = CourierRoute.objects.all()
     last_updated = CourierRoute.objects.latest('last_updated').last_updated
-    
+
     return render(
         request,
         'site_app/couriers.html', {

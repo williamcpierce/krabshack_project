@@ -47,7 +47,7 @@ def parse_market_orders(market_orders):
                 if item.get('price') > buy_order_max:
                     buy_order_max = item.get('price')
     return {
-        "sell_order_min": sell_order_min, 
+        "sell_order_min": sell_order_min,
         "buy_order_max": buy_order_max
     }
 
