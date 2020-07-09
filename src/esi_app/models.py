@@ -24,6 +24,7 @@ def store_choices():
     return [
         ('Guristas', 'Guristas'),
         ('Sanshas', 'Sanshas'),
+        ('Blood Raiders', 'Blood Raiders'),
         ('DED', 'DED'),
         ('None', 'None')
     ]
