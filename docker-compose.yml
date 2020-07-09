@@ -21,7 +21,7 @@ services:
         command: sh -c "python manage.py collectstatic --no-input &&
             python manage.py makemigrations &&
             python manage.py migrate &&
-            gunicorn personal_project.wsgi -b 0.0.0.0:80"
+            gunicorn krabshack_project.wsgi -b 0.0.0.0:80"
         expose:
             - 80
         depends_on:
