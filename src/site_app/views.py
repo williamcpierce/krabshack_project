@@ -3,7 +3,7 @@ from django.conf import settings
 from .models import LPRate, SiteContent, CourierRoute
 
 def couriers(request):
-    # get instructions and routes
+    # Get instructions and routes
     instructions = SiteContent.objects.get(field_id='Courier Instructions')
     routes = CourierRoute.objects.all()
     last_updated = CourierRoute.objects.latest('last_updated').last_updated
@@ -19,7 +19,7 @@ def couriers(request):
 
 
 def buyback(request):
-    # get instructions and lp rates
+    # Get instructions and lp rates
     instructions = SiteContent.objects.get(field_id='Buyback Instructions')
     guristas_lp_rate = LPRate.objects.get(lp_type='Guristas').lp_rate
     sanshas_lp_rate = LPRate.objects.get(lp_type='Sanshas').lp_rate
@@ -37,7 +37,7 @@ def buyback(request):
 
 
 def home(request):
-    # get info
+    # Get info
     info = SiteContent.objects.get(field_id='Home Info')
 
     return render(

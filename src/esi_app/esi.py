@@ -4,11 +4,11 @@ from esipy import EsiClient
 from esipy import EsiSecurity
 
 
-# create the app
+# Create the app
 esi_app = EsiApp().get_latest_swagger
 
 
-# init the security object
+# Init the security object
 esi_security = EsiSecurity(
     redirect_uri=settings.ESI_CALLBACK,
     client_id=settings.ESI_CLIENT_ID,
@@ -17,7 +17,7 @@ esi_security = EsiSecurity(
 )
 
 
-# init the client
+# Init the client
 esi_client = EsiClient(
     retry_requests=True,
     headers={'User-Agent': settings.ESI_USER_AGENT},

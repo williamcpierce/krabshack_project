@@ -12,12 +12,11 @@ import requests
 
 
 def login(request):
-    """
-    view for new character auth, redirects to auth url if user is logged in
-    """
+    """View for new character auth, redirects to auth url if user is logged in."""
+
     if request.user.is_authenticated:
 
-        # generates csrf token
+        # Generates csrf token
         csrf_token = util.generate_token()
 
         character_id = request.user.social_auth.get().uid
@@ -31,7 +30,7 @@ def login(request):
         else:
             scopes=['esi-characters.read_loyalty.v1']
 
-        # writes csrf token to session
+        # Writes csrf token to session
         request.session['csrf_token'] = csrf_token
         return redirect(
             esi_security.get_auth_uri(
@@ -45,46 +44,44 @@ def login(request):
 
 
 def callback(request):
-    """
-    catches redirects from auth, exchanges code for auth/refresh tokens, creates model object
-    """
-    # verifies csrf token
+    """Catches redirects from auth, exchanges code for auth/refresh tokens, creates model object."""
+
+    # Verifies csrf token
     state_token = request.GET.get('state')
     session_token = request.session.pop('csrf_token', None)
     if session_token is None or state_token is None or state_token != session_token:
         print("Ah ah ah, you didn't say the magic word!", file=sys.stderr)
         return redirect('/')
 
-    # gets code from login process
+    # Gets code from login process
     auth_code = request.GET.get('code')
 
-    # retreives tokens
+    # Retreives tokens
     auth_response = esi_security.auth(auth_code)
 
-    # retreives character information
+    # Retreives character information
     character_data = esi_security.verify()
 
-    # instantializes active character
+    # Instantializes active character
     esi_character = EsiCharacter()
     esi_character.character_id = character_data['sub'].split(':')[2]
     esi_character.character_owner_hash = character_data['owner']
     esi_character.character_name = character_data['name']
     esi_character.assoc_user = request.user
 
-    # passes character to method to update tokens and write to db
+    # Passes character to method to update tokens and write to db
     esi_character.update_tokens(auth_response)
 
-    # passes character to method to make esi call
+    # Passes character to method to make esi call
     esi_character.update_lp()
 
     return redirect('/')
 
 
 def esilp(request):
-    """
-    for each character associated with the logged in user, pulls name and lp values
-    """
-    # initializing variables
+    """For each character associated with the logged in user, pulls name and lp values."""
+
+    # Initializing variables
     lp_dict = {}
     lp_summary_dict = {}
     guristas_lp_sum = 0
@@ -92,27 +89,27 @@ def esilp(request):
     ded_lp_sum = 0
     esi_error = {'status': False}
 
-    # gets lp values
+    # Gets lp values
     guristas_lp_rate = LPRate.objects.get(lp_type='Guristas').lp_rate
     sanshas_lp_rate = LPRate.objects.get(lp_type='Sanshas').lp_rate
     ded_lp_rate = LPRate.objects.get(lp_type='DED').lp_rate
 
-    # checks if user is logged in and/or is a superuser
+    # Checks if user is logged in and/or is a superuser
     if request.user.is_authenticated:
         if request.user.is_superuser:
             esi_characters = EsiCharacter.objects.all()
         else:
             esi_characters = EsiCharacter.objects.filter(assoc_user=request.user)
 
-        # loops over characters
+        # Loops over characters
         for character in esi_characters:
 
-            # gives security object the character's tokens
+            # Gives security object the character's tokens
             esi_data = character.get_tokens()
             esi_security.update_token(esi_data)
 
             try:
-                # refreshes and stores tokens/updates data if expired
+                # Refreshes and stores tokens/updates data if expired
                 if esi_data['expires_in'] < 0:
                     esi_tokens = esi_security.refresh()
                     character.update_tokens(esi_tokens)
@@ -132,13 +129,13 @@ def esilp(request):
                 }
 
             else:
-                # parses esi data
+                # Parses esi data
                 all_lp = character.character_lp
                 guristas_lp = util.parse_lp(all_lp, 1000127)
                 sanshas_lp = util.parse_lp(all_lp, 1000161) + util.parse_lp(all_lp, 1000162)
                 ded_lp = util.parse_lp(all_lp, 1000137)
 
-            # builds dictionary of lp values for each character
+            # Builds dictionary of lp values for each character
             owner = character.assoc_user.username
             lp_dict[character.character_name] = [
                 guristas_lp,
@@ -147,7 +144,7 @@ def esilp(request):
                 owner
             ]
 
-            # calculates lp sums, skipped if value is not an integer
+            # Calculates lp sums, skipped if value is not an integer
             if isinstance(guristas_lp, int):
                 guristas_lp_sum += guristas_lp
             if isinstance(sanshas_lp, int):
@@ -155,7 +152,7 @@ def esilp(request):
             if isinstance(ded_lp, int):
                 ded_lp_sum += ded_lp
 
-        # stores lp sums and rates
+        # Stores lp sums and rates
         lp_summary_dict['guristas_lp_sum'] = guristas_lp_sum
         lp_summary_dict['sanshas_lp_sum'] = sanshas_lp_sum
         lp_summary_dict['ded_lp_sum'] = ded_lp_sum
@@ -163,7 +160,7 @@ def esilp(request):
         lp_summary_dict['sanshas_lp_rate'] = sanshas_lp_rate
         lp_summary_dict['ded_lp_rate'] = ded_lp_rate
 
-        # calculates and stores lp values
+        # Calculates and stores lp values
         lp_summary_dict['guristas_lp_value'] = guristas_lp_rate * guristas_lp_sum
         lp_summary_dict['sanshas_lp_value'] = sanshas_lp_rate * sanshas_lp_sum
         lp_summary_dict['ded_lp_value'] = ded_lp_rate * ded_lp_sum
@@ -180,15 +177,14 @@ def esilp(request):
 
 
 def esimarket(request):
-    """
-    pulls all saved items that are redeemable in lp stores
-    """
+    """Pulls all saved items that are redeemable in lp stores."""
+
     if request.user.is_superuser:
         items = EsiMarket.objects.all()
     else:
         items = EsiMarket.objects.exclude(lp_type='None')
 
-    # gets datetime of the most recent update
+    # Gets datetime of the most recent update
     orders_last_updated = EsiMarket.objects.latest('orders_last_updated').orders_last_updated
 
     if orders_last_updated < datetime.now(timezone.utc)-timedelta(hours=1):
@@ -209,14 +205,12 @@ def esimarket(request):
 
 
 def esimarketupdate(request):
-    """
-    """
     if request.user.is_superuser:
         items = EsiMarket.objects.all()
     else:
         items = EsiMarket.objects.exclude(lp_type='None')
 
-    # updates values if expired
+    # Updates values if expired
     for item in items:
         item.update_orders()
 
@@ -224,31 +218,31 @@ def esimarketupdate(request):
 
 
 def esimoon(request):
-    # checks if user is in VG
+    # Checks if user is in VG
     character_id = request.user.social_auth.get().uid
     if util.get_corp(character_id) == 98477766 or request.user.is_superuser:
-        # initializing variables
+        # Initializing variables
         moon_times_dict = {}
 
-        # checks if user is a superuser
+        # Checks if user is a superuser
         if request.user.is_superuser:
             esi_characters = EsiCharacter.objects.all()
         else:
             esi_characters = EsiCharacter.objects.filter(assoc_user=request.user)
 
-        # loops over characters
+        # Loops over characters
         for character in esi_characters:
 
-            # gives security object the character's tokens
+            # Gives security object the character's tokens
             esi_data = character.get_tokens()
             esi_security.update_token(esi_data)
 
-            # refreshes and stores tokens/updates data if expired
+            # Refreshes and stores tokens/updates data if expired
             if esi_data['expires_in'] < 0:
                 esi_tokens = esi_security.refresh()
                 character.update_tokens(esi_tokens)
 
-            # calculates and stores moon pop times
+            # Calculates and stores moon pop times
             try:
                 moon_times_dict = moon(character, moon_times_dict)
             except:

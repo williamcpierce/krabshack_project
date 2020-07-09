@@ -54,9 +54,8 @@ class EsiCharacter(models.Model):
         verbose_name = 'Character'
 
     def get_tokens(self):
-        """
-        helper function to format input to esi_security.update_token
-        """
+        """Helper function to format input to esi_security.update_token."""
+
         return {
             'access_token': self.access_token,
             'refresh_token': self.refresh_token,
@@ -66,34 +65,35 @@ class EsiCharacter(models.Model):
         }
 
     def update_tokens(self, token_response):
-        """
-        called when initializing/updating stored token values, distinct from esi_security.update_token
-        """
-        # saves access token and access token expiry with tz
+        """Called when initializing/updating stored token values, distinct from esi_security.update_token."""
+
+        # Saves access token and access token expiry with tz
         self.access_token = token_response['access_token']
         access_token_expiry = datetime.fromtimestamp(time.time() + token_response['expires_in'])
         access_token_expiry_tz = access_token_expiry.replace(tzinfo=timezone.utc)
         self.access_token_expires = access_token_expiry_tz
 
-        # saves refresh token
+        # Saves refresh token
         if 'refresh_token' in token_response:
             self.refresh_token = token_response['refresh_token']
 
-        # saves character
+        # Saves character
         self.save()
 
     def update_lp(self):
-        # esi call for lp values
+        """Esi call for lp values."""
+
         esi_response = esi_app.op['get_characters_character_id_loyalty_points'](
             character_id=self.character_id
         )
         self.character_lp = esi_client.request(esi_response).data
 
-        # saves character
+        # Saves character
         self.save()
 
     def bookmarks(self):
-        # esi call for bookmark values
+        """Esi call for bookmark values."""
+
         esi_response = esi_app.op['get_characters_character_id_bookmarks'](
             character_id=self.character_id
         )
@@ -170,10 +170,9 @@ class EsiMarket(models.Model):
         verbose_name_plural = 'Market Data'
 
     def update_orders(self, *args, **kwargs):
-        """
-        updates and parses market orders for an item, if older than 1 day
-        """
-        # only updates orders if more than 1 day old
+        """Updates and parses market orders for an item, if older than 1 day."""
+
+        # Only updates orders if more than 1 day old
         if self.orders_last_updated == None or self.orders_last_updated < datetime.now(timezone.utc)-timedelta(hours=1):
             esi_response = util.esi_request(
                 op='orders',
@@ -181,6 +180,8 @@ class EsiMarket(models.Model):
                 type_id=self.type_id,
                 order_type='all'
             )
+
+            # Only updates if response is good
             if esi_response.status_code == 200:
                 self.market_orders = esi_response.json()
                 parsed_data = util.parse_market_orders(self.market_orders)
@@ -192,23 +193,26 @@ class EsiMarket(models.Model):
         super(EsiMarket, self).save(*args, **kwargs)
 
     def update_history(self, *args, **kwargs):
-        """
-        updates and parses market history for an item, if older than 1 day
-        """
-        # only updates history if more than 1 day old
+        """Updates and parses market history for an item, if older than 1 day."""
+
+        # Only updates history if more than 1 day old
         if self.history_last_updated == None or self.history_last_updated < datetime.now(timezone.utc)-timedelta(days=1):
             esi_response = util.esi_request(
                 op='history',
                 region_id=10000002,
                 type_id=self.type_id,
             )
+
+            # Only updates if response is good
             if esi_response.status_code == 200:
-                # if history is the default value, only sorts
+
+                # If history is the default value, only sorts
                 if self.market_history == json_default():
                     self.market_history = util.sort_list(
                         esi_response.json()
                     )
-                # if non default, appends and sorts
+
+                # If non default, appends and sorts
                 else:
                     self.market_history = util.sort_list(
                         util.append_list(
@@ -223,9 +227,8 @@ class EsiMarket(models.Model):
         super(EsiMarket, self).save(*args, **kwargs)
 
     def update_daily_isk(self, *args, **kwargs):
-        """
-        calculates the daily isk volume of an item
-        """
+        """Calculates the daily isk volume of an item."""
+
         self.daily_isk = Decimal(self.daily_volume) * Decimal(self.sell_order_min)
 
         super(EsiMarket, self).save(*args, **kwargs)

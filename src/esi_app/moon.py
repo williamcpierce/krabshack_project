@@ -3,95 +3,106 @@ from datetime import timedelta, datetime
 
 
 def CalcDistance(bm_1, bm_2):
-    # works for two bookmarks
+    # Works for two bookmarks
     try:
-        # rounds to 3 decimal places
+        # Rounds to 3 decimal places
         rounded = lambda num : round(num, 3)
-        # gets single coordinate
+        # Gets single coordinate
         xyz_coordinate = lambda coordinates, xyz : coordinates[xyz]
-        # gets all coordinates, passes to xyz_coordinate to get single coordinate
+        # Gets all coordinates, passes to xyz_coordinate to get single coordinate
         coordinate = lambda bm, xyz : xyz_coordinate(bm['coordinates'], xyz)
-        # partial calc from distance formula
+        # Partial calc from distance formula
         calc = lambda bm_1, bm_2, xyz : (coordinate(bm_1, xyz) - coordinate(bm_2, xyz)) ** 2
-        # distance formula
+        # Distance formula
         distance = (calc(bm_1, bm_2, 'x') + calc(bm_1, bm_2, 'y') + calc(bm_1, bm_2, 'z')) ** 0.5
-    # works for one bookmark and a structure
+
+    # Works for one bookmark and a structure
     except:
-        # rounds to 3 decimal places
+        # Rounds to 3 decimal places
         rounded = lambda num : round(num, 3)
-        # gets single coordinate
+        # Gets single coordinate
         xyz_coordinate = lambda coordinates, xyz : coordinates[xyz]
-        # gets all coordinates/position, passes to xyz_coordinate to get single coordinate
+        # Gets all coordinates/position, passes to xyz_coordinate to get single coordinate
         coordinate = lambda bm, xyz : xyz_coordinate(bm['coordinates'], xyz)
         position = lambda bm, xyz : xyz_coordinate(bm['position'], xyz)
-        # partial calc from distance formula
+        # Partial calc from distance formula
         calc = lambda bm_1, bm_2, xyz : (coordinate(bm_1, xyz) - position(bm_2, xyz)) ** 2
-        # distance formula
+        # Distance formula
         distance = (calc(bm_1, bm_2, 'x') + calc(bm_1, bm_2, 'y') + calc(bm_1, bm_2, 'z')) ** 0.5
+
     return rounded(distance)
 
 
 def CalcDuration(bm_1, bm_2):
-    # converts unicode time to datetime object
+    # Converts unicode time to datetime object
     created = lambda bm : bm['created']
-    # calculates difference between times, in seconds
+
+    # Calculates difference between times, in seconds
     time_string_1 = str(created(bm_1)).split('+')[0]
     time_string_2 = str(created(bm_2)).split('+')[0]
     duration = (
         datetime.strptime(time_string_1,'%Y-%m-%dT%H:%M:%S') -
         datetime.strptime(time_string_2,'%Y-%m-%dT%H:%M:%S')
     )
+
     return abs(duration.total_seconds())
 
 
 def CalcSpeed(distance, duration):
-    # rounds to 3 decimal places
+    # Rounds to 3 decimal places
     rounded = lambda num : round(num, 3)
-    # speed in m/s
+
+    # Speed in m/s
     try:
         speed = rounded(distance) / rounded(duration)
     except:
         speed = 0
-    # binning speeds
-    """if speed < 0.4 and speed > 0.1:
-        binned_speed = 0.25
-    if speed < 0.6 and speed > 0.4:
-        binned_speed = 0.525
-    if speed < 0.9 and speed > 0.6:
-        binned_speed = 0.75
-    if speed < 1.2 and speed > 0.9:
-        binned_speed = 1"""
+
+    # Binning speeds
+    # if speed < 0.4 and speed > 0.1:
+    #     binned_speed = 0.25
+    # if speed < 0.6 and speed > 0.4:
+    #     binned_speed = 0.525
+    # if speed < 0.9 and speed > 0.6:
+    #     binned_speed = 0.75
+    # if speed < 1.2 and speed > 0.9:
+    #     binned_speed = 1
+
     return rounded(speed)
 
 
 def CalcEta(distance, speed, bm_2):
-    # converts unicode time to datetime object
+    # Converts unicode time to datetime object
     created = lambda bm : bm['created']
-    # rounds to 3 decimal places
+
+    # Rounds to 3 decimal places
     rounded = lambda num : round(num, 3)
-    # speed in m/s
+
+    # Speed in m/s
     try:
         duration = rounded(distance) / rounded(speed)
     except:
         duration = 0
     time_string = str(created(bm_2)).split('+')[0]
     eta = datetime.strptime(time_string,'%Y-%m-%dT%H:%M:%S') + timedelta(seconds=duration)
+
     return eta
 
 
 def moon(character, moon_times):
     bookmark_data = character.bookmarks()
+
     for bookmark in bookmark_data:
         chunk_1 = bookmark
 
-        # loop through list backwards to find matching bookmark
+        # Loop through list backwards to find matching bookmark
         for bookmark in bookmark_data[::-1]:
 
-            # if we make it back to bookmark 1
+            # If we make it back to bookmark 1
             if bookmark == chunk_1:
                 break
 
-            # if a matching bookmark is found
+            # If a matching bookmark is found
             if bookmark['label'] == chunk_1['label'] and bookmark['location_id'] == chunk_1['location_id']:
                 chunk_2 = bookmark
                 structure_name = str(chunk_1['label']).split('\t')[0].split('(')[0]

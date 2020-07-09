@@ -19,9 +19,8 @@ def store_choices():
 
 
 class Cashout(models.Model):
-    """
-    holds values from each client lp cashout
-    """
+    """Holds values from each client lp cashout."""
+
     cashout_id = models.IntegerField(
         primary_key=True,
         verbose_name='Cashout ID'
@@ -43,7 +42,7 @@ class Cashout(models.Model):
         verbose_name = 'LP Cashout'
 
     def save(self, *args, **kwargs):
-        # calculates the profit field on save
+        # Calculates the profit field on save
         self.profit = (self.lp * self.rate)
 
         super(Cashout, self).save(*args, **kwargs)
