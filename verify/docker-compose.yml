@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
     nginx:
-        image: nginx:latest
+        image: nginx:1.19.0-alpine
         volumes:
             - ./config/nginx:/etc/nginx/conf.d
             - ./config/certbot/conf:/etc/letsencrypt
