@@ -13,7 +13,6 @@ from .moon import moon
 from site_app.models import LPRate
 
 
-
 def login(request):
     """View for new character auth, redirects to auth url if user is logged in."""
 
