@@ -5,56 +5,56 @@
 <!-- begin:: Sum Columns -->
 {% if request.user.is_superuser %}
 <script type="text/javascript">
-    columns = [2, 3, 4];
-    widget.init(columns);
+  columns = [2, 3, 4];
+  widget.init(columns);
 </script>
 {% else %}
 <script type="text/javascript">
-    columns = [1, 2, 3];
-    widget.init(columns);
+  columns = [1, 2, 3];
+  widget.init(columns);
 </script>
 {% endif %}
 <!-- end:: Sum Columns -->
 
 <!-- begin:: LP Table -->
 <table class="table table-striped table-hover" id="kt_table_1">
-	<thead>
-		<tr>
-			{% if request.user.is_superuser %}
-			<th>Owner</th>
-			{% endif %}
-			<th>Character</th>
-			<th>Guristas LP</th>
-			<th>Sanshas LP</th>
-			<th>DED LP</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for key,value in lp_dict.items %}
-		<tr>
-			{% if request.user.is_superuser %}
-			<td>{{ value.3 }}</td>
-			{% endif %}
-			<td>{{ key }}</td>
-			<td align='right'>{{ value.0 }}</td>
-			<td align='right'>{{ value.1 }}</td>
-			<td align='right'>{{ value.2 }}</td>
-		</tr>
-		{% endfor %}
-	</tbody>
-	<tfoot>
-		<tr>
-			{% if request.user.is_superuser %}
-			<th>Totals:</th>
-			<th></th>
-			{% else %}
-			<th>Totals:</th>
-			{% endif %}
-			<th></th>
-			<th></th>
-			<th></th>
-		</tr>
-	</tfoot>
+  <thead>
+    <tr>
+      {% if request.user.is_superuser %}
+      <th>Owner</th>
+      {% endif %}
+      <th>Character</th>
+      <th>Guristas LP</th>
+      <th>Sanshas LP</th>
+      <th>DED LP</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key,value in lp_dict.items %}
+    <tr>
+      {% if request.user.is_superuser %}
+      <td>{{ value.3 }}</td>
+      {% endif %}
+      <td>{{ key }}</td>
+      <td align='right'>{{ value.0 }}</td>
+      <td align='right'>{{ value.1 }}</td>
+      <td align='right'>{{ value.2 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      {% if request.user.is_superuser %}
+      <th>Totals:</th>
+      <th></th>
+      {% else %}
+      <th>Totals:</th>
+      {% endif %}
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </tfoot>
 </table>
 <!-- end:: LP Table -->
 

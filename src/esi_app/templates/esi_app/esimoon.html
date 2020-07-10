@@ -10,32 +10,32 @@
 <!-- end:: Sum Columns -->
 
 <table class="table table-striped table-hover" id="kt_table_1">
-	<thead>
-		<tr>
-			<th>Structure</th>
-			<th>Chunk ETA</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for key, value in moon_times_dict.items %}
-		</tr>
-			<td>
-				{{key}}
-			</td>
-			{% for key2, value2 in value.items %}
-			<td>
-				{{ value2|date:"Y-m-d G:i:s" }}
-			</td>
-			{% endfor %}
-		</tr>
-		{% endfor %}
-	</tbody>
-	<tfoot>
-		<tr>
-			<th></th>
-			<th></th>
-		</tr>
-	</tfoot>
+  <thead>
+    <tr>
+      <th>Structure</th>
+      <th>Chunk ETA</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key, value in moon_times_dict.items %}
+    </tr>
+      <td>
+        {{key}}
+      </td>
+      {% for key2, value2 in value.items %}
+      <td>
+        {{ value2|date:"Y-m-d G:i:s" }}
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+  </tfoot>
 </table>
 
 {% endblock %}

@@ -4,61 +4,61 @@
 
 <!-- begin:: Content Head -->
 <div class="kt-subheader kt-grid__item" id="kt_subheader">
-	<div class="kt-container kt-container--fluid ">
-		<div class="kt-subheader__main">
-			<h3 class="kt-subheader__title">Buyback Services</h3>
-		</div>
-	</div>
+  <div class="kt-container kt-container--fluid ">
+    <div class="kt-subheader__main">
+      <h3 class="kt-subheader__title">Buyback Services</h3>
+    </div>
+  </div>
 </div>
 <!-- end:: Content Head -->
 
 <!-- begin:: Content Body -->
 <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
 
-	<!-- begin:: First Row -->
-	<div class="row">
+  <!-- begin:: First Row -->
+  <div class="row">
 
-		<!-- begin:: Rates -->
-		<div class="col-xl-4">
-			<div class="kt-portlet kt-portlet--mobile">
-				<div class="kt-portlet__head kt-portlet__head--sm">
-					<div class="kt-portlet__head-label">
-						<h3 class="kt-portlet__head-title">
-							Rates
-						</h3>
-					</div>
-				</div>
-				<div class="kt-portlet__body">
-					<strong>Guristas:</strong> {{ guristas_lp_rate }} ISK/LP<br>
-					<strong>Sanshas:</strong> {{ sanshas_lp_rate }} ISK/LP<br>
-					<strong>DED:</strong> {{ ded_lp_rate }} ISK/LP<br>
-				</div>
-			</div>
-		</div>
-		<!-- end:: Rates -->
+    <!-- begin:: Rates -->
+    <div class="col-xl-4">
+      <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--sm">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Rates
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          <strong>Guristas:</strong> {{ guristas_lp_rate }} ISK/LP<br>
+          <strong>Sanshas:</strong> {{ sanshas_lp_rate }} ISK/LP<br>
+          <strong>DED:</strong> {{ ded_lp_rate }} ISK/LP<br>
+        </div>
+      </div>
+    </div>
+    <!-- end:: Rates -->
 
-		<!-- begin:: Instructions -->
-		<div class="col-xl-8">
-			<div class="kt-portlet kt-portlet--mobile">
-				<div class="kt-portlet__head kt-portlet__head--sm">
-					<div class="kt-portlet__head-label">
-						<h3 class="kt-portlet__head-title">
-							Instructions
-						</h3>
-					</div>
-				</div>
-				<div class="kt-portlet__body">
-					{{ instructions.field_text|safe }}
-				</div>
-				<div class="kt-portlet__foot kt-portlet__foot--sm">Updated {{ instructions.last_updated }}</div>
-			</div>
-		</div>
-		<!-- end:: Instructions -->
+    <!-- begin:: Instructions -->
+    <div class="col-xl-8">
+      <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--sm">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Instructions
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          {{ instructions.field_text|safe }}
+        </div>
+        <div class="kt-portlet__foot kt-portlet__foot--sm">Updated {{ instructions.last_updated }}</div>
+      </div>
+    </div>
+    <!-- end:: Instructions -->
 
-	</div>
-	<!-- end:: First Row -->
+  </div>
+  <!-- end:: First Row -->
 
 </div>
-<!-- end:: Content Body -->	
+<!-- end:: Content Body -->
 
 {% endblock %}

@@ -14,160 +14,160 @@
 
 <!-- begin:: Content Head -->
 <div class="kt-subheader kt-grid__item" id="kt_subheader">
-	<div class="kt-container kt-container--fluid ">
-		<div class="kt-subheader__main">
-			<h3 class="kt-subheader__title">Courier Services</h3>
-		</div>
-	</div>
+  <div class="kt-container kt-container--fluid ">
+    <div class="kt-subheader__main">
+      <h3 class="kt-subheader__title">Courier Services</h3>
+    </div>
+  </div>
 </div>
 <!-- end:: Content Head -->
 
 <!-- begin:: Content Body -->
 <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
 
-	<!-- begin:: First Row -->
-	<div class="row">
+  <!-- begin:: First Row -->
+  <div class="row">
 
-		<!-- begin:: Calculator -->
-		<div class="col-xl-6">
-			<div class="kt-portlet kt-portlet--mobile">
-				<div class="kt-portlet__head kt-portlet__head--sm">
-					<div class="kt-portlet__head-label">
-						<h3 class="kt-portlet__head-title">
-							Calculator
-						</h3>
-					</div>
-				</div>
-				<div class="kt-portlet__body">
-					<form>
-						<div class="form-group row">
-							<label for="origin" class="col col-form-label">Origin</label>
-							<div class="col-8">
-								<select class="form-control" id="origin" name="origin">
-									<option></option>
-									<option>Jita 4-4</option>
-									<option>K3JR-J - Horde Citadel</option>
-									<option>K3JR-J - NPC Station</option>
-									<option>G-ME2K 8-3</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="destination" class="col col-form-label">Destination</label>
-							<div class="col-8">
-								<select class="form-control" id="destination" name="destination">
-									<option></option>
-									<option>Jita 4-4</option>
-									<option>K3JR-J - Horde Citadel</option>
-									<option>K3JR-J - NPC Station</option>
-									<option>G-ME2K 8-3</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="collateral" class="col col-form-label">Collateral</label>
-							<div class="col-8">
-								<input class="form-control" id="collateral" type="number" placeholder="ISK" />
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="volume" class="col col-form-label">Volume</label>
-							<div class="col-8">
-								<input class="form-control" id="volume" type="number" placeholder="m3" />
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col">
-								<input class="form-control" type="button" value="Submit" onclick="calculate()" />
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="reward" class="col col-form-label">Reward</label>
-							<div class="col-8 input-group">
-								<input class="form-control" id="reward" placeholder="ISK" />
-								<span class="input-group-btn">
-									<button class="btn btn-default" id="rewardcopy" type="button" onclick="clipboardCopy()">
-										<i class="fas fa-clipboard"></i>
-									</button>
-								</span>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<!-- end:: Calculator -->
+    <!-- begin:: Calculator -->
+    <div class="col-xl-6">
+      <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--sm">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Calculator
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          <form>
+            <div class="form-group row">
+              <label for="origin" class="col col-form-label">Origin</label>
+              <div class="col-8">
+                <select class="form-control" id="origin" name="origin">
+                  <option></option>
+                  <option>Jita 4-4</option>
+                  <option>K3JR-J - Horde Citadel</option>
+                  <option>K3JR-J - NPC Station</option>
+                  <option>G-ME2K 8-3</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="destination" class="col col-form-label">Destination</label>
+              <div class="col-8">
+                <select class="form-control" id="destination" name="destination">
+                  <option></option>
+                  <option>Jita 4-4</option>
+                  <option>K3JR-J - Horde Citadel</option>
+                  <option>K3JR-J - NPC Station</option>
+                  <option>G-ME2K 8-3</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="collateral" class="col col-form-label">Collateral</label>
+              <div class="col-8">
+                <input class="form-control" id="collateral" type="number" placeholder="ISK" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="volume" class="col col-form-label">Volume</label>
+              <div class="col-8">
+                <input class="form-control" id="volume" type="number" placeholder="m3" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <input class="form-control" type="button" value="Submit" onclick="calculate()" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="reward" class="col col-form-label">Reward</label>
+              <div class="col-8 input-group">
+                <input class="form-control" id="reward" placeholder="ISK" />
+                <span class="input-group-btn">
+                  <button class="btn btn-default" id="rewardcopy" type="button" onclick="clipboardCopy()">
+                    <i class="fas fa-clipboard"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- end:: Calculator -->
 
-		<!-- begin:: Instructions -->
-		<div class="col-xl-6">
-			<div class="kt-portlet kt-portlet--mobile">
-				<div class="kt-portlet__head kt-portlet__head--sm">
-					<div class="kt-portlet__head-label">
-						<h3 class="kt-portlet__head-title">
-							Instructions
-						</h3>
-					</div>
-				</div>
-				<div class="kt-portlet__body">
-					{{ instructions.field_text|safe }}
-				</div>
-				<div class="kt-portlet__foot kt-portlet__foot--sm">Updated {{ instructions.last_updated }}</div>
-			</div>
-		</div>
-		<!-- end:: Instructions -->
-			
-	</div>
-	<!-- end:: First Row -->
+    <!-- begin:: Instructions -->
+    <div class="col-xl-6">
+      <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--sm">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Instructions
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          {{ instructions.field_text|safe }}
+        </div>
+        <div class="kt-portlet__foot kt-portlet__foot--sm">Updated {{ instructions.last_updated }}</div>
+      </div>
+    </div>
+    <!-- end:: Instructions -->
 
-		<!-- begin:: Route Cards -->
-		<div class="kt-portlet kt-portlet--mobile">
-			<div class="kt-portlet__head kt-portlet__head--sm">
-				<div class="kt-portlet__head-label">
-					<h3 class="kt-portlet__head-title">
-						Routes
-					</h3>
-				</div>
-			</div>
-			<div class="kt-portlet__body">
-				<div class="row">
-					{% for route in routes %}
-					<div class="col-xl-3">
-						<div class="kt-portlet kt-portlet--mobile">
-							<div class="kt-portlet__head kt-portlet__head--sm">
-								<div class="kt-portlet__head-label">
-									<h3 class="kt-portlet__head-title">
-										{{ route.origin }}<br>
-										<i class="fas fa-exchange-alt"></i><br>
-										{{ route.destination }}
-									</h3>
-								</div>
-							</div>	
-							<div class="kt-portlet__body">
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">
-										<i class="fas fa-credit-card"></i>
-										{{ route.m3_pricing }} ISK/m3 + {{ route.collateral_percent }}% of collateral
-									</li>
-									<li class="list-group-item">
-										<i class="fas fa-dice-d6"></i>
-										{{ route.max_volume }} m3 max
-									</li>
-									<li class="list-group-item">
-										<i class="fas fa-clock"></i>
-										{{ route.completion_days }} day completion
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					{% endfor %}
-				</div>
-			</div>
-			<div class="kt-portlet__foot kt-portlet__foot--sm">Updated {{ last_updated }}</div>
-		</div>
-		<!-- end:: Route Cards -->
+  </div>
+  <!-- end:: First Row -->
+
+    <!-- begin:: Route Cards -->
+    <div class="kt-portlet kt-portlet--mobile">
+      <div class="kt-portlet__head kt-portlet__head--sm">
+        <div class="kt-portlet__head-label">
+          <h3 class="kt-portlet__head-title">
+            Routes
+          </h3>
+        </div>
+      </div>
+      <div class="kt-portlet__body">
+        <div class="row">
+          {% for route in routes %}
+          <div class="col-xl-3">
+            <div class="kt-portlet kt-portlet--mobile">
+              <div class="kt-portlet__head kt-portlet__head--sm">
+                <div class="kt-portlet__head-label">
+                  <h3 class="kt-portlet__head-title">
+                    {{ route.origin }}<br>
+                    <i class="fas fa-exchange-alt"></i><br>
+                    {{ route.destination }}
+                  </h3>
+                </div>
+              </div>
+              <div class="kt-portlet__body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <i class="fas fa-credit-card"></i>
+                    {{ route.m3_pricing }} ISK/m3 + {{ route.collateral_percent }}% of collateral
+                  </li>
+                  <li class="list-group-item">
+                    <i class="fas fa-dice-d6"></i>
+                    {{ route.max_volume }} m3 max
+                  </li>
+                  <li class="list-group-item">
+                    <i class="fas fa-clock"></i>
+                    {{ route.completion_days }} day completion
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="kt-portlet__foot kt-portlet__foot--sm">Updated {{ last_updated }}</div>
+    </div>
+    <!-- end:: Route Cards -->
 
 </div>
-<!-- end:: Content Body -->	
+<!-- end:: Content Body -->
 
 {% endblock %}
