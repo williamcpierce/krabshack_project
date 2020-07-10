@@ -1,6 +1,7 @@
-from django.shortcuts import render
 from django.conf import settings
-from .models import LPRate, SiteContent, CourierRoute
+from django.shortcuts import render
+
+from .models import CourierRoute, LPRate, SiteContent
 
 def couriers(request):
     # Get instructions and routes

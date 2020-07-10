@@ -1,8 +1,9 @@
-from django.conf import settings
-from operator import itemgetter
 import random
 import hmac
 import hashlib
+
+from django.conf import settings
+from operator import itemgetter
 import requests
 
 
@@ -26,6 +27,7 @@ def parse_lp(lp_values, corp_id):
     """Parses character lp esi response to return corp lp values."""
 
     corp_lp = 0
+
     for item in lp_values:
         if item.get('corporation_id') == corp_id:
             corp_lp = item.get('loyalty_points')

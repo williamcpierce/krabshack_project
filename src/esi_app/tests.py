@@ -1,6 +1,7 @@
+import json
+
 from django.test import TestCase
 import esi_app.util as util
-import json
 
 
 with open('esi_app/test_data/test_lp.json') as test_lp:

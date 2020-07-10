@@ -172,7 +172,7 @@ ESI_TOKEN_KEY = os.getenv('ESI_TOKEN')  # random gibberish
 ESI_DATASOURCE = 'tranquility'  # Change it to 'singularity' to use the test server
 ESI_SWAGGER_JSON = f'https://esi.tech.ccp.is/latest/swagger.json?datasource={ESI_DATASOURCE}'
 ESI_USER_AGENT = 'William Pierce EsiPy'  # for CCP to have contact info
-ESI_CALLBACK =  f'{os.getenv('BASE_URL')}esi/callback'  # the callback URI you gave CCP
+ESI_CALLBACK =  f"{os.getenv('BASE_URL')}esi/callback"  # the callback URI you gave CCP
 if DEBUG:
     ESI_SECRET_KEY = os.getenv('ESI_SECRET_DEVELOPMENT')  # your secret key
     ESI_CLIENT_ID = os.getenv('ESI_CLIENT_DEVELOPMENT')  # your client ID

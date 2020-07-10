@@ -1,9 +1,10 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from site_app import views as site_views
-from esi_app import views as esi_views
+
 from data_app import views as data_views
+from esi_app import views as esi_views
+from site_app import views as site_views
 
 
 urlpatterns = [

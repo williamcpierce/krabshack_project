@@ -1,14 +1,17 @@
-from django.conf import settings
-from django.shortcuts import render, redirect
-from .models import EsiCharacter, EsiMarket
-from site_app.models import LPRate
-from .esi import esi_app, esi_security, esi_client
-from .moon import moon
+from datetime import datetime, timedelta, timezone
 from json import dumps
-from datetime import datetime, timezone, timedelta
-import esi_app.util as util
 import sys
+
+from django.conf import settings
+from django.shortcuts import redirect, render
+import esi_app.util as util
 import requests
+
+from .esi import esi_app, esi_client, esi_security
+from .models import EsiCharacter, EsiMarket
+from .moon import moon
+from site_app.models import LPRate
+
 
 
 def login(request):
@@ -19,6 +22,7 @@ def login(request):
         # Generates csrf token
         csrf_token = util.generate_token()
 
+        # Checks if user is in VG
         character_id = request.user.social_auth.get().uid
         if util.get_corp(character_id) == 98477766:
             scopes=[
@@ -179,6 +183,7 @@ def esilp(request):
 def esimarket(request):
     """Pulls all saved items that are redeemable in lp stores."""
 
+    # Hides non-LP items unless superuser
     if request.user.is_superuser:
         items = EsiMarket.objects.all()
     else:
@@ -187,6 +192,7 @@ def esimarket(request):
     # Gets datetime of the most recent update
     orders_last_updated = EsiMarket.objects.latest('orders_last_updated').orders_last_updated
 
+    # Disallow refresh if orders were updated in hhe last hour
     if orders_last_updated < datetime.now(timezone.utc)-timedelta(hours=1):
         disable_refresh = False
     else:
@@ -205,6 +211,7 @@ def esimarket(request):
 
 
 def esimarketupdate(request):
+    # Doesn't update non-LP items unless superuser
     if request.user.is_superuser:
         items = EsiMarket.objects.all()
     else:
@@ -218,13 +225,14 @@ def esimarketupdate(request):
 
 
 def esimoon(request):
-    # Checks if user is in VG
+    # Checks if user is in VG or superuser
     character_id = request.user.social_auth.get().uid
     if util.get_corp(character_id) == 98477766 or request.user.is_superuser:
+
         # Initializing variables
         moon_times_dict = {}
 
-        # Checks if user is a superuser
+        # Shows all for superuser
         if request.user.is_superuser:
             esi_characters = EsiCharacter.objects.all()
         else:

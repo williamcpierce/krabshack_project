@@ -1,5 +1,5 @@
-from json import load, dump
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
+from json import dump, load
 
 
 def CalcDistance(bm_1, bm_2):

@@ -1,13 +1,15 @@
+from datetime import datetime, timedelta, timezone
+from decimal import Decimal
+import json
+import time
+
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import JSONField
 from django.db import models
-from datetime import datetime, timezone, timedelta
-from .esi import esi_app, esi_security, esi_client
-from decimal import Decimal
 import esi_app.util as util
-import time
-import json
 import requests
+
+from .esi import esi_app, esi_security, esi_client
 
 
 def json_default():
