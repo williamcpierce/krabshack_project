@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'site_app.apps.SiteAppConfig',
     'tables_app.apps.TablesAppConfig',
     'esi_app.apps.EsiAppConfig',
-    'data_app.apps.DataAppConfig'
+    'data_app.apps.DataAppConfig',
+    'fit_app.apps.FitAppConfig'
 ]
 
 MIDDLEWARE = [
