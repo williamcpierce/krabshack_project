@@ -10,9 +10,9 @@ urlpatterns = [
     path('data/', include('data_app.urls'), name='data'),
     path('esi/', include('esi_app.urls'), name='esi'),
     path('fit/', include('fit_app.urls'), name='fit'),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('services/', include('site_app.urls'), name='site'),
+    url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social'))
 ]
 
