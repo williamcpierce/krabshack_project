@@ -39,8 +39,8 @@
           </div>
         </div>
         <div class="kt-portlet__body">
-          {% csrf_token %}
           <form id="fit-form" method="post" name="fit-form">
+            {% csrf_token %}
             <div class="form-group">
               <label for="ship">Ship</label>
               <select class="form-control" id="ship" name="ship" required>
