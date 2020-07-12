@@ -15,8 +15,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = int(os.getenv('DEBUG', default=0))
 
 ALLOWED_HOSTS = ['web']
-if DEBUG:
-    ALLOWED_HOSTS += '*'
+# if DEBUG:
+ALLOWED_HOSTS += '*'
 
 
 # Application definition
