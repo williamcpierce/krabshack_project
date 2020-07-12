@@ -3,7 +3,115 @@
 {% load static %}
 
 {% block js %}
+
+<!-- begin::Page Scripts(used by this page) -->
+<script src="{% static '/assets/js/pages/fit.js' %}" type="text/javascript"></script>
+<!-- end::Page Scripts(used by this page) -->
+
 {% endblock %}
 
 {% block content %}
+
+<!-- begin:: Content Head -->
+<div class="kt-subheader kt-grid__item" id="kt_subheader">
+  <div class="kt-container kt-container--fluid ">
+    <div class="kt-subheader__main">
+      <h3 class="kt-subheader__title">Fitting Tool</h3>
+    </div>
+  </div>
+</div>
+<!-- end:: Content Head -->
+
+<!-- begin:: Content Body -->
+<div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+
+  <!-- begin:: First Row -->
+  <div class="row">
+
+    <!-- begin:: Input -->
+    <div class="col-xl-6">
+      <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--sm">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Input
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          {% csrf_token %}
+          <form id="fit-form" method="post" name="fit-form">
+            <div class="form-group">
+              <label for="ship">Ship</label>
+              <select class="form-control" id="ship" name="ship" required>
+                <option></option>
+                <option>Naglfar</option>
+                <option>Nyx</option>
+                <option>Ragnarok</option>
+                <option>Thanatos</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="contents">Contents</label>
+              <textarea class="form-control" id="contents" name="contents" rows="15" placeholder="Paste 'contents' from asset window here"></textarea>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <input class="form-control" type="submit" value="Submit"></input>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- end:: Input -->
+
+    <!-- begin:: Output -->
+    <div class="col-xl-6">
+      <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--sm">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Output
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          <form>
+            <div class="form-group">
+              <label for="extra">Extra Contents</label>
+              <textarea class="form-control" id="extra" type="text" rows="10" readonly></textarea>
+            </div>
+            <div class="form-group">
+              <label for="needed">Needed Contents</label>
+              <textarea class="form-control" id="needed" type="text" rows="10" readonly></textarea>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- end:: Output -->
+
+  </div>
+  <!-- end:: First Row -->
+
+    <!-- begin:: Instructions -->
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--sm">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Instructions
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          {{ instructions.field_text|safe }}
+        </div>
+        <div class="kt-portlet__foot kt-portlet__foot--sm">Updated {{ instructions.last_updated }}</div>
+      </div>
+    <!-- end:: Instructions -->
+
+</div>
+<!-- end:: Content Body -->
+
 {% endblock %}

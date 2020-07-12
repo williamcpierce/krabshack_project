@@ -13,3 +13,11 @@ class Fittings(models.Model):
         max_length=100
     )
     fitting = models.TextField()
+
+    class Meta:
+        verbose_name = 'Fittings'
+        verbose_name_plural = 'Fittings'
+        ordering = ['ship']
+
+    def __str__(self):
+        return f'{self.name}'
