@@ -14,7 +14,10 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = int(os.getenv('DEBUG', default=0))
 
-ALLOWED_HOSTS = ['web']
+ALLOWED_HOSTS = [
+    'web',
+    os.getenv('BASE_URL')
+]
 if DEBUG:
     ALLOWED_HOSTS += '*'
 
