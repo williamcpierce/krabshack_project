@@ -3,11 +3,9 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
 
-from site_app import views as site_views
-
 
 urlpatterns = [
-    url(r'^$', site_views.home, name='home'),
+    path('', include('site_app.urls'), name='home'),
     path('admin/', admin.site.urls),
     path('data/', include('data_app.urls'), name='data'),
     path('esi/', include('esi_app.urls'), name='esi'),
