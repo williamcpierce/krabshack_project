@@ -44,8 +44,15 @@ class FitFix(View):
         saved_fit = parse(Fittings.objects.get(name=fit).fitting)
         extra, required = compare(input_fit, saved_fit)
 
-        response_data['extra'] = out(extra)
-        response_data['required'] = out(required)
+        if out(extra):
+            response_data['extra'] = out(extra)
+        else:
+            response_data['extra'] = 'None'
+
+        if out(required):
+            response_data['required'] = out(required)
+        else:
+            response_data['required'] = 'None'
 
         return HttpResponse(
             json.dumps(response_data),
