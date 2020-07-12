@@ -194,6 +194,3 @@ if not DEBUG:
     SECURE_REFERRER_POLICY = 'no-referrer'
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
-    HTTP_X_FORWARDED_HOST = os.getenv('BASE_URL')
-    HTTP_HOST = os.getenv('BASE_URL')
-    SERVER_NAME = os.getenv('BASE_URL')
