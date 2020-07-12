@@ -8,6 +8,7 @@ class FittingsAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'ship',
+        'group'
     )
 
 

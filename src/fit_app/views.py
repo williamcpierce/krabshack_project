@@ -15,25 +15,19 @@ class FitFix(View):
     @staticmethod
     def get(request):
         """."""
-
         if request.user.is_authenticated:
             character_id = request.user.social_auth.get().uid
             if esiutil.get_corp(character_id) == 98477766 or request.user.is_superuser:
-
                 fittings = Fittings.objects.all()
-
-                return render(
-                    request,
-                    'fit_app/fit.html', {
-                        'fittings': fittings
-                    }
-                )
-
-            else:
-                return redirect('/')
-
         else:
-            return redirect('/')
+            fittings = Fittings.objects.filter(group='None')
+
+        return render(
+            request,
+            'fit_app/fit.html', {
+                'fittings': fittings
+            }
+        )
 
 
     @staticmethod

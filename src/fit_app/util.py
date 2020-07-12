@@ -37,7 +37,7 @@ def parse(text):
     for item in text.split('\n'):
 
         # Retrieve item name from first column
-        item_name = item.split('\t')[0]
+        item_name = item.split('\t')[0].lstrip()
         for attribute in item.split('\t'):
 
             # Find the first column with a number
