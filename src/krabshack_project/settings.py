@@ -14,10 +14,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = int(os.getenv('DEBUG', default=0))
 
-ALLOWED_HOSTS = [
-    'web',
-    os.getenv('BASE_URL')
-]
+ALLOWED_HOSTS = ['web']
 if DEBUG:
     ALLOWED_HOSTS += '*'
 
@@ -198,3 +195,5 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
     HTTP_X_FORWARDED_HOST = os.getenv('BASE_URL')
+    HTTP_HOST = os.getenv('BASE_URL')
+    SERVER_NAME = os.getenv('BASE_URL')
