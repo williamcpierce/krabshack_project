@@ -16,7 +16,7 @@
 <div class="kt-subheader kt-grid__item" id="kt_subheader">
   <div class="kt-container kt-container--fluid ">
     <div class="kt-subheader__main">
-      <h3 class="kt-subheader__title">Fitting Tool</h3>
+      <h3 class="kt-subheader__title">Fit Checker</h3>
     </div>
   </div>
 </div>
@@ -42,13 +42,12 @@
           <form id="fit-form" method="post" name="fit-form">
             {% csrf_token %}
             <div class="form-group">
-              <label for="ship">Ship</label>
-              <select class="form-control" id="ship" name="ship" required>
+              <label for="ship">Fit</label>
+              <select class="form-control" id="fit" name="fit" required>
                 <option></option>
-                <option>Naglfar</option>
-                <option>Nyx</option>
-                <option>Ragnarok</option>
-                <option>Thanatos</option>
+                {% for fit in fittings %}
+                  <option>{{ fit.name }}</option>
+                {% endfor %}
               </select>
             </div>
             <div class="form-group">
