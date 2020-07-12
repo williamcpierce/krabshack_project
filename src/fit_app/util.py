@@ -41,8 +41,8 @@ def parse(text):
         for attribute in item.split('\t'):
 
             # Find the first column with a number
-            if str.isdigit(attribute.split('\r')[0]):
-                item_quantity = int(attribute.split('\r')[0])
+            if str.isdigit(attribute.split('\r')[0].replace(',', '')):
+                item_quantity = int(attribute.split('\r')[0].replace(',', ''))
 
                 # Add quantities if it already exists
                 if item_name in item_dict:
