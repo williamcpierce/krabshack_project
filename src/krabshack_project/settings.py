@@ -14,9 +14,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = int(os.getenv('DEBUG', default=0))
 
-ALLOWED_HOSTS = ['web']
-# if DEBUG:
-ALLOWED_HOSTS += '*'
+ALLOWED_HOSTS = [
+    'web',
+    'krabshack.space',
+    'www.krabshack.space'
+]
+if DEBUG:
+    ALLOWED_HOSTS += '*'
 
 
 # Application definition
@@ -194,3 +198,4 @@ if not DEBUG:
     SECURE_REFERRER_POLICY = 'no-referrer'
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
+    SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTO', 'https')
